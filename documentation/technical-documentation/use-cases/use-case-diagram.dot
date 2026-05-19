@@ -1,0 +1,92 @@
+digraph UseCaseDiagram {
+  graph [
+    rankdir=LR,
+    bgcolor="transparent",
+    pad="0.4",
+    nodesep="0.6",
+    ranksep="0.9",
+    fontname="Inter"
+  ];
+
+  node [
+    fontname="Inter",
+    fontsize=12,
+    color="#2f3437",
+    fontcolor="#1f2328"
+  ];
+
+  edge [
+    color="#59636e",
+    arrowsize=0.7
+  ];
+
+  user [
+    label="Void Linux User",
+    shape=box,
+    style="rounded,filled",
+    fillcolor="#f6f8fa"
+  ];
+
+  subgraph cluster_evo_wifi {
+    label="evo-wifi";
+    color="#8c959f";
+    fontname="Inter";
+    fontsize=14;
+    style="rounded";
+
+    uc001 [
+      label="US-001\nView available WiFi networks",
+      shape=ellipse
+    ];
+
+    uc002 [
+      label="US-002\nSelect and connect to WiFi network",
+      shape=ellipse
+    ];
+
+    uc003 [
+      label="US-003\nHandle already connected network",
+      shape=ellipse
+    ];
+
+    uc004 [
+      label="US-004\nSwitch to another WiFi network",
+      shape=ellipse
+    ];
+
+    uc005 [
+      label="US-005\nRequest password when needed",
+      shape=ellipse
+    ];
+
+    uc006 [
+      label="US-006\nUse saved password when available",
+      shape=ellipse
+    ];
+
+    uc007 [
+      label="US-007\nShow current connection password",
+      shape=ellipse
+    ];
+
+    uc008 [
+      label="US-008\nForget saved WiFi password",
+      shape=ellipse
+    ];
+
+    uc009 [
+      label="US-009\nView current network status",
+      shape=ellipse
+    ];
+  }
+
+  user -> uc001;
+  user -> uc002;
+  user -> uc003;
+  user -> uc004;
+  user -> uc005;
+  user -> uc006;
+  user -> uc007;
+  user -> uc008;
+  user -> uc009;
+}

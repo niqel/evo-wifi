@@ -1,0 +1,243 @@
+digraph WifiScanBorrowedDataModel {
+  graph [
+    rankdir=LR,
+    bgcolor="transparent",
+    pad="0.4",
+    nodesep="0.7",
+    ranksep="0.9",
+    fontname="Inter",
+    label="WiFi Borrowed Data Model",
+    labelloc="t",
+    fontsize=16
+  ];
+
+  node [
+    shape=plain,
+    fontname="Inter",
+    fontsize=12,
+    color="#2f3437",
+    fontcolor="#1f2328",
+    style="rounded,filled",
+    fillcolor="#f6f8fa"
+  ];
+
+  edge [
+    color="#59636e",
+    arrowsize=0.7,
+    fontname="Inter",
+    fontsize=11,
+    fontcolor="#59636e"
+  ];
+
+  network_view [
+    label=<
+      <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#2f3437">
+        <TR><TD><FONT POINT-SIZE="10">&lt;&lt;borrowed view&gt;&gt;</FONT></TD></TR>
+        <TR><TD><B>WifiNetworkView&lt;'a&gt;</B></TD></TR>
+        <TR><TD ALIGN="LEFT">bssid: &amp;'a str</TD></TR>
+        <TR><TD ALIGN="LEFT">frequency: &amp;'a str</TD></TR>
+        <TR><TD ALIGN="LEFT">signal_dbm: &amp;'a str</TD></TR>
+        <TR><TD ALIGN="LEFT">flags: &amp;'a str</TD></TR>
+        <TR><TD ALIGN="LEFT">ssid: &amp;'a str</TD></TR>
+      </TABLE>
+    >
+  ];
+
+  selection_input_view [
+    label=<
+      <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#2f3437">
+        <TR><TD><FONT POINT-SIZE="10">&lt;&lt;borrowed input view&gt;&gt;</FONT></TD></TR>
+        <TR><TD><B>WifiNetworkSelectionInputView&lt;'a&gt;</B></TD></TR>
+        <TR><TD ALIGN="LEFT">raw: &amp;'a str</TD></TR>
+      </TABLE>
+    >
+  ];
+
+  action_selection_input_view [
+    label=<
+      <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#2f3437">
+        <TR><TD><FONT POINT-SIZE="10">&lt;&lt;borrowed action input view&gt;&gt;</FONT></TD></TR>
+        <TR><TD><B>WifiActionSelectionInputView&lt;'a&gt;</B></TD></TR>
+        <TR><TD ALIGN="LEFT">raw: &amp;'a str</TD></TR>
+      </TABLE>
+    >
+  ];
+
+  status_view [
+    label=<
+      <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#2f3437">
+        <TR><TD><FONT POINT-SIZE="10">&lt;&lt;borrowed status view&gt;&gt;</FONT></TD></TR>
+        <TR><TD><B>WifiConnectionStatusView&lt;'a&gt;</B></TD></TR>
+        <TR><TD ALIGN="LEFT">ssid: &amp;'a str</TD></TR>
+        <TR><TD ALIGN="LEFT">status: &amp;'a str</TD></TR>
+      </TABLE>
+    >
+  ];
+
+  password_input_view [
+    label=<
+      <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#2f3437">
+        <TR><TD><FONT POINT-SIZE="10">&lt;&lt;borrowed secret input view&gt;&gt;</FONT></TD></TR>
+        <TR><TD><B>WifiPasswordInputView&lt;'a&gt;</B></TD></TR>
+        <TR><TD ALIGN="LEFT">raw: &amp;'a str</TD></TR>
+      </TABLE>
+    >
+  ];
+
+  saved_network_view [
+    label=<
+      <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#2f3437">
+        <TR><TD><FONT POINT-SIZE="10">&lt;&lt;borrowed saved network view&gt;&gt;</FONT></TD></TR>
+        <TR><TD><B>WifiSavedNetworkView&lt;'a&gt;</B></TD></TR>
+        <TR><TD ALIGN="LEFT">ssid: &amp;'a str</TD></TR>
+        <TR><TD ALIGN="LEFT">network_id: &amp;'a str</TD></TR>
+      </TABLE>
+    >
+  ];
+
+  saved_secret_view [
+    label=<
+      <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#2f3437">
+        <TR><TD><FONT POINT-SIZE="10">&lt;&lt;borrowed saved secret view&gt;&gt;</FONT></TD></TR>
+        <TR><TD><B>WifiSavedSecretView&lt;'a&gt;</B></TD></TR>
+        <TR><TD ALIGN="LEFT">ssid: &amp;'a str</TD></TR>
+        <TR><TD ALIGN="LEFT">network_id: &amp;'a str</TD></TR>
+        <TR><TD ALIGN="LEFT">secret: &amp;'a str</TD></TR>
+        <TR><TD ALIGN="LEFT">secret_kind: &amp;'a str</TD></TR>
+        <TR><TD ALIGN="LEFT">source: &amp;'a str</TD></TR>
+      </TABLE>
+    >
+  ];
+
+  source_note [
+    shape=note,
+    style="filled",
+    fillcolor="#fff8c5",
+    label=<
+      <TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6">
+        <TR><TD><B>External source</B></TD></TR>
+        <TR><TD ALIGN="LEFT">wpa_cli scan_results output</TD></TR>
+        <TR><TD ALIGN="LEFT">Fields borrow from raw scan output during resolution.</TD></TR>
+      </TABLE>
+    >
+  ];
+
+  input_note [
+    shape=note,
+    style="filled",
+    fillcolor="#fff8c5",
+    label=<
+      <TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6">
+        <TR><TD><B>External input source</B></TD></TR>
+        <TR><TD ALIGN="LEFT">terminal, TUI, web, desktop, stdin, keypress</TD></TR>
+        <TR><TD ALIGN="LEFT">Selection input borrows from captured presentation input.</TD></TR>
+      </TABLE>
+    >
+  ];
+
+  action_input_note [
+    shape=note,
+    style="filled",
+    fillcolor="#fff8c5",
+    label=<
+      <TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6">
+        <TR><TD><B>External action input source</B></TD></TR>
+        <TR><TD ALIGN="LEFT">terminal menu, TUI item, web button, desktop action, CLI command</TD></TR>
+        <TR><TD ALIGN="LEFT">Presentation owns the captured input.</TD></TR>
+        <TR><TD ALIGN="LEFT">Domain defines the minimal borrowed input shape it accepts.</TD></TR>
+        <TR><TD ALIGN="LEFT">Presentation implementations adapt their source event to raw: &amp;str.</TD></TR>
+      </TABLE>
+    >
+  ];
+
+  status_note [
+    shape=note,
+    style="filled",
+    fillcolor="#fff8c5",
+    label=<
+      <TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6">
+        <TR><TD><B>External status source</B></TD></TR>
+        <TR><TD ALIGN="LEFT">wpa_cli status output</TD></TR>
+        <TR><TD ALIGN="LEFT">Status fields borrow from raw status output during resolution.</TD></TR>
+      </TABLE>
+    >
+  ];
+
+  secret_input_note [
+    shape=note,
+    style="filled",
+    fillcolor="#fff8c5",
+    label=<
+      <TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6">
+        <TR><TD><B>External secret input source</B></TD></TR>
+        <TR><TD ALIGN="LEFT">terminal secret prompt, TUI, web, desktop, stdin</TD></TR>
+        <TR><TD ALIGN="LEFT">Password input borrows from captured presentation input.</TD></TR>
+        <TR><TD ALIGN="LEFT">Secret input should not be logged or rendered back by default.</TD></TR>
+      </TABLE>
+    >
+  ];
+
+  saved_network_note [
+    shape=note,
+    style="filled",
+    fillcolor="#fff8c5",
+    label=<
+      <TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6">
+        <TR><TD><B>External saved network source</B></TD></TR>
+        <TR><TD ALIGN="LEFT">wpa_cli list_networks output</TD></TR>
+        <TR><TD ALIGN="LEFT">Saved network fields borrow from raw saved network output.</TD></TR>
+        <TR><TD ALIGN="LEFT">network_id is used to connect without reading the saved secret.</TD></TR>
+      </TABLE>
+    >
+  ];
+
+  saved_secret_note [
+    shape=note,
+    style="filled",
+    fillcolor="#fff8c5",
+    label=<
+      <TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6">
+        <TR><TD><B>External saved secret source</B></TD></TR>
+        <TR><TD ALIGN="LEFT">wpa_cli get_network &lt;network_id&gt; psk</TD></TR>
+        <TR><TD ALIGN="LEFT">wpa_supplicant config file when wpa_cli hides the secret</TD></TR>
+        <TR><TD ALIGN="LEFT">secret_kind may be password, psk_hex, hidden, or unknown.</TD></TR>
+        <TR><TD ALIGN="LEFT">Secret should not be logged or rendered unless explicitly requested.</TD></TR>
+      </TABLE>
+    >
+  ];
+
+  source_note -> network_view [
+    label="borrowed fields",
+    style=dashed
+  ];
+
+  input_note -> selection_input_view [
+    label="borrowed input",
+    style=dashed
+  ];
+
+  action_input_note -> action_selection_input_view [
+    label="borrowed action input",
+    style=dashed
+  ];
+
+  status_note -> status_view [
+    label="borrowed fields",
+    style=dashed
+  ];
+
+  secret_input_note -> password_input_view [
+    label="borrowed secret input",
+    style=dashed
+  ];
+
+  saved_network_note -> saved_network_view [
+    label="borrowed fields",
+    style=dashed
+  ];
+
+  saved_secret_note -> saved_secret_view [
+    label="borrowed secret fields",
+    style=dashed
+  ];
+}

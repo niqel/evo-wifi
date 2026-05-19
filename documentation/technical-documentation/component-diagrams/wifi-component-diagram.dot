@@ -65,6 +65,19 @@ digraph WifiComponentDiagram {
     ];
   }
 
+  subgraph cluster_runtime_assembly {
+    label="Runtime Assembly";
+    color="#8c959f";
+    fontname="Inter";
+    fontsize=14;
+    style="rounded";
+
+    EvoWifiCompositionRoot [
+      label="<<composition root>>\nEvoWifiCompositionRoot\n\ncreates providers\ninvokes agent_subject\nno use-case logic"
+      fillcolor="#ddf4ff"
+    ];
+  }
+
   subgraph cluster_system_wifi_contracts {
     label="System WiFi Contracts";
     color="#8c959f";
@@ -226,6 +239,18 @@ digraph WifiComponentDiagram {
 
   TerminalPresentationProvider -> WifiActionInputPresentationContract [
     label="implements"
+  ];
+
+  EvoWifiCompositionRoot -> VoidSystemWifiProvider [
+    label="creates"
+  ];
+
+  EvoWifiCompositionRoot -> TerminalPresentationProvider [
+    label="creates"
+  ];
+
+  EvoWifiCompositionRoot -> WifiConnectionStatusShower [
+    label="invokes"
   ];
   TerminalPresentationProvider -> WifiNetworkSelectionInputPresentationContract [
     label="implements"

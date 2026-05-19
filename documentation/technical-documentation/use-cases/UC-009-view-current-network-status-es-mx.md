@@ -22,7 +22,7 @@ El usuario solicita el estado actual de la red desde la aplicacion.
 
 - La aplicacion puede acceder al provider de presentacion.
 - La aplicacion puede acceder al provider WiFi del sistema.
-- El provider WiFi del sistema puede intentar resolver una interfaz WiFi.
+- El provider WiFi del sistema puede proveer una interfaz WiFi mediante el contrato de interfaz.
 
 ## Flujo Principal
 
@@ -31,7 +31,7 @@ El usuario solicita el estado actual de la red desde la aplicacion.
 3. El resolver de interfaz WiFi resuelve una interfaz WiFi utilizable.
 4. El resolver de estado de conexion WiFi resuelve el estado actual de conexion para esa interfaz.
 5. El resolver de salida del estado de conexion WiFi envia la vista prestada del estado al contrato de presentacion.
-6. El provider de presentacion renderiza el estado actual de la red.
+6. El provider de presentacion provee la salida del estado actual de la red.
 
 ## Flujos Alternativos
 
@@ -39,21 +39,21 @@ El usuario solicita el estado actual de la red desde la aplicacion.
 
 1. El resolver de interfaz WiFi no puede resolver una interfaz WiFi.
 2. El resolver de salida envia un mensaje de estado mediante el contrato de presentacion.
-3. El provider de presentacion renderiza que no se encontro una interfaz WiFi utilizable.
+3. El provider de presentacion provee una salida indicando que no se encontro una interfaz WiFi utilizable.
 
 ### No Se Puede Resolver El Estado Actual
 
 1. La interfaz WiFi fue resuelta.
 2. El resolver de estado de conexion WiFi no puede resolver el estado actual.
 3. El resolver de salida envia un mensaje de estado mediante el contrato de presentacion.
-4. El provider de presentacion renderiza que no se pudo determinar el estado actual de la red.
+4. El provider de presentacion provee una salida indicando que no se pudo determinar el estado actual de la red.
 
 ### No Hay Conexion WiFi Activa
 
 1. La interfaz WiFi fue resuelta.
 2. El resolver de estado de conexion WiFi resuelve un estado desconectado.
 3. El resolver de salida envia la vista prestada del estado al contrato de presentacion.
-4. El provider de presentacion renderiza que no hay una conexion WiFi activa.
+4. El provider de presentacion provee una salida indicando que no hay una conexion WiFi activa.
 
 ## Datos Prestados
 
@@ -101,6 +101,13 @@ agent_subjects::wifi_connection_status_shower::show
 
 - `TerminalPresentationProvider`
 
+### Regla de Funcion en Contratos
+
+- Todo contrato expone una unica operacion llamada `provide`.
+- Los providers proveen.
+- Los resolvers resuelven.
+- Los sujetos agente coordinan su pipeline de resolvers.
+
 ## Candidatos a Tareas de Desarrollo
 
 - Definir `WifiInterfaceView<'a>`.
@@ -109,7 +116,7 @@ agent_subjects::wifi_connection_status_shower::show
 - Definir `WifiStatusSystemWifiContract`.
 - Definir `WifiStatusRenderPresentationContract`.
 - Implementar el comportamiento de estado en `VoidSystemWifiProvider`.
-- Implementar el render de estado en `TerminalPresentationProvider`.
+- Implementar la provision de salida de estado en `TerminalPresentationProvider`.
 - Implementar `wifi_interface_resolver::resolve`.
 - Implementar `wifi_connection_status_resolver::resolve`.
 - Implementar `wifi_connection_status_output_resolver::resolve`.

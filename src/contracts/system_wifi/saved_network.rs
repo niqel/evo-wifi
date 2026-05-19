@@ -1,7 +1,7 @@
 use crate::borrowed_data::{WifiNetworkSelectionInputView, WifiSavedNetworkView};
 
 pub trait WifiSavedNetworkSystemWifiContract {
-    fn resolve_saved_wifi_network(
+    fn provide(
         &self,
         selection: WifiNetworkSelectionInputView<'_>,
     ) -> Option<WifiSavedNetworkView<'_>>;

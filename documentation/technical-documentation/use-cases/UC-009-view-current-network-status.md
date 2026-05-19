@@ -22,7 +22,7 @@ The user requests the current network status from the application.
 
 - The application can access the presentation provider.
 - The application can access the system WiFi provider.
-- The system WiFi provider can attempt to resolve a WiFi interface.
+- The system WiFi provider can provide a WiFi interface through the interface contract.
 
 ## Main Flow
 
@@ -31,7 +31,7 @@ The user requests the current network status from the application.
 3. The WiFi interface resolver resolves a usable WiFi interface.
 4. The WiFi connection status resolver resolves the current connection status for that interface.
 5. The WiFi connection status output resolver sends the borrowed status view to the presentation contract.
-6. The presentation provider renders the current network status.
+6. The presentation provider provides the current network status output.
 
 ## Alternative Flows
 
@@ -39,21 +39,21 @@ The user requests the current network status from the application.
 
 1. The WiFi interface resolver cannot resolve a WiFi interface.
 2. The output resolver sends a status message through the presentation contract.
-3. The presentation provider renders that no usable WiFi interface was found.
+3. The presentation provider provides output indicating that no usable WiFi interface was found.
 
 ### Current Status Cannot Be Resolved
 
 1. The WiFi interface is resolved.
 2. The WiFi connection status resolver cannot resolve the current status.
 3. The output resolver sends a status message through the presentation contract.
-4. The presentation provider renders that the current network status could not be determined.
+4. The presentation provider provides output indicating that the current network status could not be determined.
 
 ### No Active WiFi Connection
 
 1. The WiFi interface is resolved.
 2. The WiFi connection status resolver resolves a disconnected status.
 3. The output resolver sends the borrowed status view to the presentation contract.
-4. The presentation provider renders that there is no active WiFi connection.
+4. The presentation provider provides output indicating that there is no active WiFi connection.
 
 ## Borrowed Data
 
@@ -101,6 +101,13 @@ agent_subjects::wifi_connection_status_shower::show
 
 - `TerminalPresentationProvider`
 
+### Contract Function Rule
+
+- Every contract exposes a single operation named `provide`.
+- Providers provide.
+- Resolvers resolve.
+- Agent subjects coordinate their resolver pipeline.
+
 ## Development Task Candidates
 
 - Define `WifiInterfaceView<'a>`.
@@ -109,7 +116,7 @@ agent_subjects::wifi_connection_status_shower::show
 - Define `WifiStatusSystemWifiContract`.
 - Define `WifiStatusRenderPresentationContract`.
 - Implement `VoidSystemWifiProvider` status behavior.
-- Implement `TerminalPresentationProvider` status rendering.
+- Implement `TerminalPresentationProvider` status output provisioning.
 - Implement `wifi_interface_resolver::resolve`.
 - Implement `wifi_connection_status_resolver::resolve`.
 - Implement `wifi_connection_status_output_resolver::resolve`.

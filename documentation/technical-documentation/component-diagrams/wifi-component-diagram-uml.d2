@@ -90,6 +90,12 @@ runtime_assembly: {
   }
 }
 
+contract_function_rule: {
+  label: "Contract function rule\n\ncontracts expose: provide\nresolvers expose: resolve\nproviders implement: provide"
+  style.fill: "#ffffff"
+  style.stroke: ${stroke}
+}
+
 agent_subjects: {
   label: "Agent Subjects"
   style.stroke: ${stroke}
@@ -195,6 +201,9 @@ void_external_components: {
 runtime_assembly.composition_root -> system_wifi_providers.void: creates
 runtime_assembly.composition_root -> presentation_providers.terminal: creates
 runtime_assembly.composition_root -> agent_subjects.wifi_connection_status_shower: invokes
+runtime_assembly.composition_root -> contract_function_rule: follows {
+  style.stroke-dash: 4
+}
 
 presentation_providers.terminal -> presentation_contracts.action_input: implements
 presentation_providers.terminal -> presentation_contracts.network_selection_input: implements

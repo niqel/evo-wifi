@@ -35,6 +35,16 @@ The composition root creates the concrete providers and passes them into the use
 
 The agent subject must not instantiate providers.
 
+## Contract Function Rule
+
+Every contract exposes exactly one public operation named `provide`.
+
+- Providers provide.
+- Resolvers resolve.
+- Agent subjects coordinate resolver pipelines.
+
+The contract name, module path, and input/output types define what is provided.
+
 ## Tasks
 
 ### CT-UC-009-001: Create Rust Project Structure
@@ -110,17 +120,18 @@ pub struct WifiConnectionStatusView<'a> {
 
 - Resolvers can depend on traits instead of a concrete provider.
 - The contracts do not mention Void-specific commands in their public APIs.
+- Each contract exposes `provide`.
 
 ### CT-UC-009-004: Define Presentation Render Contract
 
 **Type:** contract
 
-**Purpose:** Define the presentation-side output contract for rendering the current WiFi status.
+**Purpose:** Define the presentation-side output contract for providing the current WiFi status output.
 
 **Work:**
 
 - Define `WifiStatusRenderPresentationContract`.
-- Add behavior to render:
+- Add behavior to provide output for:
   - connected status
   - disconnected status
   - missing interface message
@@ -130,6 +141,7 @@ pub struct WifiConnectionStatusView<'a> {
 
 - The output resolver can depend on the trait instead of a concrete terminal implementation.
 - The contract receives borrowed data and does not own provider data unnecessarily.
+- The contract exposes `provide`.
 
 ### CT-UC-009-005: Implement Void System WiFi Provider
 
@@ -161,7 +173,7 @@ pub struct WifiConnectionStatusView<'a> {
 
 - Create `TerminalPresentationProvider`.
 - Implement `WifiStatusRenderPresentationContract`.
-- Print current status clearly for:
+- Provide terminal output clearly for:
   - connected with SSID
   - disconnected
   - no WiFi interface
@@ -171,6 +183,7 @@ pub struct WifiConnectionStatusView<'a> {
 
 - The output path works through the presentation contract.
 - Rendering logic is not placed inside the agent subject.
+- The provider implementation exposes the contract behavior as `provide`.
 
 ### CT-UC-009-007: Implement WiFi Interface Resolver
 

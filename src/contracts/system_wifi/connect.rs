@@ -3,7 +3,7 @@ use crate::borrowed_data::{
 };
 
 pub trait WifiConnectSystemWifiContract {
-    fn connect_to_wifi_network(
+    fn provide(
         &self,
         selection: WifiNetworkSelectionInputView<'_>,
         password: Option<WifiPasswordInputView<'_>>,

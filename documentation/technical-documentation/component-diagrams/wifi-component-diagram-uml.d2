@@ -1,0 +1,254 @@
+title: "WiFi UML Component Diagram: Contracts, Providers, Resolvers, and Agent Subject"
+direction: right
+
+vars: {
+  contract-fill: "#eef6ff"
+  provider-fill: "#ddf4ff"
+  candidate-fill: "#fff8c5"
+  resolver-fill: "#f6f8fa"
+  external-fill: "#f6f8fa"
+  root-fill: "#e6ffed"
+  agent-fill: "#ddf4ff"
+  stroke: "#59636e"
+}
+
+presentation_contracts: {
+  label: "Presentation Contracts"
+  style.stroke: ${stroke}
+
+  action_input: {
+    label: "<<contract / trait>>\nWifiActionInputPresentationContract"
+    style.fill: ${contract-fill}
+  }
+  network_selection_input: {
+    label: "<<contract / trait>>\nWifiNetworkSelectionInputPresentationContract"
+    style.fill: ${contract-fill}
+  }
+  password_input: {
+    label: "<<contract / trait>>\nWifiPasswordInputPresentationContract"
+    style.fill: ${contract-fill}
+  }
+  network_render: {
+    label: "<<contract / trait>>\nWifiNetworkRenderPresentationContract"
+    style.fill: ${contract-fill}
+  }
+  status_render: {
+    label: "<<contract / trait>>\nWifiStatusRenderPresentationContract"
+    style.fill: ${contract-fill}
+  }
+  secret_render: {
+    label: "<<contract / trait>>\nWifiSecretRenderPresentationContract"
+    style.fill: ${contract-fill}
+  }
+  message_render: {
+    label: "<<contract / trait>>\nWifiMessageRenderPresentationContract"
+    style.fill: ${contract-fill}
+  }
+}
+
+system_wifi_contracts: {
+  label: "System WiFi Contracts"
+  style.stroke: ${stroke}
+
+  scan: {
+    label: "<<contract / trait>>\nWifiScanSystemWifiContract"
+    style.fill: ${contract-fill}
+  }
+  status: {
+    label: "<<contract / trait>>\nWifiStatusSystemWifiContract"
+    style.fill: ${contract-fill}
+  }
+  connect: {
+    label: "<<contract / trait>>\nWifiConnectSystemWifiContract"
+    style.fill: ${contract-fill}
+  }
+  saved_network: {
+    label: "<<contract / trait>>\nWifiSavedNetworkSystemWifiContract"
+    style.fill: ${contract-fill}
+  }
+  saved_secret: {
+    label: "<<contract / trait>>\nWifiSavedSecretSystemWifiContract"
+    style.fill: ${contract-fill}
+  }
+  forget: {
+    label: "<<contract / trait>>\nWifiForgetSystemWifiContract"
+    style.fill: ${contract-fill}
+  }
+}
+
+runtime_assembly: {
+  label: "Runtime Assembly"
+  style.stroke: ${stroke}
+
+  composition_root: {
+    label: "<<composition root>>\nEvoWifiCompositionRoot\n\ncreates providers\ninvokes agent_subject\nno use-case logic"
+    style.fill: ${root-fill}
+  }
+}
+
+agent_subjects: {
+  label: "Agent Subjects"
+  style.stroke: ${stroke}
+
+  wifi_connection_status_shower: {
+    label: "<<agent_subject>>\nagent_subjects::wifi_connection_status_shower::show"
+    style.fill: ${agent-fill}
+  }
+}
+
+resolvers: {
+  label: "Resolvers"
+  style.stroke: ${stroke}
+
+  wifi_interface: {
+    label: "<<resolver>>\nwifi_interface_resolver::resolve"
+    style.fill: ${resolver-fill}
+  }
+  wifi_connection_status: {
+    label: "<<resolver>>\nwifi_connection_status_resolver::resolve"
+    style.fill: ${resolver-fill}
+  }
+  wifi_connection_status_output: {
+    label: "<<resolver>>\nwifi_connection_status_output_resolver::resolve"
+    style.fill: ${resolver-fill}
+  }
+}
+
+presentation_providers: {
+  label: "Presentation Providers"
+  style.stroke: ${stroke}
+
+  terminal: {
+    label: "<<provider>>\nTerminalPresentationProvider"
+    style.fill: ${provider-fill}
+  }
+  tui: {
+    label: "<<provider candidate>>\nTuiPresentationProvider"
+    style.fill: ${candidate-fill}
+  }
+  web: {
+    label: "<<provider candidate>>\nWebPresentationProvider"
+    style.fill: ${candidate-fill}
+  }
+}
+
+system_wifi_providers: {
+  label: "System WiFi Providers"
+  style.stroke: ${stroke}
+
+  void: {
+    label: "<<provider>>\nVoidSystemWifiProvider\n\nuses:\n- wpa_supplicant / wpa_cli\n- dhcpcd\n- iw / ip\n- runit / sv"
+    style.fill: ${provider-fill}
+  }
+  windows: {
+    label: "<<provider candidate>>\nWindowsSystemWifiProvider"
+    style.fill: ${candidate-fill}
+  }
+  network_manager: {
+    label: "<<provider candidate>>\nNetworkManagerSystemWifiProvider"
+    style.fill: ${candidate-fill}
+  }
+  iwd: {
+    label: "<<provider candidate>>\nIwdSystemWifiProvider"
+    style.fill: ${candidate-fill}
+  }
+}
+
+void_external_components: {
+  label: "Void External Components"
+  style.stroke: ${stroke}
+
+  wpa_supplicant: {
+    label: "<<external service>>\nwpa_supplicant"
+    style.fill: ${external-fill}
+  }
+  wpa_cli: {
+    label: "<<external command>>\nwpa_cli"
+    style.fill: ${external-fill}
+  }
+  dhcpcd: {
+    label: "<<external service / command>>\ndhcpcd"
+    style.fill: ${external-fill}
+  }
+  iw: {
+    label: "<<external command>>\niw"
+    style.fill: ${external-fill}
+  }
+  ip: {
+    label: "<<external command>>\nip"
+    style.fill: ${external-fill}
+  }
+  sv: {
+    label: "<<external command>>\nsv"
+    style.fill: ${external-fill}
+  }
+  runit: {
+    label: "<<external service manager>>\nrunit"
+    style.fill: ${external-fill}
+  }
+}
+
+runtime_assembly.composition_root -> system_wifi_providers.void: creates
+runtime_assembly.composition_root -> presentation_providers.terminal: creates
+runtime_assembly.composition_root -> agent_subjects.wifi_connection_status_shower: invokes
+
+presentation_providers.terminal -> presentation_contracts.action_input: implements
+presentation_providers.terminal -> presentation_contracts.network_selection_input: implements
+presentation_providers.terminal -> presentation_contracts.password_input: implements
+presentation_providers.terminal -> presentation_contracts.network_render: implements
+presentation_providers.terminal -> presentation_contracts.status_render: implements
+presentation_providers.terminal -> presentation_contracts.secret_render: implements
+presentation_providers.terminal -> presentation_contracts.message_render: implements
+
+presentation_providers.tui -> presentation_contracts.action_input: may implement {
+  style.stroke-dash: 4
+}
+presentation_providers.web -> presentation_contracts.action_input: may implement {
+  style.stroke-dash: 4
+}
+
+system_wifi_providers.void -> system_wifi_contracts.scan: implements
+system_wifi_providers.void -> system_wifi_contracts.status: implements
+system_wifi_providers.void -> system_wifi_contracts.connect: implements
+system_wifi_providers.void -> system_wifi_contracts.saved_network: implements
+system_wifi_providers.void -> system_wifi_contracts.saved_secret: implements
+system_wifi_providers.void -> system_wifi_contracts.forget: implements
+
+system_wifi_providers.windows -> system_wifi_contracts.scan: may implement {
+  style.stroke-dash: 4
+}
+system_wifi_providers.network_manager -> system_wifi_contracts.scan: may implement {
+  style.stroke-dash: 4
+}
+system_wifi_providers.iwd -> system_wifi_contracts.scan: may implement {
+  style.stroke-dash: 4
+}
+
+system_wifi_providers.void -> void_external_components.wpa_cli: uses
+system_wifi_providers.void -> void_external_components.dhcpcd: uses
+system_wifi_providers.void -> void_external_components.iw: uses
+system_wifi_providers.void -> void_external_components.ip: uses
+system_wifi_providers.void -> void_external_components.sv: uses
+
+void_external_components.wpa_cli -> void_external_components.wpa_supplicant: controls
+void_external_components.sv -> void_external_components.runit: talks to
+void_external_components.sv -> void_external_components.wpa_supplicant: manages {
+  style.stroke-dash: 4
+}
+void_external_components.sv -> void_external_components.dhcpcd: manages {
+  style.stroke-dash: 4
+}
+
+agent_subjects.wifi_connection_status_shower -> resolvers.wifi_interface: "pipeline step 1"
+resolvers.wifi_interface -> resolvers.wifi_connection_status: "WifiInterfaceView<'a>"
+resolvers.wifi_connection_status -> resolvers.wifi_connection_status_output: "WifiConnectionStatusView<'a>"
+
+resolvers.wifi_interface -> system_wifi_contracts.status: uses {
+  style.stroke-dash: 4
+}
+resolvers.wifi_connection_status -> system_wifi_contracts.status: uses {
+  style.stroke-dash: 4
+}
+resolvers.wifi_connection_status_output -> presentation_contracts.status_render: uses {
+  style.stroke-dash: 4
+}

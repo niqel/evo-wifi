@@ -1,0 +1,43 @@
+title: "UC-009 Sequence Diagram: View Current Network Status"
+shape: sequence_diagram
+
+user: "Void Linux User"
+composition_root: "EvoWifiCompositionRoot"
+system_provider: "VoidSystemWifiProvider"
+presentation_provider: "TerminalPresentationProvider"
+agent_subject: "agent_subjects::wifi_connection_status_shower::show"
+interface_resolver: "wifi_interface_resolver::resolve"
+status_resolver: "wifi_connection_status_resolver::resolve"
+output_resolver: "wifi_connection_status_output_resolver::resolve"
+status_contract: "WifiStatusSystemWifiContract"
+render_contract: "WifiStatusRenderPresentationContract"
+external_wifi: "wpa_cli / wpa_supplicant"
+
+user -> composition_root: "requests current network status"
+
+composition_root -> system_provider: "creates"
+composition_root -> presentation_provider: "creates"
+composition_root -> agent_subject: "show(system_wifi_contract, presentation_contract)"
+
+agent_subject -> interface_resolver: "resolve()"
+interface_resolver -> status_contract: "get operable interface"
+status_contract -> system_provider: "dispatch through trait"
+system_provider -> external_wifi: "query interface source"
+external_wifi -> system_provider: "raw interface output"
+system_provider -> status_contract: "borrowed interface data"
+status_contract -> interface_resolver: "WifiInterfaceView<'a>"
+interface_resolver -> agent_subject: "WifiInterfaceView<'a>"
+
+agent_subject -> status_resolver: "resolve(WifiInterfaceView<'a>)"
+status_resolver -> status_contract: "get current status"
+status_contract -> system_provider: "dispatch through trait"
+system_provider -> external_wifi: "wpa_cli -i <iface> status"
+external_wifi -> system_provider: "raw status output"
+system_provider -> status_contract: "borrowed status data"
+status_contract -> status_resolver: "WifiConnectionStatusView<'a>"
+status_resolver -> agent_subject: "WifiConnectionStatusView<'a>"
+
+agent_subject -> output_resolver: "resolve(WifiConnectionStatusView<'a>)"
+output_resolver -> render_contract: "render status view"
+render_contract -> presentation_provider: "dispatch through trait"
+presentation_provider -> user: "renders current status"

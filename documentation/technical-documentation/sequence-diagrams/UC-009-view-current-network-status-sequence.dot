@@ -1,0 +1,161 @@
+digraph UC009SequenceDiagram {
+  graph [
+    rankdir=TB,
+    bgcolor="transparent",
+    pad="0.4",
+    nodesep="0.45",
+    ranksep="0.65",
+    fontname="Inter",
+    label="UC-009 Sequence Diagram: View Current Network Status",
+    labelloc="t",
+    fontsize=16
+  ];
+
+  node [
+    shape=box,
+    fontname="Inter",
+    fontsize=11,
+    color="#2f3437",
+    fontcolor="#1f2328",
+    style="rounded,filled",
+    fillcolor="#f6f8fa"
+  ];
+
+  edge [
+    color="#59636e",
+    arrowsize=0.7,
+    fontname="Inter",
+    fontsize=10,
+    fontcolor="#59636e"
+  ];
+
+  user [
+    label="Void Linux User",
+    fillcolor="#fff8c5"
+  ];
+
+  composition_root [
+    label="<<composition root>>\nEvoWifiCompositionRoot",
+    fillcolor="#ddf4ff"
+  ];
+
+  system_provider [
+    label="<<provider>>\nVoidSystemWifiProvider",
+    fillcolor="#ddf4ff"
+  ];
+
+  presentation_provider [
+    label="<<provider>>\nTerminalPresentationProvider",
+    fillcolor="#ddf4ff"
+  ];
+
+  agent_subject [
+    label="<<agent_subject>>\nagent_subjects::wifi_connection_status_shower::show"
+  ];
+
+  interface_resolver [
+    label="<<resolver>>\nwifi_interface_resolver::resolve"
+  ];
+
+  status_resolver [
+    label="<<resolver>>\nwifi_connection_status_resolver::resolve"
+  ];
+
+  output_resolver [
+    label="<<resolver>>\nwifi_connection_status_output_resolver::resolve"
+  ];
+
+  status_contract [
+    label="<<contract / trait>>\nWifiStatusSystemWifiContract"
+  ];
+
+  render_contract [
+    label="<<contract / trait>>\nWifiStatusRenderPresentationContract"
+  ];
+
+  external_wifi [
+    label="<<external>>\nwpa_cli / wpa_supplicant",
+    fillcolor="#f6f8fa"
+  ];
+
+  user -> composition_root [
+    label="requests current network status"
+  ];
+
+  composition_root -> system_provider [
+    label="creates"
+  ];
+
+  composition_root -> presentation_provider [
+    label="creates"
+  ];
+
+  composition_root -> agent_subject [
+    label="invokes with contracts"
+  ];
+
+  agent_subject -> interface_resolver [
+    label="resolve"
+  ];
+
+  interface_resolver -> status_contract [
+    label="uses"
+  ];
+
+  status_contract -> system_provider [
+    label="implemented by"
+  ];
+
+  system_provider -> external_wifi [
+    label="queries interface source"
+  ];
+
+  external_wifi -> system_provider [
+    label="raw interface output",
+    style=dashed
+  ];
+
+  system_provider -> interface_resolver [
+    label="WifiInterfaceView<'a>",
+    style=dashed
+  ];
+
+  interface_resolver -> status_resolver [
+    label="WifiInterfaceView<'a>"
+  ];
+
+  status_resolver -> status_contract [
+    label="uses"
+  ];
+
+  system_provider -> external_wifi [
+    label="wpa_cli -i <iface> status"
+  ];
+
+  external_wifi -> system_provider [
+    label="raw status output",
+    style=dashed
+  ];
+
+  system_provider -> status_resolver [
+    label="WifiConnectionStatusView<'a>",
+    style=dashed
+  ];
+
+  status_resolver -> output_resolver [
+    label="WifiConnectionStatusView<'a>"
+  ];
+
+  output_resolver -> render_contract [
+    label="uses"
+  ];
+
+  render_contract -> presentation_provider [
+    label="implemented by"
+  ];
+
+  presentation_provider -> user [
+    label="renders current status",
+    style=dashed
+  ];
+}

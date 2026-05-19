@@ -1,0 +1,85 @@
+title: "evo-wifi Use Case Diagram"
+direction: right
+
+vars: {
+  actor-fill: "#f6f8fa"
+  use-case-fill: "#eef6ff"
+  boundary-fill: "#ffffff"
+  stroke: "#59636e"
+}
+
+user: {
+  label: "Void Linux User"
+  shape: person
+  style.fill: ${actor-fill}
+}
+
+evo_wifi: {
+  label: "evo-wifi"
+  style.fill: ${boundary-fill}
+  style.stroke: ${stroke}
+
+  us_001: {
+    label: "US-001\nView available WiFi networks"
+    shape: oval
+    style.fill: ${use-case-fill}
+  }
+
+  us_002: {
+    label: "US-002\nSelect and connect to WiFi network"
+    shape: oval
+    style.fill: ${use-case-fill}
+  }
+
+  us_003: {
+    label: "US-003\nHandle already connected network"
+    shape: oval
+    style.fill: ${use-case-fill}
+  }
+
+  us_004: {
+    label: "US-004\nSwitch to another WiFi network"
+    shape: oval
+    style.fill: ${use-case-fill}
+  }
+
+  us_005: {
+    label: "US-005\nRequest password when needed"
+    shape: oval
+    style.fill: ${use-case-fill}
+  }
+
+  us_006: {
+    label: "US-006\nUse saved password when available"
+    shape: oval
+    style.fill: ${use-case-fill}
+  }
+
+  us_007: {
+    label: "US-007\nShow current connection password"
+    shape: oval
+    style.fill: ${use-case-fill}
+  }
+
+  us_008: {
+    label: "US-008\nForget saved WiFi password"
+    shape: oval
+    style.fill: ${use-case-fill}
+  }
+
+  us_009: {
+    label: "US-009\nView current network status"
+    shape: oval
+    style.fill: ${use-case-fill}
+  }
+}
+
+user -> evo_wifi.us_001
+user -> evo_wifi.us_002
+user -> evo_wifi.us_003
+user -> evo_wifi.us_004
+user -> evo_wifi.us_005
+user -> evo_wifi.us_006
+user -> evo_wifi.us_007
+user -> evo_wifi.us_008
+user -> evo_wifi.us_009

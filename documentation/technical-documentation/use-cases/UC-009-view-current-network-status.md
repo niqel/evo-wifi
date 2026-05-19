@@ -84,8 +84,9 @@ agent_subjects::wifi_connection_status_shower::show
 - `wifi_connection_status_resolver::resolve`
 - `wifi_connection_status_output_resolver::resolve`
 
-### System WiFi Contract
+### System WiFi Contracts
 
+- `WifiInterfaceSystemWifiContract`
 - `WifiStatusSystemWifiContract`
 
 ### System WiFi Provider
@@ -104,6 +105,7 @@ agent_subjects::wifi_connection_status_shower::show
 
 - Define `WifiInterfaceView<'a>`.
 - Define `WifiConnectionStatusView<'a>`.
+- Define `WifiInterfaceSystemWifiContract`.
 - Define `WifiStatusSystemWifiContract`.
 - Define `WifiStatusRenderPresentationContract`.
 - Implement `VoidSystemWifiProvider` status behavior.
@@ -119,5 +121,5 @@ agent_subjects::wifi_connection_status_shower::show
 - The agent subject must not call providers directly.
 - The agent subject must work through the resolver pipeline.
 - Presentation output must go through the presentation contract.
-- System WiFi access must go through the system WiFi contract.
+- System WiFi access must go through the system WiFi contracts.
 - Status values remain borrowed strings and are not converted to enums at this stage.

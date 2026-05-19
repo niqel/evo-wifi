@@ -54,6 +54,10 @@ system_wifi_contracts: {
     label: "<<contract / trait>>\nWifiScanSystemWifiContract"
     style.fill: ${contract-fill}
   }
+  interface: {
+    label: "<<contract / trait>>\nWifiInterfaceSystemWifiContract"
+    style.fill: ${contract-fill}
+  }
   status: {
     label: "<<contract / trait>>\nWifiStatusSystemWifiContract"
     style.fill: ${contract-fill}
@@ -208,6 +212,7 @@ presentation_providers.web -> presentation_contracts.action_input: may implement
 }
 
 system_wifi_providers.void -> system_wifi_contracts.scan: implements
+system_wifi_providers.void -> system_wifi_contracts.interface: implements
 system_wifi_providers.void -> system_wifi_contracts.status: implements
 system_wifi_providers.void -> system_wifi_contracts.connect: implements
 system_wifi_providers.void -> system_wifi_contracts.saved_network: implements
@@ -243,7 +248,7 @@ agent_subjects.wifi_connection_status_shower -> resolvers.wifi_interface: "pipel
 resolvers.wifi_interface -> resolvers.wifi_connection_status: "WifiInterfaceView<'a>"
 resolvers.wifi_connection_status -> resolvers.wifi_connection_status_output: "WifiConnectionStatusView<'a>"
 
-resolvers.wifi_interface -> system_wifi_contracts.status: uses {
+resolvers.wifi_interface -> system_wifi_contracts.interface: uses {
   style.stroke-dash: 4
 }
 resolvers.wifi_connection_status -> system_wifi_contracts.status: uses {

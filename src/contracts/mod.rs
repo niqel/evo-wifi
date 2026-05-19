@@ -8,7 +8,7 @@ pub use presentation::{
     WifiStatusRenderPresentationContract,
 };
 pub use system_wifi::{
-    WifiConnectSystemWifiContract, WifiForgetSystemWifiContract,
+    WifiConnectSystemWifiContract, WifiForgetSystemWifiContract, WifiInterfaceSystemWifiContract,
     WifiSavedNetworkSystemWifiContract, WifiSavedSecretSystemWifiContract,
     WifiScanSystemWifiContract, WifiStatusSystemWifiContract,
 };

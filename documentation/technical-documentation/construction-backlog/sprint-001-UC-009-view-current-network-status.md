@@ -91,14 +91,15 @@ pub struct WifiConnectionStatusView<'a> {
 - No enum is introduced for status.
 - No owned `String` is introduced in these views.
 
-### CT-UC-009-003: Define System WiFi Contract
+### CT-UC-009-003: Define System WiFi Contracts
 
 **Type:** contract
 
-**Purpose:** Define the system-side contract required by the resolvers.
+**Purpose:** Define the system-side contracts required by the resolvers.
 
 **Work:**
 
+- Define `WifiInterfaceSystemWifiContract`.
 - Define `WifiStatusSystemWifiContract`.
 - Expose behavior needed to resolve:
   - WiFi interface
@@ -107,8 +108,8 @@ pub struct WifiConnectionStatusView<'a> {
 
 **Done when:**
 
-- Resolvers can depend on the trait instead of a concrete provider.
-- The contract does not mention Void-specific commands in its public API.
+- Resolvers can depend on traits instead of a concrete provider.
+- The contracts do not mention Void-specific commands in their public APIs.
 
 ### CT-UC-009-004: Define Presentation Render Contract
 
@@ -345,4 +346,3 @@ composition root -> agent subject -> resolvers -> contracts -> providers -> exte
 - No resolver or agent subject instantiates concrete providers.
 - No presentation logic exists inside the agent subject.
 - No unnecessary package/DTO is introduced for borrowed data that can stay borrowed.
-

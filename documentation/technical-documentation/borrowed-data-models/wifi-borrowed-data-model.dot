@@ -43,6 +43,16 @@ digraph WifiScanBorrowedDataModel {
     >
   ];
 
+  interface_view [
+    label=<
+      <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#2f3437">
+        <TR><TD><FONT POINT-SIZE="10">&lt;&lt;borrowed interface view&gt;&gt;</FONT></TD></TR>
+        <TR><TD><B>WifiInterfaceView&lt;'a&gt;</B></TD></TR>
+        <TR><TD ALIGN="LEFT">name: &amp;'a str</TD></TR>
+      </TABLE>
+    >
+  ];
+
   selection_input_view [
     label=<
       <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#2f3437">
@@ -118,6 +128,19 @@ digraph WifiScanBorrowedDataModel {
         <TR><TD><B>External source</B></TD></TR>
         <TR><TD ALIGN="LEFT">wpa_cli scan_results output</TD></TR>
         <TR><TD ALIGN="LEFT">Fields borrow from raw scan output during resolution.</TD></TR>
+      </TABLE>
+    >
+  ];
+
+  interface_note [
+    shape=note,
+    style="filled",
+    fillcolor="#fff8c5",
+    label=<
+      <TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0" CELLPADDING="6">
+        <TR><TD><B>External interface source</B></TD></TR>
+        <TR><TD ALIGN="LEFT">wpa_cli interface_list, iw dev, ip link</TD></TR>
+        <TR><TD ALIGN="LEFT">Interface name borrows from raw interface output during resolution.</TD></TR>
       </TABLE>
     >
   ];
@@ -208,6 +231,11 @@ digraph WifiScanBorrowedDataModel {
 
   source_note -> network_view [
     label="borrowed fields",
+    style=dashed
+  ];
+
+  interface_note -> interface_view [
+    label="borrowed interface name",
     style=dashed
   ];
 

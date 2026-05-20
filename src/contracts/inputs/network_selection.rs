@@ -1,5 +1,8 @@
 use crate::borrowed::WifiNetworkSelectionInputBorrowed;
 
 pub trait WifiNetworkSelectionInputContract {
-    fn provide(&self) -> Option<WifiNetworkSelectionInputBorrowed<'_>>;
+    fn provide<R>(
+        &self,
+        next: impl FnOnce(WifiNetworkSelectionInputBorrowed<'_>) -> R,
+    ) -> Option<R>;
 }

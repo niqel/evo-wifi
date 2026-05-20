@@ -13,8 +13,11 @@ impl<'a> TerminalNetworkSelectionInputProvider<'a> {
 }
 
 impl WifiNetworkSelectionInputContract for TerminalNetworkSelectionInputProvider<'_> {
-    fn provide(&self) -> Option<WifiNetworkSelectionInputBorrowed<'_>> {
+    fn provide<R>(
+        &self,
+        next: impl FnOnce(WifiNetworkSelectionInputBorrowed<'_>) -> R,
+    ) -> Option<R> {
         self.raw
-            .map(|raw| WifiNetworkSelectionInputBorrowed { raw })
+            .map(|raw| next(WifiNetworkSelectionInputBorrowed { raw }))
     }
 }

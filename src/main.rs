@@ -1,7 +1,20 @@
 fn main() {
     let action = std::env::args().nth(1);
+    let selection = std::env::args().nth(2);
 
     match action.as_deref() {
+        Some("already-connected") => {
+            let command = evo_wifi::commands::WifiAlreadyConnectedNetworkHandleCommand::new(
+                evo_wifi::providers::inputs::terminal::TerminalNetworkSelectionInputProvider::new(
+                    selection.as_deref(),
+                ),
+                evo_wifi::providers::wifi::void::VoidWifiInterfaceProvider,
+                evo_wifi::providers::wifi::void::VoidWifiStatusProvider,
+                evo_wifi::providers::outputs::terminal::TerminalMessageOutputProvider,
+            );
+
+            command.execute();
+        }
         Some("networks" | "scan") => {
             let command = evo_wifi::commands::WifiAvailableNetworksShowCommand::new(
                 evo_wifi::providers::wifi::void::VoidWifiInterfaceProvider,
@@ -32,7 +45,9 @@ fn main() {
             command.execute();
         }
         Some(_) => {
-            eprintln!("usage: evo-wifi [status|networks|scan|password|secret]");
+            eprintln!(
+                "usage: evo-wifi [status|networks|scan|password|secret|already-connected <ssid>]"
+            );
         }
     }
 }

@@ -1,2 +1,3 @@
 pub mod wifi_available_networks_shower;
 pub mod wifi_connection_status_shower;
+pub mod wifi_current_connection_password_shower;

@@ -11,6 +11,17 @@ fn main() {
 
             command.execute();
         }
+        Some("password" | "secret") => {
+            let command = evo_wifi::commands::WifiCurrentConnectionPasswordShowCommand::new(
+                evo_wifi::providers::wifi::void::VoidWifiInterfaceProvider,
+                evo_wifi::providers::wifi::void::VoidWifiStatusProvider,
+                evo_wifi::providers::wifi::void::VoidWifiSavedNetworkProvider,
+                evo_wifi::providers::wifi::void::VoidWifiSavedSecretProvider,
+                evo_wifi::providers::outputs::terminal::TerminalSecretOutputProvider,
+            );
+
+            command.execute();
+        }
         Some("status") | None => {
             let command = evo_wifi::commands::WifiConnectionStatusShowCommand::new(
                 evo_wifi::providers::wifi::void::VoidWifiInterfaceProvider,
@@ -21,7 +32,7 @@ fn main() {
             command.execute();
         }
         Some(_) => {
-            eprintln!("usage: evo-wifi [status|networks|scan]");
+            eprintln!("usage: evo-wifi [status|networks|scan|password|secret]");
         }
     }
 }

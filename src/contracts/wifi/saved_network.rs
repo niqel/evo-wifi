@@ -1,8 +1,12 @@
-use crate::borrowed::{WifiNetworkSelectionInputBorrowed, WifiSavedNetworkBorrowed};
+use crate::borrowed::{
+    WifiConnectionStatusBorrowed, WifiInterfaceBorrowed, WifiSavedNetworkBorrowed,
+};
 
 pub trait WifiSavedNetworkContract {
-    fn provide(
+    fn provide<R>(
         &self,
-        selection: WifiNetworkSelectionInputBorrowed<'_>,
-    ) -> Option<WifiSavedNetworkBorrowed<'_>>;
+        interface: WifiInterfaceBorrowed<'_>,
+        status: WifiConnectionStatusBorrowed<'_>,
+        next: impl FnOnce(WifiSavedNetworkBorrowed<'_>) -> R,
+    ) -> Option<R>;
 }

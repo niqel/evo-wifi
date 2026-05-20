@@ -1,3 +1,5 @@
+pub mod wifi_available_networks_show_command;
 pub mod wifi_connection_status_show_command;
 
+pub use wifi_available_networks_show_command::WifiAvailableNetworksShowCommand;
 pub use wifi_connection_status_show_command::WifiConnectionStatusShowCommand;

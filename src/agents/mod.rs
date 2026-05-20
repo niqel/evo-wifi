@@ -1,1 +1,2 @@
+pub mod wifi_available_networks_shower;
 pub mod wifi_connection_status_shower;

@@ -1,5 +1,9 @@
-use crate::borrowed::WifiNetworkBorrowed;
+use crate::borrowed::{WifiInterfaceBorrowed, WifiNetworkBorrowed};
 
 pub trait WifiScanContract {
-    fn provide(&self) -> Option<&[WifiNetworkBorrowed<'_>]>;
+    fn provide<R>(
+        &self,
+        interface: WifiInterfaceBorrowed<'_>,
+        next: impl FnOnce(&[WifiNetworkBorrowed<'_>]) -> R,
+    ) -> Option<R>;
 }

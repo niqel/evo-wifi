@@ -6,6 +6,11 @@ pub struct TerminalNetworkOutputProvider;
 
 impl WifiNetworkOutputContract for TerminalNetworkOutputProvider {
     fn provide(&self, networks: &[WifiNetworkBorrowed<'_>]) {
+        if networks.is_empty() {
+            println!("No WiFi networks found");
+            return;
+        }
+
         for network in networks {
             println!(
                 "{}\t{}\t{}\t{}\t{}",

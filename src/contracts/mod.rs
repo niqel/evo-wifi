@@ -10,6 +10,6 @@ pub use outputs::{
     WifiStatusOutputContract,
 };
 pub use wifi::{
-    WifiConnectContract, WifiForgetContract, WifiInterfaceContract, WifiSavedNetworkContract,
-    WifiSavedSecretContract, WifiScanContract, WifiStatusContract,
+    WifiConnectContract, WifiForgetContract, WifiInterfaceContract, WifiNewNetworkConnectContract,
+    WifiSavedNetworkContract, WifiSavedSecretContract, WifiScanContract, WifiStatusContract,
 };

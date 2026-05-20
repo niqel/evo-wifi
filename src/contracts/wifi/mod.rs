@@ -1,6 +1,7 @@
 pub mod connect;
 pub mod forget;
 pub mod interface;
+pub mod new_connect;
 pub mod saved_network;
 pub mod saved_secret;
 pub mod scan;
@@ -9,6 +10,7 @@ pub mod status;
 pub use connect::WifiConnectContract;
 pub use forget::WifiForgetContract;
 pub use interface::WifiInterfaceContract;
+pub use new_connect::WifiNewNetworkConnectContract;
 pub use saved_network::WifiSavedNetworkContract;
 pub use saved_secret::WifiSavedSecretContract;
 pub use scan::WifiScanContract;

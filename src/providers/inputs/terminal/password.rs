@@ -13,7 +13,7 @@ impl<'a> TerminalPasswordInputProvider<'a> {
 }
 
 impl WifiPasswordInputContract for TerminalPasswordInputProvider<'_> {
-    fn provide(&self) -> Option<WifiPasswordInputBorrowed<'_>> {
-        self.raw.map(|raw| WifiPasswordInputBorrowed { raw })
+    fn provide<R>(&self, next: impl FnOnce(WifiPasswordInputBorrowed<'_>) -> R) -> Option<R> {
+        self.raw.map(|raw| next(WifiPasswordInputBorrowed { raw }))
     }
 }

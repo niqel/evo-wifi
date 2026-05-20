@@ -5,7 +5,7 @@ use crate::contracts::WifiInterfaceContract;
 pub struct VoidWifiInterfaceProvider;
 
 impl WifiInterfaceContract for VoidWifiInterfaceProvider {
-    fn provide(&self) -> Option<WifiInterfaceBorrowed<'_>> {
+    fn provide<R>(&self, _next: impl FnOnce(WifiInterfaceBorrowed<'_>) -> R) -> Option<R> {
         None
     }
 }

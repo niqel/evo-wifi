@@ -1,5 +1,5 @@
 use crate::borrowed::WifiInterfaceBorrowed;
 
 pub trait WifiInterfaceContract {
-    fn provide(&self) -> Option<WifiInterfaceBorrowed<'_>>;
+    fn provide<R>(&self, next: impl FnOnce(WifiInterfaceBorrowed<'_>) -> R) -> Option<R>;
 }

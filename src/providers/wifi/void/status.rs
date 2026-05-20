@@ -5,10 +5,11 @@ use crate::contracts::WifiStatusContract;
 pub struct VoidWifiStatusProvider;
 
 impl WifiStatusContract for VoidWifiStatusProvider {
-    fn provide(
+    fn provide<R>(
         &self,
         _interface: WifiInterfaceBorrowed<'_>,
-    ) -> Option<WifiConnectionStatusBorrowed<'_>> {
+        _next: impl FnOnce(WifiConnectionStatusBorrowed<'_>) -> R,
+    ) -> Option<R> {
         None
     }
 }

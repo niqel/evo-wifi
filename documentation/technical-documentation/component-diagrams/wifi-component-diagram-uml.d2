@@ -80,6 +80,10 @@ wifi_contracts: {
     label: "<<contract / trait>>\nWifiSavedSecretContract"
     style.fill: ${contract-fill}
   }
+  disconnect: {
+    label: "<<contract / trait>>\nWifiDisconnectContract"
+    style.fill: ${contract-fill}
+  }
   forget: {
     label: "<<contract / trait>>\nWifiForgetContract"
     style.fill: ${contract-fill}
@@ -258,6 +262,7 @@ wifi_providers.void -> wifi_contracts.status: implements
 wifi_providers.void -> wifi_contracts.connect: implements
 wifi_providers.void -> wifi_contracts.saved_network: implements
 wifi_providers.void -> wifi_contracts.saved_secret: implements
+wifi_providers.void -> wifi_contracts.disconnect: implements
 wifi_providers.void -> wifi_contracts.forget: implements
 
 wifi_providers.windows -> wifi_contracts.scan: may implement {

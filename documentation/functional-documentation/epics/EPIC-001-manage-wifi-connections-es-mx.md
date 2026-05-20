@@ -21,3 +21,4 @@ para poder conectarme a redes disponibles y tener acceso a internet.
 - US-007: Mostrar contrasena de la conexion actual
 - US-008: Olvidar contrasena WiFi guardada
 - US-009: Ver estado actual de la red
+- US-010: Desconectarse de una red WiFi

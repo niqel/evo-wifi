@@ -21,3 +21,4 @@ so that I can connect to available networks and access the internet.
 - US-007: Show current connection password
 - US-008: Forget saved WiFi password
 - US-009: View current network status
+- US-010: Disconnect from a WiFi network

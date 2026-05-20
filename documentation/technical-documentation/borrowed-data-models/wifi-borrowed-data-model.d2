@@ -1,0 +1,131 @@
+title: "WiFi Borrowed Data Model"
+direction: right
+
+vars: {
+  borrowed-fill: "#f6f8fa"
+  note-fill: "#fff8c5"
+  stroke: "#2f3437"
+  text: "#1f2328"
+  edge: "#59636e"
+}
+
+network_view: {
+  label: "<<borrowed>>\nWifiNetworkBorrowed<'a>\n\nbssid: &'a str\nfrequency: &'a str\nsignal_dbm: &'a str\nflags: &'a str\nssid: &'a str"
+  shape: rectangle
+  style.fill: ${borrowed-fill}
+  style.stroke: ${stroke}
+}
+
+interface_view: {
+  label: "<<borrowed interface>>\nWifiInterfaceBorrowed<'a>\n\nname: &'a str"
+  shape: rectangle
+  style.fill: ${borrowed-fill}
+  style.stroke: ${stroke}
+}
+
+selection_input_view: {
+  label: "<<borrowed input>>\nWifiNetworkSelectionInputBorrowed<'a>\n\nraw: &'a str"
+  shape: rectangle
+  style.fill: ${borrowed-fill}
+  style.stroke: ${stroke}
+}
+
+action_selection_input_view: {
+  label: "<<borrowed action input>>\nWifiActionSelectionInputBorrowed<'a>\n\nraw: &'a str"
+  shape: rectangle
+  style.fill: ${borrowed-fill}
+  style.stroke: ${stroke}
+}
+
+status_view: {
+  label: "<<borrowed status>>\nWifiConnectionStatusBorrowed<'a>\n\nssid: &'a str\nstatus: &'a str"
+  shape: rectangle
+  style.fill: ${borrowed-fill}
+  style.stroke: ${stroke}
+}
+
+password_input_view: {
+  label: "<<borrowed secret input>>\nWifiPasswordInputBorrowed<'a>\n\nraw: &'a str"
+  shape: rectangle
+  style.fill: ${borrowed-fill}
+  style.stroke: ${stroke}
+}
+
+saved_network_view: {
+  label: "<<borrowed saved network>>\nWifiSavedNetworkBorrowed<'a>\n\nssid: &'a str\nnetwork_id: &'a str"
+  shape: rectangle
+  style.fill: ${borrowed-fill}
+  style.stroke: ${stroke}
+}
+
+saved_secret_view: {
+  label: "<<borrowed saved secret>>\nWifiSavedSecretBorrowed<'a>\n\nssid: &'a str\nnetwork_id: &'a str\nsecret: &'a str\nsecret_kind: &'a str\nsource: &'a str"
+  shape: rectangle
+  style.fill: ${borrowed-fill}
+  style.stroke: ${stroke}
+}
+
+source_note: {
+  label: "External source\nwpa_cli scan_results output\nFields borrow from raw scan output during resolution."
+  shape: rectangle
+  style.fill: ${note-fill}
+  style.stroke: ${stroke}
+}
+
+interface_note: {
+  label: "External interface source\nwpa_cli interface_list, iw dev, ip link\nInterface name borrows from raw interface output during resolution."
+  shape: rectangle
+  style.fill: ${note-fill}
+  style.stroke: ${stroke}
+}
+
+input_note: {
+  label: "External input source\nterminal, TUI, web, desktop, stdin, keypress\nSelection input borrows from captured presentation input."
+  shape: rectangle
+  style.fill: ${note-fill}
+  style.stroke: ${stroke}
+}
+
+action_input_note: {
+  label: "External action input source\nterminal menu, TUI item, web button, desktop action, CLI command\nPresentation owns the captured input.\nDomain defines the minimal borrowed input shape it accepts.\nPresentation implementations adapt their source event to raw: &str."
+  shape: rectangle
+  style.fill: ${note-fill}
+  style.stroke: ${stroke}
+}
+
+status_note: {
+  label: "External status source\nwpa_cli status output\nStatus fields borrow from raw status output during resolution."
+  shape: rectangle
+  style.fill: ${note-fill}
+  style.stroke: ${stroke}
+}
+
+secret_input_note: {
+  label: "External secret input source\nterminal secret prompt, TUI, web, desktop, stdin\nPassword input borrows from captured presentation input.\nSecret input should not be logged or rendered back by default."
+  shape: rectangle
+  style.fill: ${note-fill}
+  style.stroke: ${stroke}
+}
+
+saved_network_note: {
+  label: "External saved network source\nwpa_cli list_networks output\nSaved network fields borrow from raw saved network output.\nnetwork_id is used to connect without reading the saved secret."
+  shape: rectangle
+  style.fill: ${note-fill}
+  style.stroke: ${stroke}
+}
+
+saved_secret_note: {
+  label: "External saved secret source\nwpa_cli get_network <network_id> psk\nwpa_supplicant config file when wpa_cli hides the secret\nsecret_kind may be password, psk_hex, hidden, or unknown.\nSecret should not be logged or rendered unless explicitly requested."
+  shape: rectangle
+  style.fill: ${note-fill}
+  style.stroke: ${stroke}
+}
+
+source_note -> network_view: "borrowed fields"
+interface_note -> interface_view: "borrowed interface name"
+input_note -> selection_input_view: "borrowed input"
+action_input_note -> action_selection_input_view: "borrowed action input"
+status_note -> status_view: "borrowed fields"
+secret_input_note -> password_input_view: "borrowed secret input"
+saved_network_note -> saved_network_view: "borrowed fields"
+saved_secret_note -> saved_secret_view: "borrowed secret fields"

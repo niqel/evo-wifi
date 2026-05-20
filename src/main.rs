@@ -47,6 +47,17 @@ fn main() {
 
             command.execute();
         }
+        Some("disconnect") => {
+            let command = evo_wifi::commands::WifiConnectionDisconnectCommand::new(
+                evo_wifi::providers::wifi::void::VoidWifiInterfaceProvider,
+                evo_wifi::providers::wifi::void::VoidWifiStatusProvider,
+                evo_wifi::providers::wifi::void::VoidWifiDisconnectProvider,
+                evo_wifi::providers::outputs::terminal::TerminalStatusOutputProvider,
+                evo_wifi::providers::outputs::terminal::TerminalMessageOutputProvider,
+            );
+
+            command.execute();
+        }
         Some("networks" | "scan") => {
             let command = evo_wifi::commands::WifiAvailableNetworksShowCommand::new(
                 evo_wifi::providers::wifi::void::VoidWifiInterfaceProvider,
@@ -78,7 +89,7 @@ fn main() {
         }
         Some(_) => {
             eprintln!(
-                "usage: evo-wifi [status|networks|scan|password|secret|already-connected <ssid>|connect <ssid>|connect-new <ssid> <password>]"
+                "usage: evo-wifi [status|disconnect|networks|scan|password|secret|already-connected <ssid>|connect <ssid>|connect-new <ssid> <password>]"
             );
         }
     }

@@ -1,4 +1,5 @@
 pub mod connect;
+pub mod disconnect;
 pub mod forget;
 pub mod interface;
 pub mod new_connect;
@@ -8,6 +9,7 @@ pub mod scan;
 pub mod status;
 
 pub use connect::VoidWifiConnectProvider;
+pub use disconnect::VoidWifiDisconnectProvider;
 pub use forget::VoidWifiForgetProvider;
 pub use interface::VoidWifiInterfaceProvider;
 pub use new_connect::VoidWifiNewNetworkConnectProvider;

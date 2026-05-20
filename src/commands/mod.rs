@@ -1,5 +1,6 @@
 pub mod wifi_already_connected_network_handle_command;
 pub mod wifi_available_networks_show_command;
+pub mod wifi_connection_disconnect_command;
 pub mod wifi_connection_status_show_command;
 pub mod wifi_current_connection_password_show_command;
 pub mod wifi_network_connect_command;
@@ -7,6 +8,7 @@ pub mod wifi_new_network_connect_command;
 
 pub use wifi_already_connected_network_handle_command::WifiAlreadyConnectedNetworkHandleCommand;
 pub use wifi_available_networks_show_command::WifiAvailableNetworksShowCommand;
+pub use wifi_connection_disconnect_command::WifiConnectionDisconnectCommand;
 pub use wifi_connection_status_show_command::WifiConnectionStatusShowCommand;
 pub use wifi_current_connection_password_show_command::WifiCurrentConnectionPasswordShowCommand;
 pub use wifi_network_connect_command::WifiNetworkConnectCommand;

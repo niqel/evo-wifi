@@ -57,9 +57,9 @@ El usuario solicita el estado actual de la red desde la aplicacion.
 
 ## Datos Prestados
 
-- `WifiInterfaceView<'a>`
+- `WifiInterfaceBorrowed<'a>`
   - `name: &'a str`
-- `WifiConnectionStatusView<'a>`
+- `WifiConnectionStatusBorrowed<'a>`
   - `ssid: &'a str`
   - `status: &'a str`
 
@@ -67,12 +67,12 @@ El usuario solicita el estado actual de la red desde la aplicacion.
 
 ### Sujeto Agente
 
-- `agent_subjects::wifi_connection_status_shower::show`
+- `agents::wifi_connection_status_shower::show`
 
 ### Pipeline de Resolvers
 
 ```text
-agent_subjects::wifi_connection_status_shower::show
+agents::wifi_connection_status_shower::show
   -> wifi_interface_resolver::resolve
   -> wifi_connection_status_resolver::resolve
   -> wifi_connection_status_output_resolver::resolve
@@ -110,8 +110,8 @@ agent_subjects::wifi_connection_status_shower::show
 
 ## Candidatos a Tareas de Desarrollo
 
-- Definir `WifiInterfaceView<'a>`.
-- Definir `WifiConnectionStatusView<'a>`.
+- Definir `WifiInterfaceBorrowed<'a>`.
+- Definir `WifiConnectionStatusBorrowed<'a>`.
 - Definir `WifiInterfaceContract`.
 - Definir `WifiStatusContract`.
 - Definir `WifiStatusOutputContract`.
@@ -120,7 +120,7 @@ agent_subjects::wifi_connection_status_shower::show
 - Implementar `wifi_interface_resolver::resolve`.
 - Implementar `wifi_connection_status_resolver::resolve`.
 - Implementar `wifi_connection_status_output_resolver::resolve`.
-- Implementar `agent_subjects::wifi_connection_status_shower::show`.
+- Implementar `agents::wifi_connection_status_shower::show`.
 - Agregar pruebas para rutas de resuelto, desconectado, interfaz no resuelta y estado no resuelto.
 
 ## Notas de Aceptacion

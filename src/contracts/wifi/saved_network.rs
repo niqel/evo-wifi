@@ -1,8 +1,8 @@
-use crate::borrowed_data::{WifiNetworkSelectionInputView, WifiSavedNetworkView};
+use crate::borrowed::{WifiNetworkSelectionInputBorrowed, WifiSavedNetworkBorrowed};
 
 pub trait WifiSavedNetworkContract {
     fn provide(
         &self,
-        selection: WifiNetworkSelectionInputView<'_>,
-    ) -> Option<WifiSavedNetworkView<'_>>;
+        selection: WifiNetworkSelectionInputBorrowed<'_>,
+    ) -> Option<WifiSavedNetworkBorrowed<'_>>;
 }

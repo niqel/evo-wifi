@@ -1,6 +1,6 @@
 # Construction Backlog
 
-This directory contains implementation-oriented tasks derived from the functional documentation, use cases, borrowed data models, and technical diagrams.
+This directory contains implementation-oriented tasks derived from the functional documentation, use cases, borrowed models, and technical diagrams.
 
 The backlog is not functional documentation. It exists to make the development work explicit before writing code.
 

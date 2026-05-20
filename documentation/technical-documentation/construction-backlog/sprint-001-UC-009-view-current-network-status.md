@@ -6,7 +6,7 @@ Build the first complete vertical slice of `evo-wifi`: show the current WiFi net
 
 This sprint validates:
 
-- borrowed data models
+- borrowed models
 - contracts / traits
 - providers
 - resolvers
@@ -18,14 +18,14 @@ This sprint validates:
 
 - Functional story: `documentation/functional-documentation/user-stories/US-009-view-current-network-status.md`
 - Technical use case: `documentation/technical-documentation/use-cases/UC-009-view-current-network-status.md`
-- Borrowed data model: `documentation/technical-documentation/borrowed-data-models/wifi-borrowed-data-model.dot`
+- Borrowed model: `documentation/technical-documentation/borrowed-data-models/wifi-borrowed-data-model.dot`
 - Component diagram: `documentation/technical-documentation/component-diagrams/wifi-component-diagram-uml.d2`
 - Sequence diagram: `documentation/technical-documentation/sequence-diagrams/UC-009-view-current-network-status-sequence.d2`
 
 ## Architectural Flow
 
 ```text
-agent_subjects::wifi_connection_status_shower::show
+agents::wifi_connection_status_shower::show
   -> wifi_interface_resolver::resolve
   -> wifi_connection_status_resolver::resolve
   -> wifi_connection_status_output_resolver::resolve
@@ -58,11 +58,11 @@ The contract name, module path, and input/output types define what is provided.
 - Create `Cargo.toml`.
 - Create `src/main.rs`.
 - Create module folders for:
-  - `agent_subjects`
+  - `agents`
   - `resolvers`
   - `contracts`
   - `providers`
-  - `borrowed_data`
+  - `borrowed`
   - `composition`
 
 **Done when:**
@@ -74,22 +74,22 @@ The contract name, module path, and input/output types define what is provided.
 
 **Type:** model
 
-**Purpose:** Represent borrowed views used by UC-009 without creating unnecessary packages.
+**Purpose:** Represent borrowed data used by UC-009 without creating unnecessary packages.
 
 **Work:**
 
-- Define `WifiInterfaceView<'a>`.
-- Define `WifiConnectionStatusView<'a>`.
+- Define `WifiInterfaceBorrowed<'a>`.
+- Define `WifiConnectionStatusBorrowed<'a>`.
 - Keep all fields as borrowed string slices.
 
 **Expected structures:**
 
 ```rust
-pub struct WifiInterfaceView<'a> {
+pub struct WifiInterfaceBorrowed<'a> {
     pub name: &'a str,
 }
 
-pub struct WifiConnectionStatusView<'a> {
+pub struct WifiConnectionStatusBorrowed<'a> {
     pub ssid: &'a str,
     pub status: &'a str,
 }
@@ -97,7 +97,7 @@ pub struct WifiConnectionStatusView<'a> {
 
 **Done when:**
 
-- The borrowed data models compile.
+- The borrowed models compile.
 - No enum is introduced for status.
 - No owned `String` is introduced in these views.
 
@@ -114,7 +114,7 @@ pub struct WifiConnectionStatusView<'a> {
 - Expose behavior needed to resolve:
   - WiFi interface
   - current WiFi status from an interface
-- Return borrowed views or a small error/result type.
+- Return borrowed data or a small error/result type.
 
 **Done when:**
 
@@ -161,7 +161,7 @@ pub struct WifiConnectionStatusView<'a> {
 
 - Provider compiles behind the contract.
 - Provider does not leak command parsing details into resolvers.
-- Provider returns borrowed views backed by data it owns for the call lifetime, or exposes a safe temporary snapshot strategy if borrowing directly is not possible.
+- Provider returns borrowed data backed by data it owns for the call lifetime, or exposes a safe temporary snapshot strategy if borrowing directly is not possible.
 
 ### CT-UC-009-006: Implement Terminal Output Provider
 
@@ -195,7 +195,7 @@ pub struct WifiConnectionStatusView<'a> {
 
 - Create `resolvers::wifi_interface_resolver::resolve`.
 - Accept the WiFi contract.
-- Return `WifiInterfaceView<'a>` or an unresolved result.
+- Return `WifiInterfaceBorrowed<'a>` or an unresolved result.
 
 **Done when:**
 
@@ -211,12 +211,12 @@ pub struct WifiConnectionStatusView<'a> {
 **Work:**
 
 - Create `resolvers::wifi_connection_status_resolver::resolve`.
-- Accept the WiFi contract and `WifiInterfaceView<'a>`.
-- Return `WifiConnectionStatusView<'a>` or an unresolved result.
+- Accept the WiFi contract and `WifiInterfaceBorrowed<'a>`.
+- Return `WifiConnectionStatusBorrowed<'a>` or an unresolved result.
 
 **Done when:**
 
-- The resolver only depends on the contract and input borrowed view.
+- The resolver only depends on the contract and input borrowed data.
 - The resolver has a single public operation: `resolve`.
 
 ### CT-UC-009-009: Implement WiFi Connection Status Output Resolver
@@ -246,12 +246,12 @@ pub struct WifiConnectionStatusView<'a> {
 
 **Work:**
 
-- Create `agent_subjects::wifi_connection_status_shower::show`.
+- Create `agents::wifi_connection_status_shower::show`.
 - Execute the resolver pipeline:
   - `wifi_interface_resolver::resolve`
   - `wifi_connection_status_resolver::resolve`
   - `wifi_connection_status_output_resolver::resolve`
-- Pass only contracts and borrowed views between steps.
+- Pass only contracts and borrowed data between steps.
 
 **Done when:**
 
@@ -270,7 +270,7 @@ pub struct WifiConnectionStatusView<'a> {
 - Create `EvoWifiCompositionRoot`.
 - Instantiate `VoidWifiProvider`.
 - Instantiate `TerminalOutputProvider`.
-- Invoke `agent_subjects::wifi_connection_status_shower::show`.
+- Invoke `agents::wifi_connection_status_shower::show`.
 
 **Done when:**
 

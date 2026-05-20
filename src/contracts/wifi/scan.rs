@@ -1,5 +1,5 @@
-use crate::borrowed_data::WifiNetworkView;
+use crate::borrowed::WifiNetworkBorrowed;
 
 pub trait WifiScanContract {
-    fn provide(&self) -> Option<&[WifiNetworkView<'_>]>;
+    fn provide(&self) -> Option<&[WifiNetworkBorrowed<'_>]>;
 }

@@ -102,12 +102,12 @@ contract_function_rule: {
   style.stroke: ${stroke}
 }
 
-agent_subjects: {
-  label: "Agent Subjects"
+agents: {
+  label: "Agents"
   style.stroke: ${stroke}
 
   wifi_connection_status_shower: {
-    label: "<<agent_subject>>\nagent_subjects::wifi_connection_status_shower::show"
+    label: "<<agent_subject>>\nagents::wifi_connection_status_shower::show"
     style.fill: ${agent-fill}
   }
 }
@@ -225,7 +225,7 @@ void_external_components: {
 runtime_assembly.composition_root -> wifi_providers.void: creates
 runtime_assembly.composition_root -> input_providers.terminal: creates
 runtime_assembly.composition_root -> output_providers.terminal: creates
-runtime_assembly.composition_root -> agent_subjects.wifi_connection_status_shower: invokes
+runtime_assembly.composition_root -> agents.wifi_connection_status_shower: invokes
 runtime_assembly.composition_root -> contract_function_rule: follows {
   style.stroke-dash: 4
 }
@@ -285,9 +285,9 @@ void_external_components.sv -> void_external_components.dhcpcd: manages {
   style.stroke-dash: 4
 }
 
-agent_subjects.wifi_connection_status_shower -> resolvers.wifi_interface: "pipeline step 1"
-resolvers.wifi_interface -> resolvers.wifi_connection_status: "WifiInterfaceView<'a>"
-resolvers.wifi_connection_status -> resolvers.wifi_connection_status_output: "WifiConnectionStatusView<'a>"
+agents.wifi_connection_status_shower -> resolvers.wifi_interface: "pipeline step 1"
+resolvers.wifi_interface -> resolvers.wifi_connection_status: "WifiInterfaceBorrowed<'a>"
+resolvers.wifi_connection_status -> resolvers.wifi_connection_status_output: "WifiConnectionStatusBorrowed<'a>"
 
 resolvers.wifi_interface -> wifi_contracts.interface: uses {
   style.stroke-dash: 4

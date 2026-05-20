@@ -40,17 +40,17 @@ digraph UC009SequenceDiagram {
   ];
 
   system_provider [
-    label="<<provider>>\nVoidSystemWifiProvider",
+    label="<<provider>>\nVoidWifiProvider",
     fillcolor="#ddf4ff"
   ];
 
   presentation_provider [
-    label="<<provider>>\nTerminalPresentationProvider",
+    label="<<provider>>\nTerminalOutputProvider",
     fillcolor="#ddf4ff"
   ];
 
   agent_subject [
-    label="<<agent_subject>>\nagent_subjects::wifi_connection_status_shower::show"
+    label="<<agent_subject>>\nagents::wifi_connection_status_shower::show"
   ];
 
   interface_resolver [
@@ -66,11 +66,11 @@ digraph UC009SequenceDiagram {
   ];
 
   status_contract [
-    label="<<contract / trait>>\nWifiStatusSystemWifiContract"
+    label="<<contract / trait>>\nWifiStatusContract"
   ];
 
   render_contract [
-    label="<<contract / trait>>\nWifiStatusRenderPresentationContract"
+    label="<<contract / trait>>\nWifiStatusOutputContract"
   ];
 
   external_wifi [
@@ -116,12 +116,12 @@ digraph UC009SequenceDiagram {
   ];
 
   system_provider -> interface_resolver [
-    label="WifiInterfaceView<'a>",
+    label="WifiInterfaceBorrowed<'a>",
     style=dashed
   ];
 
   interface_resolver -> status_resolver [
-    label="WifiInterfaceView<'a>"
+    label="WifiInterfaceBorrowed<'a>"
   ];
 
   status_resolver -> status_contract [
@@ -138,12 +138,12 @@ digraph UC009SequenceDiagram {
   ];
 
   system_provider -> status_resolver [
-    label="WifiConnectionStatusView<'a>",
+    label="WifiConnectionStatusBorrowed<'a>",
     style=dashed
   ];
 
   status_resolver -> output_resolver [
-    label="WifiConnectionStatusView<'a>"
+    label="WifiConnectionStatusBorrowed<'a>"
   ];
 
   output_resolver -> render_contract [

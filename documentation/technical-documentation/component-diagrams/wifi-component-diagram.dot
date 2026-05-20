@@ -30,38 +30,38 @@ digraph WifiComponentDiagram {
   ];
 
   subgraph cluster_presentation_contracts {
-    label="Presentation Contracts";
+    label="Output Contracts";
     color="#8c959f";
     fontname="Inter";
     fontsize=14;
     style="rounded";
 
-    WifiActionInputPresentationContract [
-      label="<<contract / trait>>\nWifiActionInputPresentationContract"
+    WifiActionSelectionInputContract [
+      label="<<contract / trait>>\nWifiActionSelectionInputContract"
     ];
 
-    WifiNetworkSelectionInputPresentationContract [
-      label="<<contract / trait>>\nWifiNetworkSelectionInputPresentationContract"
+    WifiNetworkSelectionInputContract [
+      label="<<contract / trait>>\nWifiNetworkSelectionInputContract"
     ];
 
-    WifiPasswordInputPresentationContract [
-      label="<<contract / trait>>\nWifiPasswordInputPresentationContract"
+    WifiPasswordInputContract [
+      label="<<contract / trait>>\nWifiPasswordInputContract"
     ];
 
-    WifiNetworkRenderPresentationContract [
-      label="<<contract / trait>>\nWifiNetworkRenderPresentationContract"
+    WifiNetworkOutputContract [
+      label="<<contract / trait>>\nWifiNetworkOutputContract"
     ];
 
-    WifiStatusRenderPresentationContract [
-      label="<<contract / trait>>\nWifiStatusRenderPresentationContract"
+    WifiStatusOutputContract [
+      label="<<contract / trait>>\nWifiStatusOutputContract"
     ];
 
-    WifiSecretRenderPresentationContract [
-      label="<<contract / trait>>\nWifiSecretRenderPresentationContract"
+    WifiSecretOutputContract [
+      label="<<contract / trait>>\nWifiSecretOutputContract"
     ];
 
-    WifiMessageRenderPresentationContract [
-      label="<<contract / trait>>\nWifiMessageRenderPresentationContract"
+    WifiMessageOutputContract [
+      label="<<contract / trait>>\nWifiMessageOutputContract"
     ];
   }
 
@@ -79,46 +79,46 @@ digraph WifiComponentDiagram {
   }
 
   subgraph cluster_system_wifi_contracts {
-    label="System WiFi Contracts";
+    label="WiFi Contracts";
     color="#8c959f";
     fontname="Inter";
     fontsize=14;
     style="rounded";
 
-    WifiScanSystemWifiContract [
-      label="<<contract / trait>>\nWifiScanSystemWifiContract"
+    WifiScanContract [
+      label="<<contract / trait>>\nWifiScanContract"
     ];
 
-    WifiStatusSystemWifiContract [
-      label="<<contract / trait>>\nWifiStatusSystemWifiContract"
+    WifiStatusContract [
+      label="<<contract / trait>>\nWifiStatusContract"
     ];
 
-    WifiConnectSystemWifiContract [
-      label="<<contract / trait>>\nWifiConnectSystemWifiContract"
+    WifiConnectContract [
+      label="<<contract / trait>>\nWifiConnectContract"
     ];
 
-    WifiSavedNetworkSystemWifiContract [
-      label="<<contract / trait>>\nWifiSavedNetworkSystemWifiContract"
+    WifiSavedNetworkContract [
+      label="<<contract / trait>>\nWifiSavedNetworkContract"
     ];
 
-    WifiSavedSecretSystemWifiContract [
-      label="<<contract / trait>>\nWifiSavedSecretSystemWifiContract"
+    WifiSavedSecretContract [
+      label="<<contract / trait>>\nWifiSavedSecretContract"
     ];
 
-    WifiForgetSystemWifiContract [
-      label="<<contract / trait>>\nWifiForgetSystemWifiContract"
+    WifiForgetContract [
+      label="<<contract / trait>>\nWifiForgetContract"
     ];
   }
 
-  subgraph cluster_agent_subjects {
-    label="Agent Subjects";
+  subgraph cluster_agents {
+    label="Agents";
     color="#8c959f";
     fontname="Inter";
     fontsize=14;
     style="rounded";
 
     WifiConnectionStatusShower [
-      label="<<agent_subject>>\nagent_subjects::wifi_connection_status_shower::show"
+      label="<<agent_subject>>\nagents::wifi_connection_status_shower::show"
       fillcolor="#ddf4ff"
     ];
   }
@@ -144,52 +144,52 @@ digraph WifiComponentDiagram {
   }
 
   subgraph cluster_presentation_providers {
-    label="Presentation Providers";
+    label="Output Providers";
     color="#8c959f";
     fontname="Inter";
     fontsize=14;
     style="rounded";
 
-    TerminalPresentationProvider [
-      label="<<provider>>\nTerminalPresentationProvider"
+    TerminalOutputProvider [
+      label="<<provider>>\nTerminalOutputProvider"
       fillcolor="#ddf4ff"
     ];
 
-    TuiPresentationProvider [
-      label="<<provider candidate>>\nTuiPresentationProvider"
+    TuiInputProvider [
+      label="<<provider candidate>>\nTuiInputProvider"
       fillcolor="#fff8c5"
     ];
 
-    WebPresentationProvider [
-      label="<<provider candidate>>\nWebPresentationProvider"
+    WebInputProvider [
+      label="<<provider candidate>>\nWebInputProvider"
       fillcolor="#fff8c5"
     ];
   }
 
   subgraph cluster_system_wifi_providers {
-    label="System WiFi Providers";
+    label="WiFi Providers";
     color="#8c959f";
     fontname="Inter";
     fontsize=14;
     style="rounded";
 
-    VoidSystemWifiProvider [
-      label="<<provider>>\nVoidSystemWifiProvider\n\nuses:\n- wpa_supplicant / wpa_cli\n- dhcpcd\n- iw / ip\n- runit / sv"
+    VoidWifiProvider [
+      label="<<provider>>\nVoidWifiProvider\n\nuses:\n- wpa_supplicant / wpa_cli\n- dhcpcd\n- iw / ip\n- runit / sv"
       fillcolor="#ddf4ff"
     ];
 
-    WindowsSystemWifiProvider [
-      label="<<provider candidate>>\nWindowsSystemWifiProvider"
+    WindowsWifiProvider [
+      label="<<provider candidate>>\nWindowsWifiProvider"
       fillcolor="#fff8c5"
     ];
 
-    NetworkManagerSystemWifiProvider [
-      label="<<provider candidate>>\nNetworkManagerSystemWifiProvider"
+    NetworkManagerWifiProvider [
+      label="<<provider candidate>>\nNetworkManagerWifiProvider"
       fillcolor="#fff8c5"
     ];
 
-    IwdSystemWifiProvider [
-      label="<<provider candidate>>\nIwdSystemWifiProvider"
+    IwdWifiProvider [
+      label="<<provider candidate>>\nIwdWifiProvider"
       fillcolor="#fff8c5"
     ];
   }
@@ -237,94 +237,94 @@ digraph WifiComponentDiagram {
     ];
   }
 
-  TerminalPresentationProvider -> WifiActionInputPresentationContract [
+  TerminalInputProvider -> WifiActionSelectionInputContract [
     label="implements"
   ];
 
-  EvoWifiCompositionRoot -> VoidSystemWifiProvider [
+  EvoWifiCompositionRoot -> VoidWifiProvider [
     label="creates"
   ];
 
-  EvoWifiCompositionRoot -> TerminalPresentationProvider [
+  EvoWifiCompositionRoot -> TerminalOutputProvider [
     label="creates"
   ];
 
   EvoWifiCompositionRoot -> WifiConnectionStatusShower [
     label="invokes"
   ];
-  TerminalPresentationProvider -> WifiNetworkSelectionInputPresentationContract [
+  TerminalInputProvider -> WifiNetworkSelectionInputContract [
     label="implements"
   ];
-  TerminalPresentationProvider -> WifiPasswordInputPresentationContract [
+  TerminalInputProvider -> WifiPasswordInputContract [
     label="implements"
   ];
-  TerminalPresentationProvider -> WifiNetworkRenderPresentationContract [
+  TerminalOutputProvider -> WifiNetworkOutputContract [
     label="implements"
   ];
-  TerminalPresentationProvider -> WifiStatusRenderPresentationContract [
+  TerminalOutputProvider -> WifiStatusOutputContract [
     label="implements"
   ];
-  TerminalPresentationProvider -> WifiSecretRenderPresentationContract [
+  TerminalOutputProvider -> WifiSecretOutputContract [
     label="implements"
   ];
-  TerminalPresentationProvider -> WifiMessageRenderPresentationContract [
-    label="implements"
-  ];
-
-  TuiPresentationProvider -> WifiActionInputPresentationContract [
-    label="may implement",
-    style=dashed
-  ];
-  WebPresentationProvider -> WifiActionInputPresentationContract [
-    label="may implement",
-    style=dashed
-  ];
-
-  VoidSystemWifiProvider -> WifiScanSystemWifiContract [
-    label="implements"
-  ];
-  VoidSystemWifiProvider -> WifiStatusSystemWifiContract [
-    label="implements"
-  ];
-  VoidSystemWifiProvider -> WifiConnectSystemWifiContract [
-    label="implements"
-  ];
-  VoidSystemWifiProvider -> WifiSavedNetworkSystemWifiContract [
-    label="implements"
-  ];
-  VoidSystemWifiProvider -> WifiSavedSecretSystemWifiContract [
-    label="implements"
-  ];
-  VoidSystemWifiProvider -> WifiForgetSystemWifiContract [
+  TerminalOutputProvider -> WifiMessageOutputContract [
     label="implements"
   ];
 
-  WindowsSystemWifiProvider -> WifiScanSystemWifiContract [
+  TuiInputProvider -> WifiActionSelectionInputContract [
     label="may implement",
     style=dashed
   ];
-  NetworkManagerSystemWifiProvider -> WifiScanSystemWifiContract [
-    label="may implement",
-    style=dashed
-  ];
-  IwdSystemWifiProvider -> WifiScanSystemWifiContract [
+  WebInputProvider -> WifiActionSelectionInputContract [
     label="may implement",
     style=dashed
   ];
 
-  VoidSystemWifiProvider -> WpaCli [
+  VoidWifiProvider -> WifiScanContract [
+    label="implements"
+  ];
+  VoidWifiProvider -> WifiStatusContract [
+    label="implements"
+  ];
+  VoidWifiProvider -> WifiConnectContract [
+    label="implements"
+  ];
+  VoidWifiProvider -> WifiSavedNetworkContract [
+    label="implements"
+  ];
+  VoidWifiProvider -> WifiSavedSecretContract [
+    label="implements"
+  ];
+  VoidWifiProvider -> WifiForgetContract [
+    label="implements"
+  ];
+
+  WindowsWifiProvider -> WifiScanContract [
+    label="may implement",
+    style=dashed
+  ];
+  NetworkManagerWifiProvider -> WifiScanContract [
+    label="may implement",
+    style=dashed
+  ];
+  IwdWifiProvider -> WifiScanContract [
+    label="may implement",
+    style=dashed
+  ];
+
+  VoidWifiProvider -> WpaCli [
     label="uses"
   ];
-  VoidSystemWifiProvider -> Dhcpcd [
+  VoidWifiProvider -> Dhcpcd [
     label="uses"
   ];
-  VoidSystemWifiProvider -> Iw [
+  VoidWifiProvider -> Iw [
     label="uses"
   ];
-  VoidSystemWifiProvider -> Ip [
+  VoidWifiProvider -> Ip [
     label="uses"
   ];
-  VoidSystemWifiProvider -> Sv [
+  VoidWifiProvider -> Sv [
     label="uses"
   ];
 
@@ -348,24 +348,24 @@ digraph WifiComponentDiagram {
   ];
 
   WifiInterfaceResolver -> WifiConnectionStatusResolver [
-    label="WifiInterfaceView<'a>"
+    label="WifiInterfaceBorrowed<'a>"
   ];
 
   WifiConnectionStatusResolver -> WifiConnectionStatusOutputResolver [
-    label="WifiConnectionStatusView<'a>"
+    label="WifiConnectionStatusBorrowed<'a>"
   ];
 
-  WifiInterfaceResolver -> WifiStatusSystemWifiContract [
+  WifiInterfaceResolver -> WifiStatusContract [
     label="uses"
     style=dashed
   ];
 
-  WifiConnectionStatusResolver -> WifiStatusSystemWifiContract [
+  WifiConnectionStatusResolver -> WifiStatusContract [
     label="uses"
     style=dashed
   ];
 
-  WifiConnectionStatusOutputResolver -> WifiStatusRenderPresentationContract [
+  WifiConnectionStatusOutputResolver -> WifiStatusOutputContract [
     label="uses"
     style=dashed
   ];

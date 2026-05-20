@@ -1,5 +1,5 @@
-use crate::borrowed_data::WifiNetworkSelectionInputView;
+use crate::borrowed::WifiNetworkSelectionInputBorrowed;
 
 pub trait WifiNetworkSelectionInputContract {
-    fn provide(&self) -> Option<WifiNetworkSelectionInputView<'_>>;
+    fn provide(&self) -> Option<WifiNetworkSelectionInputBorrowed<'_>>;
 }

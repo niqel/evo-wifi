@@ -1,5 +1,5 @@
-use crate::borrowed_data::WifiPasswordInputView;
+use crate::borrowed::WifiPasswordInputBorrowed;
 
 pub trait WifiPasswordInputContract {
-    fn provide(&self) -> Option<WifiPasswordInputView<'_>>;
+    fn provide(&self) -> Option<WifiPasswordInputBorrowed<'_>>;
 }

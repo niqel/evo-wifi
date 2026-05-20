@@ -1,5 +1,5 @@
-use crate::borrowed_data::WifiConnectionStatusView;
+use crate::borrowed::WifiConnectionStatusBorrowed;
 
 pub trait WifiStatusOutputContract {
-    fn provide(&self, status: WifiConnectionStatusView<'_>);
+    fn provide(&self, status: WifiConnectionStatusBorrowed<'_>);
 }

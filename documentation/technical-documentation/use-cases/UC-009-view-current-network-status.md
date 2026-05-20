@@ -30,7 +30,7 @@ The user requests the current network status from the application.
 2. The agent subject starts the status showing flow.
 3. The WiFi interface resolver resolves a usable WiFi interface.
 4. The WiFi connection status resolver resolves the current connection status for that interface.
-5. The WiFi connection status output resolver sends the borrowed status view to the output contract.
+5. The WiFi connection status output resolver sends the borrowed status data to the output contract.
 6. The output provider provides the current network status output.
 
 ## Alternative Flows
@@ -52,14 +52,14 @@ The user requests the current network status from the application.
 
 1. The WiFi interface is resolved.
 2. The WiFi connection status resolver resolves a disconnected status.
-3. The output resolver sends the borrowed status view to the output contract.
+3. The output resolver sends the borrowed status data to the output contract.
 4. The output provider provides output indicating that there is no active WiFi connection.
 
 ## Borrowed Data
 
-- `WifiInterfaceView<'a>`
+- `WifiInterfaceBorrowed<'a>`
   - `name: &'a str`
-- `WifiConnectionStatusView<'a>`
+- `WifiConnectionStatusBorrowed<'a>`
   - `ssid: &'a str`
   - `status: &'a str`
 
@@ -67,12 +67,12 @@ The user requests the current network status from the application.
 
 ### Agent Subject
 
-- `agent_subjects::wifi_connection_status_shower::show`
+- `agents::wifi_connection_status_shower::show`
 
 ### Resolver Pipeline
 
 ```text
-agent_subjects::wifi_connection_status_shower::show
+agents::wifi_connection_status_shower::show
   -> wifi_interface_resolver::resolve
   -> wifi_connection_status_resolver::resolve
   -> wifi_connection_status_output_resolver::resolve
@@ -110,8 +110,8 @@ agent_subjects::wifi_connection_status_shower::show
 
 ## Development Task Candidates
 
-- Define `WifiInterfaceView<'a>`.
-- Define `WifiConnectionStatusView<'a>`.
+- Define `WifiInterfaceBorrowed<'a>`.
+- Define `WifiConnectionStatusBorrowed<'a>`.
 - Define `WifiInterfaceContract`.
 - Define `WifiStatusContract`.
 - Define `WifiStatusOutputContract`.
@@ -120,7 +120,7 @@ agent_subjects::wifi_connection_status_shower::show
 - Implement `wifi_interface_resolver::resolve`.
 - Implement `wifi_connection_status_resolver::resolve`.
 - Implement `wifi_connection_status_output_resolver::resolve`.
-- Implement `agent_subjects::wifi_connection_status_shower::show`.
+- Implement `agents::wifi_connection_status_shower::show`.
 - Add tests for resolved, disconnected, unresolved interface, and unresolved status paths.
 
 ## Acceptance Notes

@@ -32,8 +32,8 @@ digraph WifiScanBorrowedDataModel {
   network_view [
     label=<
       <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#2f3437">
-        <TR><TD><FONT POINT-SIZE="10">&lt;&lt;borrowed view&gt;&gt;</FONT></TD></TR>
-        <TR><TD><B>WifiNetworkView&lt;'a&gt;</B></TD></TR>
+        <TR><TD><FONT POINT-SIZE="10">&lt;&lt;borrowed&gt;&gt;</FONT></TD></TR>
+        <TR><TD><B>WifiNetworkBorrowed&lt;'a&gt;</B></TD></TR>
         <TR><TD ALIGN="LEFT">bssid: &amp;'a str</TD></TR>
         <TR><TD ALIGN="LEFT">frequency: &amp;'a str</TD></TR>
         <TR><TD ALIGN="LEFT">signal_dbm: &amp;'a str</TD></TR>
@@ -46,8 +46,8 @@ digraph WifiScanBorrowedDataModel {
   interface_view [
     label=<
       <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#2f3437">
-        <TR><TD><FONT POINT-SIZE="10">&lt;&lt;borrowed interface view&gt;&gt;</FONT></TD></TR>
-        <TR><TD><B>WifiInterfaceView&lt;'a&gt;</B></TD></TR>
+        <TR><TD><FONT POINT-SIZE="10">&lt;&lt;borrowed interface&gt;&gt;</FONT></TD></TR>
+        <TR><TD><B>WifiInterfaceBorrowed&lt;'a&gt;</B></TD></TR>
         <TR><TD ALIGN="LEFT">name: &amp;'a str</TD></TR>
       </TABLE>
     >
@@ -56,8 +56,8 @@ digraph WifiScanBorrowedDataModel {
   selection_input_view [
     label=<
       <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#2f3437">
-        <TR><TD><FONT POINT-SIZE="10">&lt;&lt;borrowed input view&gt;&gt;</FONT></TD></TR>
-        <TR><TD><B>WifiNetworkSelectionInputView&lt;'a&gt;</B></TD></TR>
+        <TR><TD><FONT POINT-SIZE="10">&lt;&lt;borrowed input&gt;&gt;</FONT></TD></TR>
+        <TR><TD><B>WifiNetworkSelectionInputBorrowed&lt;'a&gt;</B></TD></TR>
         <TR><TD ALIGN="LEFT">raw: &amp;'a str</TD></TR>
       </TABLE>
     >
@@ -66,8 +66,8 @@ digraph WifiScanBorrowedDataModel {
   action_selection_input_view [
     label=<
       <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#2f3437">
-        <TR><TD><FONT POINT-SIZE="10">&lt;&lt;borrowed action input view&gt;&gt;</FONT></TD></TR>
-        <TR><TD><B>WifiActionSelectionInputView&lt;'a&gt;</B></TD></TR>
+        <TR><TD><FONT POINT-SIZE="10">&lt;&lt;borrowed action input&gt;&gt;</FONT></TD></TR>
+        <TR><TD><B>WifiActionSelectionInputBorrowed&lt;'a&gt;</B></TD></TR>
         <TR><TD ALIGN="LEFT">raw: &amp;'a str</TD></TR>
       </TABLE>
     >
@@ -76,8 +76,8 @@ digraph WifiScanBorrowedDataModel {
   status_view [
     label=<
       <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#2f3437">
-        <TR><TD><FONT POINT-SIZE="10">&lt;&lt;borrowed status view&gt;&gt;</FONT></TD></TR>
-        <TR><TD><B>WifiConnectionStatusView&lt;'a&gt;</B></TD></TR>
+        <TR><TD><FONT POINT-SIZE="10">&lt;&lt;borrowed status&gt;&gt;</FONT></TD></TR>
+        <TR><TD><B>WifiConnectionStatusBorrowed&lt;'a&gt;</B></TD></TR>
         <TR><TD ALIGN="LEFT">ssid: &amp;'a str</TD></TR>
         <TR><TD ALIGN="LEFT">status: &amp;'a str</TD></TR>
       </TABLE>
@@ -87,8 +87,8 @@ digraph WifiScanBorrowedDataModel {
   password_input_view [
     label=<
       <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#2f3437">
-        <TR><TD><FONT POINT-SIZE="10">&lt;&lt;borrowed secret input view&gt;&gt;</FONT></TD></TR>
-        <TR><TD><B>WifiPasswordInputView&lt;'a&gt;</B></TD></TR>
+        <TR><TD><FONT POINT-SIZE="10">&lt;&lt;borrowed secret input&gt;&gt;</FONT></TD></TR>
+        <TR><TD><B>WifiPasswordInputBorrowed&lt;'a&gt;</B></TD></TR>
         <TR><TD ALIGN="LEFT">raw: &amp;'a str</TD></TR>
       </TABLE>
     >
@@ -97,8 +97,8 @@ digraph WifiScanBorrowedDataModel {
   saved_network_view [
     label=<
       <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#2f3437">
-        <TR><TD><FONT POINT-SIZE="10">&lt;&lt;borrowed saved network view&gt;&gt;</FONT></TD></TR>
-        <TR><TD><B>WifiSavedNetworkView&lt;'a&gt;</B></TD></TR>
+        <TR><TD><FONT POINT-SIZE="10">&lt;&lt;borrowed saved network&gt;&gt;</FONT></TD></TR>
+        <TR><TD><B>WifiSavedNetworkBorrowed&lt;'a&gt;</B></TD></TR>
         <TR><TD ALIGN="LEFT">ssid: &amp;'a str</TD></TR>
         <TR><TD ALIGN="LEFT">network_id: &amp;'a str</TD></TR>
       </TABLE>
@@ -108,8 +108,8 @@ digraph WifiScanBorrowedDataModel {
   saved_secret_view [
     label=<
       <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#2f3437">
-        <TR><TD><FONT POINT-SIZE="10">&lt;&lt;borrowed saved secret view&gt;&gt;</FONT></TD></TR>
-        <TR><TD><B>WifiSavedSecretView&lt;'a&gt;</B></TD></TR>
+        <TR><TD><FONT POINT-SIZE="10">&lt;&lt;borrowed saved secret&gt;&gt;</FONT></TD></TR>
+        <TR><TD><B>WifiSavedSecretBorrowed&lt;'a&gt;</B></TD></TR>
         <TR><TD ALIGN="LEFT">ssid: &amp;'a str</TD></TR>
         <TR><TD ALIGN="LEFT">network_id: &amp;'a str</TD></TR>
         <TR><TD ALIGN="LEFT">secret: &amp;'a str</TD></TR>

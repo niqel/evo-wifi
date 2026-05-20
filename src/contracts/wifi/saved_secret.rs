@@ -1,5 +1,6 @@
-use crate::borrowed_data::{WifiSavedNetworkView, WifiSavedSecretView};
+use crate::borrowed::{WifiSavedNetworkBorrowed, WifiSavedSecretBorrowed};
 
 pub trait WifiSavedSecretContract {
-    fn provide(&self, network: WifiSavedNetworkView<'_>) -> Option<WifiSavedSecretView<'_>>;
+    fn provide(&self, network: WifiSavedNetworkBorrowed<'_>)
+    -> Option<WifiSavedSecretBorrowed<'_>>;
 }

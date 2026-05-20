@@ -1,11 +1,11 @@
-use crate::borrowed_data::{
-    WifiConnectionStatusView, WifiNetworkSelectionInputView, WifiPasswordInputView,
+use crate::borrowed::{
+    WifiConnectionStatusBorrowed, WifiNetworkSelectionInputBorrowed, WifiPasswordInputBorrowed,
 };
 
 pub trait WifiConnectContract {
     fn provide(
         &self,
-        selection: WifiNetworkSelectionInputView<'_>,
-        password: Option<WifiPasswordInputView<'_>>,
-    ) -> Option<WifiConnectionStatusView<'_>>;
+        selection: WifiNetworkSelectionInputBorrowed<'_>,
+        password: Option<WifiPasswordInputBorrowed<'_>>,
+    ) -> Option<WifiConnectionStatusBorrowed<'_>>;
 }

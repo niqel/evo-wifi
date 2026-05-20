@@ -1,5 +1,5 @@
-use crate::borrowed_data::WifiInterfaceView;
+use crate::borrowed::WifiInterfaceBorrowed;
 
 pub trait WifiInterfaceContract {
-    fn provide(&self) -> Option<WifiInterfaceView<'_>>;
+    fn provide(&self) -> Option<WifiInterfaceBorrowed<'_>>;
 }

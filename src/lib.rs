@@ -1,6 +1,5 @@
-pub mod agent_subjects;
-pub mod borrowed_data;
-pub mod composition;
+pub mod agents;
+pub mod borrowed;
 pub mod contracts;
 pub mod providers;
 pub mod resolvers;

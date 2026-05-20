@@ -1,5 +1,5 @@
 use crate::borrowed::{
-    WifiConnectionStatusBorrowed, WifiInterfaceBorrowed, WifiSavedNetworkBorrowed,
+    WifiInterfaceBorrowed, WifiNetworkSelectionInputBorrowed, WifiSavedNetworkBorrowed,
 };
 use crate::contracts::WifiSavedNetworkContract;
 use std::process::Command;
@@ -11,10 +11,12 @@ impl WifiSavedNetworkContract for VoidWifiSavedNetworkProvider {
     fn provide<R>(
         &self,
         interface: WifiInterfaceBorrowed<'_>,
-        status: WifiConnectionStatusBorrowed<'_>,
+        selection: WifiNetworkSelectionInputBorrowed<'_>,
         next: impl FnOnce(WifiSavedNetworkBorrowed<'_>) -> R,
     ) -> Option<R> {
-        if status.ssid.is_empty() {
+        let ssid = selection.raw.trim();
+
+        if ssid.is_empty() {
             return None;
         }
 
@@ -30,7 +32,7 @@ impl WifiSavedNetworkContract for VoidWifiSavedNetworkProvider {
         }
 
         let raw = String::from_utf8(output.stdout).ok()?;
-        let network = saved_network_from_wpa_cli_list_networks(&raw, status.ssid)?;
+        let network = saved_network_from_wpa_cli_list_networks(&raw, ssid)?;
 
         Some(next(network))
     }

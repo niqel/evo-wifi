@@ -1,15 +1,15 @@
 use crate::borrowed::{
-    WifiConnectionStatusBorrowed, WifiInterfaceBorrowed, WifiSavedNetworkBorrowed,
+    WifiInterfaceBorrowed, WifiNetworkSelectionInputBorrowed, WifiSavedNetworkBorrowed,
 };
 use crate::contracts::WifiSavedNetworkContract;
 
 pub fn resolve<R>(
     provider: &impl WifiSavedNetworkContract,
     interface: WifiInterfaceBorrowed<'_>,
-    status: WifiConnectionStatusBorrowed<'_>,
+    selection: WifiNetworkSelectionInputBorrowed<'_>,
     next: impl FnOnce(WifiSavedNetworkBorrowed<'_>) -> R,
 ) -> Option<R> {
-    provider.provide(interface, status, next)
+    provider.provide(interface, selection, next)
 }
 
 #[cfg(test)]
@@ -22,7 +22,7 @@ mod tests {
         fn provide<R>(
             &self,
             _interface: WifiInterfaceBorrowed<'_>,
-            _status: WifiConnectionStatusBorrowed<'_>,
+            _selection: WifiNetworkSelectionInputBorrowed<'_>,
             next: impl FnOnce(WifiSavedNetworkBorrowed<'_>) -> R,
         ) -> Option<R> {
             Some(next(WifiSavedNetworkBorrowed {
@@ -38,7 +38,7 @@ mod tests {
         fn provide<R>(
             &self,
             _interface: WifiInterfaceBorrowed<'_>,
-            _status: WifiConnectionStatusBorrowed<'_>,
+            _selection: WifiNetworkSelectionInputBorrowed<'_>,
             _next: impl FnOnce(WifiSavedNetworkBorrowed<'_>) -> R,
         ) -> Option<R> {
             None
@@ -49,12 +49,11 @@ mod tests {
     fn resolves_saved_network_from_provider() {
         let provider = ResolvedSavedNetworkProvider;
         let interface = WifiInterfaceBorrowed { name: "wlp2s0" };
-        let status = WifiConnectionStatusBorrowed {
-            ssid: "example-wifi",
-            status: "COMPLETED",
+        let selection = WifiNetworkSelectionInputBorrowed {
+            raw: "example-wifi",
         };
 
-        let result = resolve(&provider, interface, status, |network| {
+        let result = resolve(&provider, interface, selection, |network| {
             format!("{}:{}", network.network_id, network.ssid)
         });
 
@@ -65,12 +64,11 @@ mod tests {
     fn returns_none_when_provider_cannot_provide_saved_network() {
         let provider = UnresolvedSavedNetworkProvider;
         let interface = WifiInterfaceBorrowed { name: "wlp2s0" };
-        let status = WifiConnectionStatusBorrowed {
-            ssid: "example-wifi",
-            status: "COMPLETED",
+        let selection = WifiNetworkSelectionInputBorrowed {
+            raw: "example-wifi",
         };
 
-        let result = resolve(&provider, interface, status, |_network| "should not run");
+        let result = resolve(&provider, interface, selection, |_network| "should not run");
 
         assert_eq!(result, None);
     }

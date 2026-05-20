@@ -1,4 +1,5 @@
 pub mod wifi_already_connected_network_resolver;
+pub mod wifi_connect_resolver;
 pub mod wifi_connection_status_output_resolver;
 pub mod wifi_connection_status_resolver;
 pub mod wifi_interface_resolver;

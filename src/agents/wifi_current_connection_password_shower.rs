@@ -1,3 +1,4 @@
+use crate::borrowed::WifiNetworkSelectionInputBorrowed;
 use crate::contracts::{
     WifiInterfaceContract, WifiSavedNetworkContract, WifiSavedSecretContract,
     WifiSecretOutputContract, WifiStatusContract,
@@ -16,10 +17,12 @@ pub fn show(
 ) -> Option<()> {
     wifi_interface_resolver::resolve(interface_provider, |interface| {
         wifi_connection_status_resolver::resolve(status_provider, interface, |status| {
+            let selection = WifiNetworkSelectionInputBorrowed { raw: status.ssid };
+
             wifi_saved_network_resolver::resolve(
                 saved_network_provider,
                 interface,
-                status,
+                selection,
                 |network| {
                     wifi_saved_secret_resolver::resolve(
                         saved_secret_provider,

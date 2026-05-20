@@ -101,7 +101,7 @@ pub struct WifiConnectionStatusView<'a> {
 - No enum is introduced for status.
 - No owned `String` is introduced in these views.
 
-### CT-UC-009-003: Define System WiFi Contracts
+### CT-UC-009-003: Define WiFi Contracts
 
 **Type:** contract
 
@@ -109,8 +109,8 @@ pub struct WifiConnectionStatusView<'a> {
 
 **Work:**
 
-- Define `WifiInterfaceSystemWifiContract`.
-- Define `WifiStatusSystemWifiContract`.
+- Define `WifiInterfaceContract`.
+- Define `WifiStatusContract`.
 - Expose behavior needed to resolve:
   - WiFi interface
   - current WiFi status from an interface
@@ -122,15 +122,15 @@ pub struct WifiConnectionStatusView<'a> {
 - The contracts do not mention Void-specific commands in their public APIs.
 - Each contract exposes `provide`.
 
-### CT-UC-009-004: Define Presentation Render Contract
+### CT-UC-009-004: Define Output Contract
 
 **Type:** contract
 
-**Purpose:** Define the presentation-side output contract for providing the current WiFi status output.
+**Purpose:** Define the output contract for providing the current WiFi status output.
 
 **Work:**
 
-- Define `WifiStatusRenderPresentationContract`.
+- Define `WifiStatusOutputContract`.
 - Add behavior to provide output for:
   - connected status
   - disconnected status
@@ -143,16 +143,16 @@ pub struct WifiConnectionStatusView<'a> {
 - The contract receives borrowed data and does not own provider data unnecessarily.
 - The contract exposes `provide`.
 
-### CT-UC-009-005: Implement Void System WiFi Provider
+### CT-UC-009-005: Implement Void WiFi Provider
 
 **Type:** provider
 
-**Purpose:** Implement system WiFi access for Void Linux using existing base system tools.
+**Purpose:** Implement WiFi access for Void Linux using existing base system tools.
 
 **Work:**
 
-- Create `VoidSystemWifiProvider`.
-- Implement `WifiStatusSystemWifiContract`.
+- Create `VoidWifiProvider`.
+- Implement `WifiStatusContract`.
 - Use `wpa_cli interface_list` to resolve the WiFi interface.
 - Use `wpa_cli -i <iface> status` to resolve current status.
 - Avoid adding third-party crates at this stage.
@@ -163,7 +163,7 @@ pub struct WifiConnectionStatusView<'a> {
 - Provider does not leak command parsing details into resolvers.
 - Provider returns borrowed views backed by data it owns for the call lifetime, or exposes a safe temporary snapshot strategy if borrowing directly is not possible.
 
-### CT-UC-009-006: Implement Terminal Presentation Provider
+### CT-UC-009-006: Implement Terminal Output Provider
 
 **Type:** provider
 
@@ -171,8 +171,8 @@ pub struct WifiConnectionStatusView<'a> {
 
 **Work:**
 
-- Create `TerminalPresentationProvider`.
-- Implement `WifiStatusRenderPresentationContract`.
+- Create `TerminalOutputProvider`.
+- Implement `WifiStatusOutputContract`.
 - Provide terminal output clearly for:
   - connected with SSID
   - disconnected
@@ -181,7 +181,7 @@ pub struct WifiConnectionStatusView<'a> {
 
 **Done when:**
 
-- The output path works through the presentation contract.
+- The output path works through the output contract.
 - Rendering logic is not placed inside the agent subject.
 - The provider implementation exposes the contract behavior as `provide`.
 
@@ -194,12 +194,12 @@ pub struct WifiConnectionStatusView<'a> {
 **Work:**
 
 - Create `resolvers::wifi_interface_resolver::resolve`.
-- Accept the system WiFi contract.
+- Accept the WiFi contract.
 - Return `WifiInterfaceView<'a>` or an unresolved result.
 
 **Done when:**
 
-- The resolver does not instantiate `VoidSystemWifiProvider`.
+- The resolver does not instantiate `VoidWifiProvider`.
 - The resolver has a single public operation: `resolve`.
 
 ### CT-UC-009-008: Implement WiFi Connection Status Resolver
@@ -211,7 +211,7 @@ pub struct WifiConnectionStatusView<'a> {
 **Work:**
 
 - Create `resolvers::wifi_connection_status_resolver::resolve`.
-- Accept the system WiFi contract and `WifiInterfaceView<'a>`.
+- Accept the WiFi contract and `WifiInterfaceView<'a>`.
 - Return `WifiConnectionStatusView<'a>` or an unresolved result.
 
 **Done when:**
@@ -223,19 +223,19 @@ pub struct WifiConnectionStatusView<'a> {
 
 **Type:** resolver
 
-**Purpose:** Resolve the output path through the presentation contract.
+**Purpose:** Resolve the output path through the output contract.
 
 **Work:**
 
 - Create `resolvers::wifi_connection_status_output_resolver::resolve`.
-- Accept the presentation contract.
+- Accept the output contract.
 - Accept either resolved status or the unresolved path information.
-- Send the final output through `WifiStatusRenderPresentationContract`.
+- Send the final output through `WifiStatusOutputContract`.
 
 **Done when:**
 
 - The agent subject does not render directly.
-- Presentation output remains behind the contract.
+- Output remains behind the contract.
 - The resolver has a single public operation: `resolve`.
 
 ### CT-UC-009-010: Implement Agent Subject
@@ -268,8 +268,8 @@ pub struct WifiConnectionStatusView<'a> {
 **Work:**
 
 - Create `EvoWifiCompositionRoot`.
-- Instantiate `VoidSystemWifiProvider`.
-- Instantiate `TerminalPresentationProvider`.
+- Instantiate `VoidWifiProvider`.
+- Instantiate `TerminalOutputProvider`.
 - Invoke `agent_subjects::wifi_connection_status_shower::show`.
 
 **Done when:**
@@ -302,8 +302,8 @@ pub struct WifiConnectionStatusView<'a> {
 
 **Work:**
 
-- Add fake system WiFi contract implementation for tests.
-- Add fake presentation contract implementation for tests.
+- Add fake WiFi contract implementation for tests.
+- Add fake output contract implementation for tests.
 - Test:
   - connected status
   - disconnected status
@@ -342,7 +342,7 @@ pub struct WifiConnectionStatusView<'a> {
 - Showing saved passwords.
 - Forgetting saved networks.
 - TUI navigation.
-- Web or desktop presentation providers.
+- Web or desktop output providers.
 - Third-party crates unless the implementation proves they are necessary.
 
 ## Definition of Done
@@ -357,5 +357,5 @@ composition root -> agent subject -> resolvers -> contracts -> providers -> exte
 ```
 
 - No resolver or agent subject instantiates concrete providers.
-- No presentation logic exists inside the agent subject.
+- No output logic exists inside the agent subject.
 - No unnecessary package/DTO is introduced for borrowed data that can stay borrowed.

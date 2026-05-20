@@ -1,14 +1,15 @@
-pub mod presentation;
-pub mod system_wifi;
+pub mod inputs;
+pub mod outputs;
+pub mod wifi;
 
-pub use presentation::{
-    WifiActionInputPresentationContract, WifiMessageRenderPresentationContract,
-    WifiNetworkRenderPresentationContract, WifiNetworkSelectionInputPresentationContract,
-    WifiPasswordInputPresentationContract, WifiSecretRenderPresentationContract,
-    WifiStatusRenderPresentationContract,
+pub use inputs::{
+    WifiActionSelectionInputContract, WifiNetworkSelectionInputContract, WifiPasswordInputContract,
 };
-pub use system_wifi::{
-    WifiConnectSystemWifiContract, WifiForgetSystemWifiContract, WifiInterfaceSystemWifiContract,
-    WifiSavedNetworkSystemWifiContract, WifiSavedSecretSystemWifiContract,
-    WifiScanSystemWifiContract, WifiStatusSystemWifiContract,
+pub use outputs::{
+    WifiMessageOutputContract, WifiNetworkOutputContract, WifiSecretOutputContract,
+    WifiStatusOutputContract,
+};
+pub use wifi::{
+    WifiConnectContract, WifiForgetContract, WifiInterfaceContract, WifiSavedNetworkContract,
+    WifiSavedSecretContract, WifiScanContract, WifiStatusContract,
 };

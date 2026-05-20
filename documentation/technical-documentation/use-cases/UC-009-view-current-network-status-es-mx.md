@@ -86,20 +86,20 @@ agent_subjects::wifi_connection_status_shower::show
 
 ### Contratos WiFi del Sistema
 
-- `WifiInterfaceSystemWifiContract`
-- `WifiStatusSystemWifiContract`
+- `WifiInterfaceContract`
+- `WifiStatusContract`
 
 ### Provider WiFi del Sistema
 
-- `VoidSystemWifiProvider`
+- `VoidWifiProvider`
 
 ### Contrato de Presentacion
 
-- `WifiStatusRenderPresentationContract`
+- `WifiStatusOutputContract`
 
 ### Provider de Presentacion
 
-- `TerminalPresentationProvider`
+- `TerminalOutputProvider`
 
 ### Regla de Funcion en Contratos
 
@@ -112,11 +112,11 @@ agent_subjects::wifi_connection_status_shower::show
 
 - Definir `WifiInterfaceView<'a>`.
 - Definir `WifiConnectionStatusView<'a>`.
-- Definir `WifiInterfaceSystemWifiContract`.
-- Definir `WifiStatusSystemWifiContract`.
-- Definir `WifiStatusRenderPresentationContract`.
-- Implementar el comportamiento de estado en `VoidSystemWifiProvider`.
-- Implementar la provision de salida de estado en `TerminalPresentationProvider`.
+- Definir `WifiInterfaceContract`.
+- Definir `WifiStatusContract`.
+- Definir `WifiStatusOutputContract`.
+- Implementar el comportamiento de estado en `VoidWifiProvider`.
+- Implementar la provision de salida de estado en `TerminalOutputProvider`.
 - Implementar `wifi_interface_resolver::resolve`.
 - Implementar `wifi_connection_status_resolver::resolve`.
 - Implementar `wifi_connection_status_output_resolver::resolve`.

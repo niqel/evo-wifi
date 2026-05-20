@@ -1,5 +1,5 @@
 use crate::borrowed_data::WifiConnectionStatusView;
 
-pub trait WifiStatusRenderPresentationContract {
+pub trait WifiStatusOutputContract {
     fn provide(&self, status: WifiConnectionStatusView<'_>);
 }

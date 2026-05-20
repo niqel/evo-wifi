@@ -12,70 +12,76 @@ vars: {
   stroke: "#59636e"
 }
 
-presentation_contracts: {
-  label: "Presentation Contracts"
+input_contracts: {
+  label: "Input Contracts"
   style.stroke: ${stroke}
 
-  action_input: {
-    label: "<<contract / trait>>\nWifiActionInputPresentationContract"
+  action_selection: {
+    label: "<<contract / trait>>\nWifiActionSelectionInputContract"
     style.fill: ${contract-fill}
   }
-  network_selection_input: {
-    label: "<<contract / trait>>\nWifiNetworkSelectionInputPresentationContract"
+  network_selection: {
+    label: "<<contract / trait>>\nWifiNetworkSelectionInputContract"
     style.fill: ${contract-fill}
   }
-  password_input: {
-    label: "<<contract / trait>>\nWifiPasswordInputPresentationContract"
-    style.fill: ${contract-fill}
-  }
-  network_render: {
-    label: "<<contract / trait>>\nWifiNetworkRenderPresentationContract"
-    style.fill: ${contract-fill}
-  }
-  status_render: {
-    label: "<<contract / trait>>\nWifiStatusRenderPresentationContract"
-    style.fill: ${contract-fill}
-  }
-  secret_render: {
-    label: "<<contract / trait>>\nWifiSecretRenderPresentationContract"
-    style.fill: ${contract-fill}
-  }
-  message_render: {
-    label: "<<contract / trait>>\nWifiMessageRenderPresentationContract"
+  password: {
+    label: "<<contract / trait>>\nWifiPasswordInputContract"
     style.fill: ${contract-fill}
   }
 }
 
-system_wifi_contracts: {
-  label: "System WiFi Contracts"
+output_contracts: {
+  label: "Output Contracts"
   style.stroke: ${stroke}
 
-  scan: {
-    label: "<<contract / trait>>\nWifiScanSystemWifiContract"
-    style.fill: ${contract-fill}
-  }
-  interface: {
-    label: "<<contract / trait>>\nWifiInterfaceSystemWifiContract"
+  network: {
+    label: "<<contract / trait>>\nWifiNetworkOutputContract"
     style.fill: ${contract-fill}
   }
   status: {
-    label: "<<contract / trait>>\nWifiStatusSystemWifiContract"
+    label: "<<contract / trait>>\nWifiStatusOutputContract"
+    style.fill: ${contract-fill}
+  }
+  secret: {
+    label: "<<contract / trait>>\nWifiSecretOutputContract"
+    style.fill: ${contract-fill}
+  }
+  message: {
+    label: "<<contract / trait>>\nWifiMessageOutputContract"
+    style.fill: ${contract-fill}
+  }
+}
+
+wifi_contracts: {
+  label: "WiFi Contracts"
+  style.stroke: ${stroke}
+
+  scan: {
+    label: "<<contract / trait>>\nWifiScanContract"
+    style.fill: ${contract-fill}
+  }
+  interface: {
+    label: "<<contract / trait>>\nWifiInterfaceContract"
+    style.fill: ${contract-fill}
+  }
+  status: {
+    label: "<<contract / trait>>\nWifiStatusContract"
     style.fill: ${contract-fill}
   }
   connect: {
-    label: "<<contract / trait>>\nWifiConnectSystemWifiContract"
+    label: "<<contract / trait>>\nWifiConnectContract"
     style.fill: ${contract-fill}
   }
   saved_network: {
-    label: "<<contract / trait>>\nWifiSavedNetworkSystemWifiContract"
+    label: "<<contract / trait>>\nWifiSavedNetworkContract"
     style.fill: ${contract-fill}
   }
   saved_secret: {
-    label: "<<contract / trait>>\nWifiSavedSecretSystemWifiContract"
+    label: "<<contract / trait>>\nWifiSavedSecretContract"
     style.fill: ${contract-fill}
   }
   forget: {
-    label: "<<contract / trait>>\nWifiForgetSystemWifiContract"
+    label: "<<contract / trait>>\nWifiForgetContract"
     style.fill: ${contract-fill}
   }
 }
@@ -124,42 +130,60 @@ resolvers: {
   }
 }
 
-presentation_providers: {
-  label: "Presentation Providers"
+input_providers: {
+  label: "Input Providers"
   style.stroke: ${stroke}
 
   terminal: {
-    label: "<<provider>>\nTerminalPresentationProvider"
+    label: "<<provider>>\nTerminalInputProvider"
     style.fill: ${provider-fill}
   }
   tui: {
-    label: "<<provider candidate>>\nTuiPresentationProvider"
+    label: "<<provider candidate>>\nTuiInputProvider"
     style.fill: ${candidate-fill}
   }
   web: {
-    label: "<<provider candidate>>\nWebPresentationProvider"
+    label: "<<provider candidate>>\nWebInputProvider"
     style.fill: ${candidate-fill}
   }
 }
 
-system_wifi_providers: {
-  label: "System WiFi Providers"
+output_providers: {
+  label: "Output Providers"
+  style.stroke: ${stroke}
+
+  terminal: {
+    label: "<<provider>>\nTerminalOutputProvider"
+    style.fill: ${provider-fill}
+  }
+  tui: {
+    label: "<<provider candidate>>\nTuiOutputProvider"
+    style.fill: ${candidate-fill}
+  }
+  web: {
+    label: "<<provider candidate>>\nWebOutputProvider"
+    style.fill: ${candidate-fill}
+  }
+}
+
+wifi_providers: {
+  label: "WiFi Providers"
   style.stroke: ${stroke}
 
   void: {
-    label: "<<provider>>\nVoidSystemWifiProvider\n\nuses:\n- wpa_supplicant / wpa_cli\n- dhcpcd\n- iw / ip\n- runit / sv"
+    label: "<<provider>>\nVoidWifiProvider\n\nuses:\n- wpa_supplicant / wpa_cli\n- dhcpcd\n- iw / ip\n- runit / sv"
     style.fill: ${provider-fill}
   }
   windows: {
-    label: "<<provider candidate>>\nWindowsSystemWifiProvider"
+    label: "<<provider candidate>>\nWindowsWifiProvider"
     style.fill: ${candidate-fill}
   }
   network_manager: {
-    label: "<<provider candidate>>\nNetworkManagerSystemWifiProvider"
+    label: "<<provider candidate>>\nNetworkManagerWifiProvider"
     style.fill: ${candidate-fill}
   }
   iwd: {
-    label: "<<provider candidate>>\nIwdSystemWifiProvider"
+    label: "<<provider candidate>>\nIwdWifiProvider"
     style.fill: ${candidate-fill}
   }
 }
@@ -198,51 +222,59 @@ void_external_components: {
   }
 }
 
-runtime_assembly.composition_root -> system_wifi_providers.void: creates
-runtime_assembly.composition_root -> presentation_providers.terminal: creates
+runtime_assembly.composition_root -> wifi_providers.void: creates
+runtime_assembly.composition_root -> input_providers.terminal: creates
+runtime_assembly.composition_root -> output_providers.terminal: creates
 runtime_assembly.composition_root -> agent_subjects.wifi_connection_status_shower: invokes
 runtime_assembly.composition_root -> contract_function_rule: follows {
   style.stroke-dash: 4
 }
 
-presentation_providers.terminal -> presentation_contracts.action_input: implements
-presentation_providers.terminal -> presentation_contracts.network_selection_input: implements
-presentation_providers.terminal -> presentation_contracts.password_input: implements
-presentation_providers.terminal -> presentation_contracts.network_render: implements
-presentation_providers.terminal -> presentation_contracts.status_render: implements
-presentation_providers.terminal -> presentation_contracts.secret_render: implements
-presentation_providers.terminal -> presentation_contracts.message_render: implements
+input_providers.terminal -> input_contracts.action_selection: implements
+input_providers.terminal -> input_contracts.network_selection: implements
+input_providers.terminal -> input_contracts.password: implements
 
-presentation_providers.tui -> presentation_contracts.action_input: may implement {
-  style.stroke-dash: 4
-}
-presentation_providers.web -> presentation_contracts.action_input: may implement {
-  style.stroke-dash: 4
-}
+output_providers.terminal -> output_contracts.network: implements
+output_providers.terminal -> output_contracts.status: implements
+output_providers.terminal -> output_contracts.secret: implements
+output_providers.terminal -> output_contracts.message: implements
 
-system_wifi_providers.void -> system_wifi_contracts.scan: implements
-system_wifi_providers.void -> system_wifi_contracts.interface: implements
-system_wifi_providers.void -> system_wifi_contracts.status: implements
-system_wifi_providers.void -> system_wifi_contracts.connect: implements
-system_wifi_providers.void -> system_wifi_contracts.saved_network: implements
-system_wifi_providers.void -> system_wifi_contracts.saved_secret: implements
-system_wifi_providers.void -> system_wifi_contracts.forget: implements
-
-system_wifi_providers.windows -> system_wifi_contracts.scan: may implement {
+input_providers.tui -> input_contracts.action_selection: may implement {
   style.stroke-dash: 4
 }
-system_wifi_providers.network_manager -> system_wifi_contracts.scan: may implement {
+input_providers.web -> input_contracts.action_selection: may implement {
   style.stroke-dash: 4
 }
-system_wifi_providers.iwd -> system_wifi_contracts.scan: may implement {
+output_providers.tui -> output_contracts.status: may implement {
+  style.stroke-dash: 4
+}
+output_providers.web -> output_contracts.status: may implement {
   style.stroke-dash: 4
 }
 
-system_wifi_providers.void -> void_external_components.wpa_cli: uses
-system_wifi_providers.void -> void_external_components.dhcpcd: uses
-system_wifi_providers.void -> void_external_components.iw: uses
-system_wifi_providers.void -> void_external_components.ip: uses
-system_wifi_providers.void -> void_external_components.sv: uses
+wifi_providers.void -> wifi_contracts.scan: implements
+wifi_providers.void -> wifi_contracts.interface: implements
+wifi_providers.void -> wifi_contracts.status: implements
+wifi_providers.void -> wifi_contracts.connect: implements
+wifi_providers.void -> wifi_contracts.saved_network: implements
+wifi_providers.void -> wifi_contracts.saved_secret: implements
+wifi_providers.void -> wifi_contracts.forget: implements
+
+wifi_providers.windows -> wifi_contracts.scan: may implement {
+  style.stroke-dash: 4
+}
+wifi_providers.network_manager -> wifi_contracts.scan: may implement {
+  style.stroke-dash: 4
+}
+wifi_providers.iwd -> wifi_contracts.scan: may implement {
+  style.stroke-dash: 4
+}
+
+wifi_providers.void -> void_external_components.wpa_cli: uses
+wifi_providers.void -> void_external_components.dhcpcd: uses
+wifi_providers.void -> void_external_components.iw: uses
+wifi_providers.void -> void_external_components.ip: uses
+wifi_providers.void -> void_external_components.sv: uses
 
 void_external_components.wpa_cli -> void_external_components.wpa_supplicant: controls
 void_external_components.sv -> void_external_components.runit: talks to
@@ -257,12 +289,12 @@ agent_subjects.wifi_connection_status_shower -> resolvers.wifi_interface: "pipel
 resolvers.wifi_interface -> resolvers.wifi_connection_status: "WifiInterfaceView<'a>"
 resolvers.wifi_connection_status -> resolvers.wifi_connection_status_output: "WifiConnectionStatusView<'a>"
 
-resolvers.wifi_interface -> system_wifi_contracts.interface: uses {
+resolvers.wifi_interface -> wifi_contracts.interface: uses {
   style.stroke-dash: 4
 }
-resolvers.wifi_connection_status -> system_wifi_contracts.status: uses {
+resolvers.wifi_connection_status -> wifi_contracts.status: uses {
   style.stroke-dash: 4
 }
-resolvers.wifi_connection_status_output -> presentation_contracts.status_render: uses {
+resolvers.wifi_connection_status_output -> output_contracts.status: uses {
   style.stroke-dash: 4
 }

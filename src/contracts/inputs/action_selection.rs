@@ -1,5 +1,5 @@
 use crate::borrowed_data::WifiActionSelectionInputView;
 
-pub trait WifiActionInputPresentationContract {
+pub trait WifiActionSelectionInputContract {
     fn provide(&self) -> Option<WifiActionSelectionInputView<'_>>;
 }

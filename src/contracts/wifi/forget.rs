@@ -1,5 +1,5 @@
 use crate::borrowed_data::{WifiConnectionStatusView, WifiSavedNetworkView};
 
-pub trait WifiForgetSystemWifiContract {
+pub trait WifiForgetContract {
     fn provide(&self, network: WifiSavedNetworkView<'_>) -> Option<WifiConnectionStatusView<'_>>;
 }

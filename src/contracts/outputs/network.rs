@@ -1,5 +1,5 @@
 use crate::borrowed_data::WifiNetworkView;
 
-pub trait WifiNetworkRenderPresentationContract {
+pub trait WifiNetworkOutputContract {
     fn provide(&self, networks: &[WifiNetworkView<'_>]);
 }

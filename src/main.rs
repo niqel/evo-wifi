@@ -47,6 +47,19 @@ fn main() {
 
             command.execute();
         }
+        Some("forget") => {
+            let command = evo_wifi::commands::WifiSavedNetworkForgetCommand::new(
+                evo_wifi::providers::inputs::terminal::TerminalNetworkSelectionInputProvider::new(
+                    selection.as_deref(),
+                ),
+                evo_wifi::providers::wifi::void::VoidWifiInterfaceProvider,
+                evo_wifi::providers::wifi::void::VoidWifiSavedNetworkProvider,
+                evo_wifi::providers::wifi::void::VoidWifiForgetProvider,
+                evo_wifi::providers::outputs::terminal::TerminalMessageOutputProvider,
+            );
+
+            command.execute();
+        }
         Some("disconnect") => {
             let command = evo_wifi::commands::WifiConnectionDisconnectCommand::new(
                 evo_wifi::providers::wifi::void::VoidWifiInterfaceProvider,
@@ -89,7 +102,7 @@ fn main() {
         }
         Some(_) => {
             eprintln!(
-                "usage: evo-wifi [status|disconnect|networks|scan|password|secret|already-connected <ssid>|connect <ssid>|connect-new <ssid> <password>]"
+                "usage: evo-wifi [status|forget <ssid>|disconnect|networks|scan|password|secret|already-connected <ssid>|connect <ssid>|connect-new <ssid> <password>]"
             );
         }
     }

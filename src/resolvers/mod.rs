@@ -4,6 +4,7 @@ pub mod wifi_connection_disconnect_resolver;
 pub mod wifi_connection_status_output_resolver;
 pub mod wifi_connection_status_resolver;
 pub mod wifi_disconnect_message_resolver;
+pub mod wifi_forget_resolver;
 pub mod wifi_interface_resolver;
 pub mod wifi_message_output_resolver;
 pub mod wifi_network_output_resolver;

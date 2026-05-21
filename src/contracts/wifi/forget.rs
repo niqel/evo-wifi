@@ -1,8 +1,10 @@
-use crate::borrowed::{WifiConnectionStatusBorrowed, WifiSavedNetworkBorrowed};
+use crate::borrowed::{WifiInterfaceBorrowed, WifiSavedNetworkBorrowed};
 
 pub trait WifiForgetContract {
-    fn provide(
+    fn provide<R>(
         &self,
+        interface: WifiInterfaceBorrowed<'_>,
         network: WifiSavedNetworkBorrowed<'_>,
-    ) -> Option<WifiConnectionStatusBorrowed<'_>>;
+        next: impl FnOnce() -> R,
+    ) -> Option<R>;
 }

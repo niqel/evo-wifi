@@ -20,12 +20,17 @@ pub fn forget(
                 saved_network_provider,
                 interface,
                 selection,
-                |network| match wifi_forget_resolver::resolve(forget_provider, interface, network, || {
-                    wifi_message_output_resolver::resolve(
-                        message_output_provider,
-                        "Forgot saved WiFi password",
-                    )
-                }) {
+                |network| match wifi_forget_resolver::resolve(
+                    forget_provider,
+                    interface,
+                    network,
+                    || {
+                        wifi_message_output_resolver::resolve(
+                            message_output_provider,
+                            "Forgot saved WiFi password",
+                        )
+                    },
+                ) {
                     Some(result) => Some(result),
                     None => Some(wifi_message_output_resolver::resolve(
                         message_output_provider,

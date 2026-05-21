@@ -47,6 +47,25 @@ fn main() {
 
             command.execute();
         }
+        Some("switch") => {
+            let command = evo_wifi::commands::WifiNetworkSwitchCommand::new(
+                evo_wifi::providers::inputs::terminal::TerminalNetworkSelectionInputProvider::new(
+                    selection.as_deref(),
+                ),
+                evo_wifi::providers::inputs::terminal::TerminalPasswordInputProvider::new(
+                    password.as_deref(),
+                ),
+                evo_wifi::providers::wifi::void::VoidWifiInterfaceProvider,
+                evo_wifi::providers::wifi::void::VoidWifiStatusProvider,
+                evo_wifi::providers::wifi::void::VoidWifiSavedNetworkProvider,
+                evo_wifi::providers::wifi::void::VoidWifiConnectProvider,
+                evo_wifi::providers::wifi::void::VoidWifiNewNetworkConnectProvider,
+                evo_wifi::providers::outputs::terminal::TerminalStatusOutputProvider,
+                evo_wifi::providers::outputs::terminal::TerminalMessageOutputProvider,
+            );
+
+            command.execute();
+        }
         Some("forget") => {
             let command = evo_wifi::commands::WifiSavedNetworkForgetCommand::new(
                 evo_wifi::providers::inputs::terminal::TerminalNetworkSelectionInputProvider::new(
@@ -102,7 +121,7 @@ fn main() {
         }
         Some(_) => {
             eprintln!(
-                "usage: evo-wifi [status|forget <ssid>|disconnect|networks|scan|password|secret|already-connected <ssid>|connect <ssid>|connect-new <ssid> <password>]"
+                "usage: evo-wifi [status|switch <ssid> [password]|forget <ssid>|disconnect|networks|scan|password|secret|already-connected <ssid>|connect <ssid>|connect-new <ssid> <password>]"
             );
         }
     }

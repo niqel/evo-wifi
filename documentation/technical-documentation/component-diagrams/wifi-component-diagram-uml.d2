@@ -72,6 +72,10 @@ wifi_contracts: {
     label: "<<contract / trait>>\nWifiConnectContract"
     style.fill: ${contract-fill}
   }
+  new_connect: {
+    label: "<<contract / trait>>\nWifiNewNetworkConnectContract"
+    style.fill: ${contract-fill}
+  }
   saved_network: {
     label: "<<contract / trait>>\nWifiSavedNetworkContract"
     style.fill: ${contract-fill}
@@ -114,6 +118,11 @@ agents: {
     label: "<<agent_subject>>\nagents::wifi_connection_status_shower::show"
     style.fill: ${agent-fill}
   }
+
+  wifi_network_switcher: {
+    label: "<<agent_subject>>\nagents::wifi_network_switcher::switch"
+    style.fill: ${agent-fill}
+  }
 }
 
 resolvers: {
@@ -126,6 +135,10 @@ resolvers: {
   }
   wifi_connection_status: {
     label: "<<resolver>>\nwifi_connection_status_resolver::resolve"
+    style.fill: ${resolver-fill}
+  }
+  wifi_network_switch: {
+    label: "<<resolver>>\nwifi_network_switch_resolver::resolve\n\nroutes:\n- already connected\n- saved network connect\n- password fallback\n- new connect"
     style.fill: ${resolver-fill}
   }
   wifi_connection_status_output: {
@@ -230,6 +243,7 @@ runtime_assembly.composition_root -> wifi_providers.void: creates
 runtime_assembly.composition_root -> input_providers.terminal: creates
 runtime_assembly.composition_root -> output_providers.terminal: creates
 runtime_assembly.composition_root -> agents.wifi_connection_status_shower: invokes
+runtime_assembly.composition_root -> agents.wifi_network_switcher: invokes
 runtime_assembly.composition_root -> contract_function_rule: follows {
   style.stroke-dash: 4
 }
@@ -260,6 +274,7 @@ wifi_providers.void -> wifi_contracts.scan: implements
 wifi_providers.void -> wifi_contracts.interface: implements
 wifi_providers.void -> wifi_contracts.status: implements
 wifi_providers.void -> wifi_contracts.connect: implements
+wifi_providers.void -> wifi_contracts.new_connect: implements
 wifi_providers.void -> wifi_contracts.saved_network: implements
 wifi_providers.void -> wifi_contracts.saved_secret: implements
 wifi_providers.void -> wifi_contracts.disconnect: implements
@@ -291,13 +306,34 @@ void_external_components.sv -> void_external_components.dhcpcd: manages {
 }
 
 agents.wifi_connection_status_shower -> resolvers.wifi_interface: "pipeline step 1"
+agents.wifi_network_switcher -> resolvers.wifi_interface: "pipeline step 1"
+agents.wifi_network_switcher -> resolvers.wifi_network_switch: "pipeline step 2"
 resolvers.wifi_interface -> resolvers.wifi_connection_status: "WifiInterfaceBorrowed<'a>"
+resolvers.wifi_network_switch -> resolvers.wifi_connection_status: "WifiConnectionStatusBorrowed<'a>"
 resolvers.wifi_connection_status -> resolvers.wifi_connection_status_output: "WifiConnectionStatusBorrowed<'a>"
 
 resolvers.wifi_interface -> wifi_contracts.interface: uses {
   style.stroke-dash: 4
 }
+resolvers.wifi_network_switch -> wifi_contracts.interface: uses {
+  style.stroke-dash: 4
+}
 resolvers.wifi_connection_status -> wifi_contracts.status: uses {
+  style.stroke-dash: 4
+}
+resolvers.wifi_network_switch -> wifi_contracts.status: uses {
+  style.stroke-dash: 4
+}
+resolvers.wifi_network_switch -> wifi_contracts.connect: uses {
+  style.stroke-dash: 4
+}
+resolvers.wifi_network_switch -> wifi_contracts.new_connect: uses {
+  style.stroke-dash: 4
+}
+resolvers.wifi_network_switch -> wifi_contracts.saved_network: uses {
+  style.stroke-dash: 4
+}
+resolvers.wifi_network_switch -> wifi_contracts.saved_secret: uses {
   style.stroke-dash: 4
 }
 resolvers.wifi_connection_status_output -> output_contracts.status: uses {

@@ -4,6 +4,7 @@ pub mod wifi_connection_disconnect_command;
 pub mod wifi_connection_status_show_command;
 pub mod wifi_current_connection_password_show_command;
 pub mod wifi_network_connect_command;
+pub mod wifi_network_switch_command;
 pub mod wifi_new_network_connect_command;
 pub mod wifi_saved_network_forget_command;
 
@@ -13,5 +14,6 @@ pub use wifi_connection_disconnect_command::WifiConnectionDisconnectCommand;
 pub use wifi_connection_status_show_command::WifiConnectionStatusShowCommand;
 pub use wifi_current_connection_password_show_command::WifiCurrentConnectionPasswordShowCommand;
 pub use wifi_network_connect_command::WifiNetworkConnectCommand;
+pub use wifi_network_switch_command::WifiNetworkSwitchCommand;
 pub use wifi_new_network_connect_command::WifiNewNetworkConnectCommand;
 pub use wifi_saved_network_forget_command::WifiSavedNetworkForgetCommand;

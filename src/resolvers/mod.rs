@@ -9,6 +9,7 @@ pub mod wifi_interface_resolver;
 pub mod wifi_message_output_resolver;
 pub mod wifi_network_output_resolver;
 pub mod wifi_network_selection_input_resolver;
+pub mod wifi_network_switch_resolver;
 pub mod wifi_new_network_connect_resolver;
 pub mod wifi_password_input_resolver;
 pub mod wifi_saved_network_resolver;

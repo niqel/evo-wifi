@@ -61,7 +61,7 @@ El usuario solicita el estado actual de la red desde la aplicacion.
   - `name: &'a str`
 - `WifiConnectionStatusBorrowed<'a>`
   - `ssid: &'a str`
-  - `status: &'a str`
+  - `state: WifiConnectionState`
 
 ## Mapeo Tecnico
 

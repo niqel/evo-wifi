@@ -14,7 +14,11 @@ impl WifiNetworkOutputContract for TerminalNetworkOutputProvider {
         for network in networks {
             println!(
                 "{}\t{}\t{}\t{}\t{}",
-                network.bssid, network.frequency, network.signal_dbm, network.flags, network.ssid
+                network.bssid,
+                network.frequency_mhz,
+                network.signal_dbm,
+                network.flags,
+                network.ssid
             );
         }
     }

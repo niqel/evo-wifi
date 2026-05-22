@@ -8,6 +8,7 @@ use crate::resolvers::{
     wifi_network_selection_input_resolver, wifi_network_switch_resolver,
 };
 
+#[allow(clippy::too_many_arguments)]
 pub fn switch(
     selection_provider: &impl WifiNetworkSelectionInputContract,
     password_provider: &impl WifiPasswordInputContract,

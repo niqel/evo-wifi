@@ -46,7 +46,7 @@ mod tests {
         let interface = WifiInterfaceBorrowed { name: "wlp2s0" };
         let network = WifiSavedNetworkBorrowed {
             ssid: "example-wifi",
-            network_id: "4",
+            network_id: 4,
         };
 
         let result = resolve(&provider, interface, network, || "forgotten");
@@ -60,7 +60,7 @@ mod tests {
         let interface = WifiInterfaceBorrowed { name: "wlp2s0" };
         let network = WifiSavedNetworkBorrowed {
             ssid: "example-wifi",
-            network_id: "4",
+            network_id: 4,
         };
 
         let result = resolve(&provider, interface, network, || "should not run");

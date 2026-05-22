@@ -18,10 +18,9 @@ pub fn disconnect(
     wifi_interface_resolver::resolve(interface_provider, |interface| {
         wifi_connection_status_resolver::resolve(status_provider, interface, |status| {
             if let Some(message) = wifi_disconnect_message_resolver::resolve(status) {
-                return Some(wifi_message_output_resolver::resolve(
-                    message_output_provider,
-                    message,
-                ));
+                wifi_message_output_resolver::resolve(message_output_provider, message);
+
+                return Some(());
             }
 
             wifi_connection_disconnect_resolver::resolve(

@@ -25,7 +25,7 @@ mod tests {
         ) -> Option<R> {
             Some(next(WifiSavedSecretBorrowed {
                 ssid: "example-wifi",
-                network_id: "4",
+                network_id: 4,
                 secret: "example-secret",
                 secret_kind: "password",
                 source: "wpa_cli",
@@ -52,7 +52,7 @@ mod tests {
         let interface = WifiInterfaceBorrowed { name: "wlp2s0" };
         let network = WifiSavedNetworkBorrowed {
             ssid: "example-wifi",
-            network_id: "4",
+            network_id: 4,
         };
 
         let result = resolve(&provider, interface, network, |secret| {
@@ -68,7 +68,7 @@ mod tests {
         let interface = WifiInterfaceBorrowed { name: "wlp2s0" };
         let network = WifiSavedNetworkBorrowed {
             ssid: "example-wifi",
-            network_id: "4",
+            network_id: 4,
         };
 
         let result = resolve(&provider, interface, network, |_secret| "should not run");

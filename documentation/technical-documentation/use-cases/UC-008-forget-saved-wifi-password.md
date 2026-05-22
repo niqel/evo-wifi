@@ -64,7 +64,7 @@ The user requests to forget a saved WiFi password for a specific WiFi network.
   - `raw: &'a str`
 - `WifiSavedNetworkBorrowed<'a>`
   - `ssid: &'a str`
-  - `network_id: &'a str`
+  - `network_id: u32`
 
 ## Technical Mapping
 
@@ -89,14 +89,14 @@ agents::wifi_saved_network_forgetter::forget
 - `wifi_saved_network_resolver::resolve`
 - `wifi_forget_resolver::resolve`
 
-### WiFi Contracts
+### Input And Action Contracts
 
 - `WifiNetworkSelectionInputContract`
 - `WifiInterfaceContract`
 - `WifiSavedNetworkContract`
 - `WifiForgetContract`
 
-### WiFi Providers
+### Input And Action Providers
 
 - `VoidWifiInterfaceProvider`
 - `VoidWifiSavedNetworkProvider`

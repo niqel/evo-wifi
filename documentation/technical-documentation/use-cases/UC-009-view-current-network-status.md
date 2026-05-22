@@ -61,7 +61,7 @@ The user requests the current network status from the application.
   - `name: &'a str`
 - `WifiConnectionStatusBorrowed<'a>`
   - `ssid: &'a str`
-  - `status: &'a str`
+  - `state: WifiConnectionState`
 
 ## Technical Mapping
 
@@ -84,12 +84,12 @@ agents::wifi_connection_status_shower::show
 - `wifi_connection_status_resolver::resolve`
 - `wifi_connection_status_output_resolver::resolve`
 
-### WiFi Contracts
+### Input And Action Contracts
 
 - `WifiInterfaceContract`
 - `WifiStatusContract`
 
-### WiFi Providers
+### Input And Action Providers
 
 - `VoidWifiInterfaceProvider`
 - `VoidWifiStatusProvider`

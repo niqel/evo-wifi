@@ -14,6 +14,8 @@ pub fn resolve<R>(
 
 #[cfg(test)]
 mod tests {
+    use crate::borrowed::WifiConnectionState;
+
     use super::*;
 
     struct ResolvedConnectProvider;
@@ -27,7 +29,7 @@ mod tests {
         ) -> Option<R> {
             Some(next(WifiConnectionStatusBorrowed {
                 ssid: network.ssid,
-                status: "COMPLETED",
+                state: WifiConnectionState::Completed,
             }))
         }
     }
@@ -51,11 +53,11 @@ mod tests {
         let interface = WifiInterfaceBorrowed { name: "wlp2s0" };
         let network = WifiSavedNetworkBorrowed {
             ssid: "example-wifi",
-            network_id: "4",
+            network_id: 4,
         };
 
         let result = resolve(&provider, interface, network, |status| {
-            format!("{}:{}", status.ssid, status.status)
+            format!("{}:{}", status.ssid, status.state.as_wpa_state())
         });
 
         assert_eq!(result.as_deref(), Some("example-wifi:COMPLETED"));
@@ -67,7 +69,7 @@ mod tests {
         let interface = WifiInterfaceBorrowed { name: "wlp2s0" };
         let network = WifiSavedNetworkBorrowed {
             ssid: "example-wifi",
-            network_id: "4",
+            network_id: 4,
         };
 
         let result = resolve(&provider, interface, network, |_status| "should not run");

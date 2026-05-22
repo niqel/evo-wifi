@@ -16,6 +16,8 @@ pub fn resolve<R>(
 
 #[cfg(test)]
 mod tests {
+    use crate::borrowed::WifiConnectionState;
+
     use super::*;
 
     struct ResolvedNewNetworkConnectProvider;
@@ -30,7 +32,7 @@ mod tests {
         ) -> Option<R> {
             Some(next(WifiConnectionStatusBorrowed {
                 ssid: selection.raw,
-                status: "COMPLETED",
+                state: WifiConnectionState::Completed,
             }))
         }
     }
@@ -61,7 +63,7 @@ mod tests {
         };
 
         let result = resolve(&provider, interface, selection, password, |status| {
-            format!("{}:{}", status.ssid, status.status)
+            format!("{}:{}", status.ssid, status.state.as_wpa_state())
         });
 
         assert_eq!(result.as_deref(), Some("example-wifi:COMPLETED"));

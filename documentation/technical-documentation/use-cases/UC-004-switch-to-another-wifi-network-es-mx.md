@@ -81,14 +81,14 @@ El usuario solicita cambiar a otra red WiFi.
   - `name: &'a str`
 - `WifiConnectionStatusBorrowed<'a>`
   - `ssid: &'a str`
-  - `status: &'a str`
+  - `state: WifiConnectionState`
 - `WifiNetworkSelectionInputBorrowed<'a>`
   - `raw: &'a str`
 - `WifiPasswordInputBorrowed<'a>`
   - `raw: &'a str`
 - `WifiSavedNetworkBorrowed<'a>`
   - `ssid: &'a str`
-  - `network_id: &'a str`
+  - `network_id: u32`
 
 ## Mapeo Tecnico
 

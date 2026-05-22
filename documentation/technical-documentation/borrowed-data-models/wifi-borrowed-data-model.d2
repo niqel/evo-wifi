@@ -10,7 +10,7 @@ vars: {
 }
 
 network_view: {
-  label: "<<borrowed>>\nWifiNetworkBorrowed<'a>\n\nbssid: &'a str\nfrequency: &'a str\nsignal_dbm: &'a str\nflags: &'a str\nssid: &'a str"
+  label: "<<borrowed>>\nWifiNetworkBorrowed<'a>\n\nbssid: &'a str\nfrequency_mhz: u32\nsignal_dbm: i32\nflags: &'a str\nssid: &'a str"
   shape: rectangle
   style.fill: ${borrowed-fill}
   style.stroke: ${stroke}
@@ -38,7 +38,7 @@ action_selection_input_view: {
 }
 
 status_view: {
-  label: "<<borrowed status>>\nWifiConnectionStatusBorrowed<'a>\n\nssid: &'a str\nstatus: &'a str"
+  label: "<<borrowed status>>\nWifiConnectionStatusBorrowed<'a>\n\nssid: &'a str\nstate: WifiConnectionState"
   shape: rectangle
   style.fill: ${borrowed-fill}
   style.stroke: ${stroke}
@@ -52,14 +52,14 @@ password_input_view: {
 }
 
 saved_network_view: {
-  label: "<<borrowed saved network>>\nWifiSavedNetworkBorrowed<'a>\n\nssid: &'a str\nnetwork_id: &'a str"
+  label: "<<borrowed saved network>>\nWifiSavedNetworkBorrowed<'a>\n\nssid: &'a str\nnetwork_id: u32"
   shape: rectangle
   style.fill: ${borrowed-fill}
   style.stroke: ${stroke}
 }
 
 saved_secret_view: {
-  label: "<<borrowed saved secret>>\nWifiSavedSecretBorrowed<'a>\n\nssid: &'a str\nnetwork_id: &'a str\nsecret: &'a str\nsecret_kind: &'a str\nsource: &'a str"
+  label: "<<borrowed saved secret>>\nWifiSavedSecretBorrowed<'a>\n\nssid: &'a str\nnetwork_id: u32\nsecret: &'a str\nsecret_kind: &'a str\nsource: &'a str"
   shape: rectangle
   style.fill: ${borrowed-fill}
   style.stroke: ${stroke}

@@ -11,6 +11,7 @@ use crate::resolvers::{
     wifi_new_network_connect_resolver, wifi_password_input_resolver, wifi_saved_network_resolver,
 };
 
+#[allow(clippy::too_many_arguments)]
 pub fn resolve(
     selection: WifiNetworkSelectionInputBorrowed<'_>,
     interface: WifiInterfaceBorrowed<'_>,
@@ -23,10 +24,9 @@ pub fn resolve(
     message_output_provider: &impl WifiMessageOutputContract,
 ) -> Option<()> {
     if let Some(message) = wifi_already_connected_network_resolver::resolve(selection, status) {
-        return Some(wifi_message_output_resolver::resolve(
-            message_output_provider,
-            message,
-        ));
+        wifi_message_output_resolver::resolve(message_output_provider, message);
+
+        return Some(());
     }
 
     if let Some(result) = wifi_saved_network_resolver::resolve(
@@ -65,10 +65,14 @@ pub fn resolve(
         )
     }) {
         Some(result) => result,
-        None => Some(wifi_message_output_resolver::resolve(
-            message_output_provider,
-            "Password required to connect to selected WiFi network",
-        )),
+        None => {
+            wifi_message_output_resolver::resolve(
+                message_output_provider,
+                "Password required to connect to selected WiFi network",
+            );
+
+            Some(())
+        }
     }
 }
 
@@ -76,8 +80,8 @@ pub fn resolve(
 mod tests {
     use super::*;
     use crate::borrowed::{
-        WifiConnectionStatusBorrowed, WifiInterfaceBorrowed, WifiNetworkSelectionInputBorrowed,
-        WifiPasswordInputBorrowed, WifiSavedNetworkBorrowed,
+        WifiConnectionState, WifiConnectionStatusBorrowed, WifiInterfaceBorrowed,
+        WifiNetworkSelectionInputBorrowed, WifiPasswordInputBorrowed, WifiSavedNetworkBorrowed,
     };
     use crate::contracts::{
         WifiConnectContract, WifiMessageOutputContract, WifiNewNetworkConnectContract,
@@ -96,7 +100,7 @@ mod tests {
         ) -> Option<R> {
             Some(next(WifiSavedNetworkBorrowed {
                 ssid: selection.raw,
-                network_id: "4",
+                network_id: 4,
             }))
         }
     }
@@ -125,7 +129,7 @@ mod tests {
         ) -> Option<R> {
             Some(next(WifiConnectionStatusBorrowed {
                 ssid: network.ssid,
-                status: "COMPLETED",
+                state: WifiConnectionState::Completed,
             }))
         }
     }
@@ -142,7 +146,7 @@ mod tests {
         ) -> Option<R> {
             Some(next(WifiConnectionStatusBorrowed {
                 ssid: selection.raw,
-                status: "COMPLETED",
+                state: WifiConnectionState::Completed,
             }))
         }
     }
@@ -153,9 +157,11 @@ mod tests {
 
     impl WifiStatusOutputContract for CapturingStatusOutputProvider {
         fn provide(&self, status: WifiConnectionStatusBorrowed<'_>) {
-            self.captured
-                .borrow_mut()
-                .replace(format!("{}\t{}", status.ssid, status.status));
+            self.captured.borrow_mut().replace(format!(
+                "{}\t{}",
+                status.ssid,
+                status.state.as_wpa_state()
+            ));
         }
     }
 
@@ -193,7 +199,7 @@ mod tests {
         let interface = WifiInterfaceBorrowed { name: "wlp2s0" };
         let status = WifiConnectionStatusBorrowed {
             ssid: "example-wifi",
-            status: "COMPLETED",
+            state: WifiConnectionState::Completed,
         };
         let message_output = CapturingMessageOutputProvider {
             captured: RefCell::new(None),
@@ -230,7 +236,7 @@ mod tests {
         let interface = WifiInterfaceBorrowed { name: "wlp2s0" };
         let status = WifiConnectionStatusBorrowed {
             ssid: "other-wifi",
-            status: "COMPLETED",
+            state: WifiConnectionState::Completed,
         };
         let message_output = CapturingMessageOutputProvider {
             captured: RefCell::new(None),
@@ -267,7 +273,7 @@ mod tests {
         let interface = WifiInterfaceBorrowed { name: "wlp2s0" };
         let status = WifiConnectionStatusBorrowed {
             ssid: "other-wifi",
-            status: "COMPLETED",
+            state: WifiConnectionState::Completed,
         };
         let message_output = CapturingMessageOutputProvider {
             captured: RefCell::new(None),
@@ -304,7 +310,7 @@ mod tests {
         let interface = WifiInterfaceBorrowed { name: "wlp2s0" };
         let status = WifiConnectionStatusBorrowed {
             ssid: "other-wifi",
-            status: "COMPLETED",
+            state: WifiConnectionState::Completed,
         };
         let message_output = CapturingMessageOutputProvider {
             captured: RefCell::new(None),

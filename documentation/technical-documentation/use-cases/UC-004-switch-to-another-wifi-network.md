@@ -81,14 +81,14 @@ The user requests to switch to another WiFi network.
   - `name: &'a str`
 - `WifiConnectionStatusBorrowed<'a>`
   - `ssid: &'a str`
-  - `status: &'a str`
+  - `state: WifiConnectionState`
 - `WifiNetworkSelectionInputBorrowed<'a>`
   - `raw: &'a str`
 - `WifiPasswordInputBorrowed<'a>`
   - `raw: &'a str`
 - `WifiSavedNetworkBorrowed<'a>`
   - `ssid: &'a str`
-  - `network_id: &'a str`
+  - `network_id: u32`
 
 ## Technical Mapping
 
@@ -120,7 +120,7 @@ agents::wifi_network_switcher::switch
 - `wifi_connection_status_output_resolver::resolve`
 - `wifi_message_output_resolver::resolve`
 
-### WiFi Contracts
+### Input And Action Contracts
 
 - `WifiNetworkSelectionInputContract`
 - `WifiInterfaceContract`
@@ -130,7 +130,7 @@ agents::wifi_network_switcher::switch
 - `WifiPasswordInputContract`
 - `WifiNewNetworkConnectContract`
 
-### WiFi Providers
+### Input And Action Providers
 
 - `VoidWifiInterfaceProvider`
 - `VoidWifiStatusProvider`

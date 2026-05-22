@@ -1,16 +1,16 @@
+pub mod actions;
 pub mod inputs;
 pub mod outputs;
-pub mod wifi;
 
+pub use actions::{
+    WifiConnectContract, WifiDisconnectContract, WifiForgetContract, WifiNewNetworkConnectContract,
+};
 pub use inputs::{
-    WifiActionSelectionInputContract, WifiNetworkSelectionInputContract, WifiPasswordInputContract,
+    WifiActionSelectionInputContract, WifiInterfaceContract, WifiNetworkSelectionInputContract,
+    WifiPasswordInputContract, WifiSavedNetworkContract, WifiSavedSecretContract, WifiScanContract,
+    WifiStatusContract,
 };
 pub use outputs::{
     WifiMessageOutputContract, WifiNetworkOutputContract, WifiSecretOutputContract,
     WifiStatusOutputContract,
-};
-pub use wifi::{
-    WifiConnectContract, WifiDisconnectContract, WifiForgetContract, WifiInterfaceContract,
-    WifiNewNetworkConnectContract, WifiSavedNetworkContract, WifiSavedSecretContract,
-    WifiScanContract, WifiStatusContract,
 };

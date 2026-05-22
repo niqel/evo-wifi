@@ -32,17 +32,23 @@ pub fn forget(
                     },
                 ) {
                     Some(result) => Some(result),
-                    None => Some(wifi_message_output_resolver::resolve(
-                        message_output_provider,
-                        "Saved WiFi password could not be removed",
-                    )),
+                    None => {
+                        wifi_message_output_resolver::resolve(
+                            message_output_provider,
+                            "Saved WiFi password could not be removed",
+                        );
+
+                        Some(())
+                    }
                 },
             )
             .unwrap_or_else(|| {
-                Some(wifi_message_output_resolver::resolve(
+                wifi_message_output_resolver::resolve(
                     message_output_provider,
                     "No saved WiFi password to remove",
-                ))
+                );
+
+                Some(())
             })
         })
     })

@@ -36,7 +36,7 @@ That is the actual implementation route used by the CLI.
 - `commands` assemble the concrete providers needed by each command.
 - `agents` coordinate the use case by chaining resolvers.
 - `resolvers` decide whether borrowed data can become operable.
-- `contracts` define the expected behavior.
+- `contracts` define the expected behavior by role: `inputs`, `outputs`, and `actions`.
 - `providers` implement one contract responsibility through `provide`.
 - the external world is terminal input/output, WiFi, and the operating system.
 
@@ -55,6 +55,15 @@ Providers provide exactly one contract responsibility.
 Resolvers resolve whether the flow can continue.
 Agent subjects perform the action named by their module.
 Commands execute the selected CLI entry point.
+
+Contracts are not specialized by technology or concrete use case. The specialty lives in the provider:
+
+- `contracts/inputs` declares input or selection contracts.
+- `contracts/outputs` declares output contracts.
+- `contracts/actions` declares contracts that execute an action against the external world.
+- `providers/inputs`, `providers/outputs`, and `providers/actions` contain concrete implementations such as terminal or void.
+
+In evo-wifi, WiFi is the specialty of the whole crate and its concrete providers, not a separate contracts folder.
 
 Examples:
 
@@ -114,6 +123,8 @@ The key architectural rules are:
 - the contract states the expected behavior
 - the provider provides one contract responsibility through `provide`
 - borrowed forms are preferred when they are enough
+- contracts are organized by operational role, not by technology
+- providers provide the concrete specialty
 
 ## Practical Result
 

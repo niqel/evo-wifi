@@ -27,7 +27,7 @@ mod tests {
         ) -> Option<R> {
             Some(next(WifiSavedNetworkBorrowed {
                 ssid: "example-wifi",
-                network_id: "4",
+                network_id: 4,
             }))
         }
     }

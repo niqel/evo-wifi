@@ -6,7 +6,7 @@ pub fn resolve(
 ) -> Option<&'static str> {
     let selected = selection.raw.trim();
 
-    if selected.is_empty() || selected != status.ssid || status.status != "COMPLETED" {
+    if selected.is_empty() || selected != status.ssid || !status.state.is_completed() {
         return None;
     }
 
@@ -15,6 +15,8 @@ pub fn resolve(
 
 #[cfg(test)]
 mod tests {
+    use crate::borrowed::WifiConnectionState;
+
     use super::*;
 
     #[test]
@@ -24,7 +26,7 @@ mod tests {
         };
         let status = WifiConnectionStatusBorrowed {
             ssid: "example-wifi",
-            status: "COMPLETED",
+            state: WifiConnectionState::Completed,
         };
 
         assert_eq!(
@@ -38,7 +40,7 @@ mod tests {
         let selection = WifiNetworkSelectionInputBorrowed { raw: "other-wifi" };
         let status = WifiConnectionStatusBorrowed {
             ssid: "example-wifi",
-            status: "COMPLETED",
+            state: WifiConnectionState::Completed,
         };
 
         assert_eq!(resolve(selection, status), None);
@@ -51,7 +53,7 @@ mod tests {
         };
         let status = WifiConnectionStatusBorrowed {
             ssid: "example-wifi",
-            status: "DISCONNECTED",
+            state: WifiConnectionState::Disconnected,
         };
 
         assert_eq!(resolve(selection, status), None);

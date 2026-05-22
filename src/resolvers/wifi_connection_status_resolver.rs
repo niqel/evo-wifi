@@ -11,6 +11,8 @@ pub fn resolve<R>(
 
 #[cfg(test)]
 mod tests {
+    use crate::borrowed::WifiConnectionState;
+
     use super::*;
 
     struct ResolvedStatusProvider;
@@ -23,7 +25,7 @@ mod tests {
         ) -> Option<R> {
             Some(next(WifiConnectionStatusBorrowed {
                 ssid: "evo-network",
-                status: "connected",
+                state: WifiConnectionState::Completed,
             }))
         }
     }
@@ -46,10 +48,10 @@ mod tests {
         let interface = WifiInterfaceBorrowed { name: "wlan0" };
 
         let result = resolve(&provider, interface, |status| {
-            format!("{}:{}", status.ssid, status.status)
+            format!("{}:{}", status.ssid, status.state.as_wpa_state())
         });
 
-        assert_eq!(result.as_deref(), Some("evo-network:connected"));
+        assert_eq!(result.as_deref(), Some("evo-network:COMPLETED"));
     }
 
     #[test]

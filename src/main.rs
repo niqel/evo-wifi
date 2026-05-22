@@ -9,8 +9,8 @@ fn main() {
                 evo_wifi::providers::inputs::terminal::TerminalNetworkSelectionInputProvider::new(
                     selection.as_deref(),
                 ),
-                evo_wifi::providers::wifi::void::VoidWifiInterfaceProvider,
-                evo_wifi::providers::wifi::void::VoidWifiStatusProvider,
+                evo_wifi::providers::inputs::void::VoidWifiInterfaceProvider,
+                evo_wifi::providers::inputs::void::VoidWifiStatusProvider,
                 evo_wifi::providers::outputs::terminal::TerminalMessageOutputProvider,
             );
 
@@ -21,10 +21,10 @@ fn main() {
                 evo_wifi::providers::inputs::terminal::TerminalNetworkSelectionInputProvider::new(
                     selection.as_deref(),
                 ),
-                evo_wifi::providers::wifi::void::VoidWifiInterfaceProvider,
-                evo_wifi::providers::wifi::void::VoidWifiStatusProvider,
-                evo_wifi::providers::wifi::void::VoidWifiSavedNetworkProvider,
-                evo_wifi::providers::wifi::void::VoidWifiConnectProvider,
+                evo_wifi::providers::inputs::void::VoidWifiInterfaceProvider,
+                evo_wifi::providers::inputs::void::VoidWifiStatusProvider,
+                evo_wifi::providers::inputs::void::VoidWifiSavedNetworkProvider,
+                evo_wifi::providers::actions::void::VoidWifiConnectProvider,
                 evo_wifi::providers::outputs::terminal::TerminalStatusOutputProvider,
                 evo_wifi::providers::outputs::terminal::TerminalMessageOutputProvider,
             );
@@ -39,8 +39,8 @@ fn main() {
                 evo_wifi::providers::inputs::terminal::TerminalPasswordInputProvider::new(
                     password.as_deref(),
                 ),
-                evo_wifi::providers::wifi::void::VoidWifiInterfaceProvider,
-                evo_wifi::providers::wifi::void::VoidWifiNewNetworkConnectProvider,
+                evo_wifi::providers::inputs::void::VoidWifiInterfaceProvider,
+                evo_wifi::providers::actions::void::VoidWifiNewNetworkConnectProvider,
                 evo_wifi::providers::outputs::terminal::TerminalStatusOutputProvider,
                 evo_wifi::providers::outputs::terminal::TerminalMessageOutputProvider,
             );
@@ -55,11 +55,11 @@ fn main() {
                 evo_wifi::providers::inputs::terminal::TerminalPasswordInputProvider::new(
                     password.as_deref(),
                 ),
-                evo_wifi::providers::wifi::void::VoidWifiInterfaceProvider,
-                evo_wifi::providers::wifi::void::VoidWifiStatusProvider,
-                evo_wifi::providers::wifi::void::VoidWifiSavedNetworkProvider,
-                evo_wifi::providers::wifi::void::VoidWifiConnectProvider,
-                evo_wifi::providers::wifi::void::VoidWifiNewNetworkConnectProvider,
+                evo_wifi::providers::inputs::void::VoidWifiInterfaceProvider,
+                evo_wifi::providers::inputs::void::VoidWifiStatusProvider,
+                evo_wifi::providers::inputs::void::VoidWifiSavedNetworkProvider,
+                evo_wifi::providers::actions::void::VoidWifiConnectProvider,
+                evo_wifi::providers::actions::void::VoidWifiNewNetworkConnectProvider,
                 evo_wifi::providers::outputs::terminal::TerminalStatusOutputProvider,
                 evo_wifi::providers::outputs::terminal::TerminalMessageOutputProvider,
             );
@@ -71,9 +71,9 @@ fn main() {
                 evo_wifi::providers::inputs::terminal::TerminalNetworkSelectionInputProvider::new(
                     selection.as_deref(),
                 ),
-                evo_wifi::providers::wifi::void::VoidWifiInterfaceProvider,
-                evo_wifi::providers::wifi::void::VoidWifiSavedNetworkProvider,
-                evo_wifi::providers::wifi::void::VoidWifiForgetProvider,
+                evo_wifi::providers::inputs::void::VoidWifiInterfaceProvider,
+                evo_wifi::providers::inputs::void::VoidWifiSavedNetworkProvider,
+                evo_wifi::providers::actions::void::VoidWifiForgetProvider,
                 evo_wifi::providers::outputs::terminal::TerminalMessageOutputProvider,
             );
 
@@ -81,9 +81,9 @@ fn main() {
         }
         Some("disconnect") => {
             let command = evo_wifi::commands::WifiConnectionDisconnectCommand::new(
-                evo_wifi::providers::wifi::void::VoidWifiInterfaceProvider,
-                evo_wifi::providers::wifi::void::VoidWifiStatusProvider,
-                evo_wifi::providers::wifi::void::VoidWifiDisconnectProvider,
+                evo_wifi::providers::inputs::void::VoidWifiInterfaceProvider,
+                evo_wifi::providers::inputs::void::VoidWifiStatusProvider,
+                evo_wifi::providers::actions::void::VoidWifiDisconnectProvider,
                 evo_wifi::providers::outputs::terminal::TerminalStatusOutputProvider,
                 evo_wifi::providers::outputs::terminal::TerminalMessageOutputProvider,
             );
@@ -92,8 +92,8 @@ fn main() {
         }
         Some("networks" | "scan") => {
             let command = evo_wifi::commands::WifiAvailableNetworksShowCommand::new(
-                evo_wifi::providers::wifi::void::VoidWifiInterfaceProvider,
-                evo_wifi::providers::wifi::void::VoidWifiScanProvider,
+                evo_wifi::providers::inputs::void::VoidWifiInterfaceProvider,
+                evo_wifi::providers::inputs::void::VoidWifiScanProvider,
                 evo_wifi::providers::outputs::terminal::TerminalNetworkOutputProvider,
             );
 
@@ -101,10 +101,10 @@ fn main() {
         }
         Some("password" | "secret") => {
             let command = evo_wifi::commands::WifiCurrentConnectionPasswordShowCommand::new(
-                evo_wifi::providers::wifi::void::VoidWifiInterfaceProvider,
-                evo_wifi::providers::wifi::void::VoidWifiStatusProvider,
-                evo_wifi::providers::wifi::void::VoidWifiSavedNetworkProvider,
-                evo_wifi::providers::wifi::void::VoidWifiSavedSecretProvider,
+                evo_wifi::providers::inputs::void::VoidWifiInterfaceProvider,
+                evo_wifi::providers::inputs::void::VoidWifiStatusProvider,
+                evo_wifi::providers::inputs::void::VoidWifiSavedNetworkProvider,
+                evo_wifi::providers::inputs::void::VoidWifiSavedSecretProvider,
                 evo_wifi::providers::outputs::terminal::TerminalSecretOutputProvider,
             );
 
@@ -112,8 +112,8 @@ fn main() {
         }
         Some("status") | None => {
             let command = evo_wifi::commands::WifiConnectionStatusShowCommand::new(
-                evo_wifi::providers::wifi::void::VoidWifiInterfaceProvider,
-                evo_wifi::providers::wifi::void::VoidWifiStatusProvider,
+                evo_wifi::providers::inputs::void::VoidWifiInterfaceProvider,
+                evo_wifi::providers::inputs::void::VoidWifiStatusProvider,
                 evo_wifi::providers::outputs::terminal::TerminalStatusOutputProvider,
             );
 

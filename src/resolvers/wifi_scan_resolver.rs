@@ -23,8 +23,8 @@ mod tests {
         ) -> Option<R> {
             let networks = [WifiNetworkBorrowed {
                 bssid: "00:11:22:33:44:55",
-                frequency: "5200",
-                signal_dbm: "-51",
+                frequency_mhz: 5200,
+                signal_dbm: -51,
                 flags: "[WPA2-PSK-CCMP][ESS]",
                 ssid: "evo-wifi",
             }];

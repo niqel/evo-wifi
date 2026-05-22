@@ -11,6 +11,8 @@ pub fn resolve<R>(
 
 #[cfg(test)]
 mod tests {
+    use crate::borrowed::WifiConnectionState;
+
     use super::*;
 
     struct ResolvedDisconnectProvider;
@@ -23,7 +25,7 @@ mod tests {
         ) -> Option<R> {
             Some(next(WifiConnectionStatusBorrowed {
                 ssid: "",
-                status: "DISCONNECTED",
+                state: WifiConnectionState::Disconnected,
             }))
         }
     }
@@ -46,7 +48,7 @@ mod tests {
         let interface = WifiInterfaceBorrowed { name: "wlp2s0" };
 
         let result = resolve(&provider, interface, |status| {
-            format!("{}:{}", status.ssid, status.status)
+            format!("{}:{}", status.ssid, status.state.as_wpa_state())
         });
 
         assert_eq!(result.as_deref(), Some(":DISCONNECTED"));

@@ -36,7 +36,7 @@ Esa es la ruta real de implementacion usada por la CLI.
 - `commands` ensambla los providers concretos que necesita cada comando.
 - `agents` coordina el caso de uso encadenando resolvers.
 - `resolvers` decide si los datos prestados pueden volverse operables.
-- `contracts` define el comportamiento esperado.
+- `contracts` define el comportamiento esperado por rol: `inputs`, `outputs` y `actions`.
 - `providers` implementa una sola responsabilidad de contrato mediante `provide`.
 - el mundo externo es entrada/salida de terminal, WiFi y el sistema operativo.
 
@@ -55,6 +55,15 @@ Los providers proveen exactamente una responsabilidad de contract.
 Los resolvers resuelven si el flujo puede continuar.
 Los sujetos agente ejecutan la accion nombrada por su modulo.
 Los commands ejecutan el punto de entrada seleccionado por CLI.
+
+Los contracts no se especializan por tecnologia o caso de uso concreto. La especialidad vive en el provider:
+
+- `contracts/inputs` declara contratos de entrada de informacion o seleccion.
+- `contracts/outputs` declara contratos de salida.
+- `contracts/actions` declara contratos que ejecutan una accion sobre el mundo externo.
+- `providers/inputs`, `providers/outputs` y `providers/actions` contienen implementaciones concretas como terminal o void.
+
+En evo-wifi, WiFi es la especialidad del crate completo y de sus providers concretos, no una carpeta de contracts separada.
 
 Ejemplos:
 
@@ -114,6 +123,8 @@ Las reglas arquitectonicas clave son:
 - el contract declara el comportamiento esperado
 - el provider provee una sola responsabilidad de contract mediante `provide`
 - las formas borrowed se prefieren cuando son suficientes
+- los contracts se ordenan por rol operacional, no por tecnologia
+- los providers dan la especialidad concreta
 
 ## Resultado Practico
 

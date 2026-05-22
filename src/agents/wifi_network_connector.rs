@@ -25,10 +25,9 @@ pub fn connect(
                 if let Some(message) =
                     wifi_already_connected_network_resolver::resolve(selection, status)
                 {
-                    return Some(wifi_message_output_resolver::resolve(
-                        message_output_provider,
-                        message,
-                    ));
+                    wifi_message_output_resolver::resolve(message_output_provider, message);
+
+                    return Some(());
                 }
 
                 wifi_saved_network_resolver::resolve(

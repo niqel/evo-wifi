@@ -3,6 +3,7 @@ members = [
     "crates/evo-wifi-core",
     "crates/evo-wifi-cli",
     "crates/evo-wifi-provider-linux-wpa",
+    "crates/evo-wifi-provider-nushell",
     "crates/evo-wifi-provider-terminal",
 ]
 resolver = "3"

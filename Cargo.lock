@@ -23,6 +23,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "evo-wifi-provider-nushell"
+version = "0.1.0"
+dependencies = [
+ "evo-wifi-core",
+]
+
+[[package]]
 name = "evo-wifi-provider-terminal"
 version = "0.1.0"
 dependencies = [

@@ -27,6 +27,12 @@ provider_linux_wpa: {
   style.stroke: ${accent}
 }
 
+provider_nushell: {
+  label: "crates/evo-wifi-provider-nushell\nNushell providers\nprovide()"
+  style.fill: ${white}
+  style.stroke: ${accent}
+}
+
 core: {
   label: "crates/evo-wifi-core\nlibrary"
   style.fill: ${soft}
@@ -64,7 +70,7 @@ borrowed: {
 }
 
 external: {
-  label: "external world\nterminal / OS / WiFi stack"
+  label: "external world\nterminal / Nushell / OS / WiFi stack"
   style.fill: ${neutral}
   style.stroke: ${border}
 }
@@ -72,6 +78,7 @@ external: {
 cli -> provider_terminal: "creates"
 cli -> provider_linux_wpa: "creates"
 cli -> core: "calls"
+provider_nushell -> core: "future plugin calls"
 core -> commands: "exposes"
 commands -> agents: "execute()"
 agents -> resolvers: "resolve() chain"
@@ -79,5 +86,7 @@ resolvers -> borrowed: "borrowed values"
 resolvers -> contracts: "depend on"
 contracts -> provider_terminal: "implemented by"
 contracts -> provider_linux_wpa: "implemented by"
+contracts -> provider_nushell: "implemented by"
 provider_terminal -> external: "terminal I/O"
 provider_linux_wpa -> external: "WiFi system interaction"
+provider_nushell -> external: "structured Nushell values"

@@ -24,6 +24,7 @@ The repository is now a Cargo workspace:
 - `crates/evo-wifi-core` is the reusable library. It contains `borrowed`, `contracts`, `resolvers`, `agents`, and `commands`.
 - `crates/evo-wifi-cli` is the binary runtime. It parses CLI arguments, creates concrete providers, and calls core commands.
 - `crates/evo-wifi-provider-linux-wpa` implements Linux WPA system providers.
+- `crates/evo-wifi-provider-nushell` implements Nushell-facing providers for typed inputs and structured outputs.
 - `crates/evo-wifi-provider-terminal` implements terminal input and output providers.
 
 ## Runtime Shape
@@ -45,7 +46,7 @@ That is the actual implementation route used by the CLI.
 - `resolvers` decide whether borrowed data can become operable.
 - `contracts` define the expected behavior by role: `inputs`, `outputs`, and `actions`.
 - provider crates implement one contract responsibility through `provide`.
-- the external world is terminal input/output, WiFi, and the operating system.
+- the external world is terminal input/output, Nushell values, WiFi, and the operating system.
 
 ## Semantic Operation Rule
 
@@ -68,9 +69,10 @@ Contracts are not specialized by technology or concrete use case. The specialty 
 - `contracts/inputs` declares input or selection contracts.
 - `contracts/outputs` declares output contracts.
 - `contracts/actions` declares contracts that execute an action against the external world.
-- provider crates contain concrete implementations such as terminal or Linux WPA.
+- provider crates contain concrete implementations such as terminal, Nushell, or Linux WPA.
 
 In evo-wifi, WiFi is the specialty of the workspace and its concrete provider crates, not a separate contracts folder.
+Nushell is a presentation/runtime specialty. It owns its received strings and structured output state, then lends borrowed values to the core through `provide`.
 
 Examples:
 

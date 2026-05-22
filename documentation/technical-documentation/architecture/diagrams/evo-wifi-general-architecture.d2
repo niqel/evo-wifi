@@ -1,0 +1,86 @@
+title: "evo-wifi General Architecture"
+direction: right
+
+vars: {
+  border: "#59636e"
+  accent: "#0D32B2"
+  soft: "#eef6ff"
+  neutral: "#f6f8fa"
+  white: "#ffffff"
+}
+
+agent: {
+  label: "agent\n(case-use coordinator)"
+  style.fill: ${soft}
+  style.stroke: ${accent}
+}
+
+pipeline: {
+  label: "pipeline\n(agent working form)"
+  style.fill: ${white}
+  style.stroke: ${border}
+}
+
+resolver: {
+  label: "resolver\n(resolve)"
+  style.fill: ${white}
+  style.stroke: ${accent}
+}
+
+tool: {
+  label: "tool\n(point transformation)"
+  style.fill: ${white}
+  style.stroke: ${border}
+}
+
+contracts: {
+  label: "contracts\n(expected behavior)"
+  style.fill: ${white}
+  style.stroke: ${accent}
+}
+
+providers: {
+  label: "providers\n(real implementations)"
+  style.fill: ${white}
+  style.stroke: ${border}
+}
+
+external: {
+  label: "external world\nterminal / WiFi / OS"
+  style.fill: ${neutral}
+  style.stroke: ${border}
+}
+
+domain: {
+  label: "domain forms"
+  style.fill: ${neutral}
+  style.stroke: ${border}
+
+  specifications: {
+    label: "specifications\nminimum rules"
+    style.fill: ${white}
+    style.stroke: ${border}
+  }
+
+  borrowed: {
+    label: "borrowed\nlightweight views"
+    style.fill: ${white}
+    style.stroke: ${border}
+  }
+
+  entities: {
+    label: "entities\nreal ownership"
+    style.fill: ${white}
+    style.stroke: ${border}
+  }
+}
+
+agent -> pipeline: "works through"
+pipeline -> resolver: "orders"
+resolver -> tool: "uses when needed"
+resolver -> contracts: "depends on"
+contracts -> providers: "implemented by"
+providers -> external: "talks to"
+resolver -> domain.borrowed: "operates on"
+resolver -> domain.specifications: "accepts / rejects"
+tool -> domain.borrowed: "transforms"

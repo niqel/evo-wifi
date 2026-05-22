@@ -1,0 +1,73 @@
+title: "evo-wifi Project Architecture"
+direction: right
+
+vars: {
+  border: "#59636e"
+  accent: "#0D32B2"
+  soft: "#eef6ff"
+  neutral: "#f6f8fa"
+  white: "#ffffff"
+}
+
+main: {
+  label: "main.rs\nCLI entry point"
+  style.fill: ${neutral}
+  style.stroke: ${border}
+}
+
+commands: {
+  label: "commands\nCLI facade"
+  style.fill: ${soft}
+  style.stroke: ${accent}
+}
+
+agents: {
+  label: "agents\nuse-case coordinators"
+  style.fill: ${soft}
+  style.stroke: ${accent}
+}
+
+pipeline: {
+  label: "pipeline\n(agent working form)"
+  style.fill: ${white}
+  style.stroke: ${border}
+}
+
+resolvers: {
+  label: "resolvers\nresolve borrowed data"
+  style.fill: ${white}
+  style.stroke: ${accent}
+}
+
+contracts: {
+  label: "contracts\ntraits / agreements"
+  style.fill: ${white}
+  style.stroke: ${border}
+}
+
+providers: {
+  label: "providers\nterminal / wifi / fake / void"
+  style.fill: ${white}
+  style.stroke: ${accent}
+}
+
+borrowed: {
+  label: "borrowed\nWifi*Borrowed views"
+  style.fill: ${neutral}
+  style.stroke: ${border}
+}
+
+external: {
+  label: "external world\nterminal / OS / WiFi stack"
+  style.fill: ${neutral}
+  style.stroke: ${border}
+}
+
+main -> commands: "select action"
+commands -> agents: "execute()"
+agents -> pipeline: "working form"
+pipeline -> resolvers: "resolve() chain"
+resolvers -> borrowed: "borrowed values"
+resolvers -> contracts: "depend on"
+contracts -> providers: "implemented by"
+providers -> external: "real interaction"

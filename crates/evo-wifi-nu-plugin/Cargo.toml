@@ -1,0 +1,15 @@
+[package]
+name = "evo-wifi-nu-plugin"
+version.workspace = true
+edition.workspace = true
+
+[[bin]]
+name = "nu_plugin_evo_wifi"
+path = "src/main.rs"
+
+[dependencies]
+evo-wifi-core = { path = "../evo-wifi-core" }
+evo-wifi-provider-linux-wpa = { path = "../evo-wifi-provider-linux-wpa" }
+evo-wifi-provider-nushell = { path = "../evo-wifi-provider-nushell" }
+nu-plugin = "0.111.0"
+nu-protocol = "0.111.0"

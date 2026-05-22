@@ -29,6 +29,12 @@ impl WifiStatusOutputContract for NushellStatusOutputProvider {
     }
 }
 
+impl WifiStatusOutputContract for &NushellStatusOutputProvider {
+    fn provide(&self, status: WifiConnectionStatusBorrowed<'_>) {
+        (*self).provide(status);
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

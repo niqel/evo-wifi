@@ -44,6 +44,12 @@ impl WifiNetworkOutputContract for NushellNetworkOutputProvider {
     }
 }
 
+impl WifiNetworkOutputContract for &NushellNetworkOutputProvider {
+    fn provide(&self, networks: &[WifiNetworkBorrowed<'_>]) {
+        (*self).provide(networks);
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

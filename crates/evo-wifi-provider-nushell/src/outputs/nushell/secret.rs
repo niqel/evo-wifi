@@ -35,6 +35,12 @@ impl WifiSecretOutputContract for NushellSecretOutputProvider {
     }
 }
 
+impl WifiSecretOutputContract for &NushellSecretOutputProvider {
+    fn provide(&self, secret: WifiSavedSecretBorrowed<'_>) {
+        (*self).provide(secret);
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

@@ -15,6 +15,12 @@ cli: {
   style.stroke: ${border}
 }
 
+nu_plugin: {
+  label: "crates/evo-wifi-nu-plugin\nNushell plugin runtime\nnu_protocol boundary"
+  style.fill: ${neutral}
+  style.stroke: ${border}
+}
+
 provider_terminal: {
   label: "crates/evo-wifi-provider-terminal\nterminal providers\nprovide()"
   style.fill: ${white}
@@ -78,7 +84,9 @@ external: {
 cli -> provider_terminal: "creates"
 cli -> provider_linux_wpa: "creates"
 cli -> core: "calls"
-provider_nushell -> core: "future plugin calls"
+nu_plugin -> provider_nushell: "creates"
+nu_plugin -> provider_linux_wpa: "creates"
+nu_plugin -> core: "calls"
 core -> commands: "exposes"
 commands -> agents: "execute()"
 agents -> resolvers: "resolve() chain"

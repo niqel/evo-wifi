@@ -10,7 +10,7 @@ Switch from the current WiFi network to a different selected WiFi network by coo
 
 ## Primary Actor
 
-Void Linux user
+Linux user using wpa_supplicant
 
 ## Trigger
 
@@ -132,11 +132,11 @@ agents::wifi_network_switcher::switch
 
 ### Input And Action Providers
 
-- `VoidWifiInterfaceProvider`
-- `VoidWifiStatusProvider`
-- `VoidWifiSavedNetworkProvider`
-- `VoidWifiConnectProvider`
-- `VoidWifiNewNetworkConnectProvider`
+- `LinuxWpaWifiInterfaceProvider`
+- `LinuxWpaWifiStatusProvider`
+- `LinuxWpaWifiSavedNetworkProvider`
+- `LinuxWpaWifiConnectProvider`
+- `LinuxWpaWifiNewNetworkConnectProvider`
 
 ### Output Contracts
 

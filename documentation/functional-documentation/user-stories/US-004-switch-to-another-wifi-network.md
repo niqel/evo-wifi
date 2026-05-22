@@ -2,7 +2,7 @@
 
 ## User Story
 
-As a Void Linux user,
+As a Linux user using wpa_supplicant,
 I want to connect to a different available WiFi network,
 so that I can change my current connection.
 

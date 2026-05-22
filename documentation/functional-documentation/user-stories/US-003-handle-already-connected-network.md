@@ -2,7 +2,7 @@
 
 ## User Story
 
-As a Void Linux user,
+As a Linux user using wpa_supplicant,
 I want the application to detect when I select the network I am already connected to,
 so that it does not reconnect unnecessarily.
 

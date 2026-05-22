@@ -21,7 +21,7 @@ digraph UseCaseDiagram {
   ];
 
   user [
-    label="Void Linux User",
+    label="Linux user using wpa_supplicant",
     shape=box,
     style="rounded,filled",
     fillcolor="#f6f8fa"

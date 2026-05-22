@@ -12,7 +12,7 @@ Este caso de uso es el primer candidato de implementacion tecnica porque valida 
 
 ## Actor Principal
 
-Usuario de Void Linux
+Usuario Linux con wpa_supplicant
 
 ## Disparador
 
@@ -91,8 +91,8 @@ agents::wifi_connection_status_shower::show
 
 ### Providers WiFi del Sistema
 
-- `VoidWifiInterfaceProvider`
-- `VoidWifiStatusProvider`
+- `LinuxWpaWifiInterfaceProvider`
+- `LinuxWpaWifiStatusProvider`
 
 ### Contrato de Presentacion
 
@@ -116,7 +116,7 @@ agents::wifi_connection_status_shower::show
 - Definir `WifiInterfaceContract`.
 - Definir `WifiStatusContract`.
 - Definir `WifiStatusOutputContract`.
-- Implementar el comportamiento de estado en `VoidWifiStatusProvider`.
+- Implementar el comportamiento de estado en `LinuxWpaWifiStatusProvider`.
 - Implementar la provision de salida de estado en `TerminalOutputProvider`.
 - Implementar `wifi_interface_resolver::resolve`.
 - Implementar `wifi_connection_status_resolver::resolve`.

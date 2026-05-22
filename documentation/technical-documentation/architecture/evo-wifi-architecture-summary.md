@@ -19,25 +19,32 @@ And around this domain form:
 
 - `borrowed`
 
+The repository is now a Cargo workspace:
+
+- `crates/evo-wifi-core` is the reusable library. It contains `borrowed`, `contracts`, `resolvers`, `agents`, and `commands`.
+- `crates/evo-wifi-cli` is the binary runtime. It parses CLI arguments, creates concrete providers, and calls core commands.
+- `crates/evo-wifi-provider-linux-wpa` implements Linux WPA system providers.
+- `crates/evo-wifi-provider-terminal` implements terminal input and output providers.
+
 ## Runtime Shape
 
 At runtime, the project works like this:
 
 ```text
-main.rs -> commands -> agents -> resolvers -> contracts -> providers -> external world
+evo-wifi-cli main.rs -> providers + evo-wifi-core commands -> agents -> resolvers -> contracts -> providers -> external world
 ```
 
 That is the actual implementation route used by the CLI.
 
 ### What Each Piece Does
 
-- `main.rs` selects the command from CLI arguments.
-- `commands` act as the CLI façade.
-- `commands` assemble the concrete providers needed by each command.
+- `evo-wifi-cli/main.rs` selects the command from CLI arguments.
+- `evo-wifi-cli/main.rs` assembles the concrete providers needed by each command.
+- `commands` act as runtime-agnostic command objects in `evo-wifi-core`.
 - `agents` coordinate the use case by chaining resolvers.
 - `resolvers` decide whether borrowed data can become operable.
 - `contracts` define the expected behavior by role: `inputs`, `outputs`, and `actions`.
-- `providers` implement one contract responsibility through `provide`.
+- provider crates implement one contract responsibility through `provide`.
 - the external world is terminal input/output, WiFi, and the operating system.
 
 ## Semantic Operation Rule
@@ -61,15 +68,15 @@ Contracts are not specialized by technology or concrete use case. The specialty 
 - `contracts/inputs` declares input or selection contracts.
 - `contracts/outputs` declares output contracts.
 - `contracts/actions` declares contracts that execute an action against the external world.
-- `providers/inputs`, `providers/outputs`, and `providers/actions` contain concrete implementations such as terminal or void.
+- provider crates contain concrete implementations such as terminal or Linux WPA.
 
-In evo-wifi, WiFi is the specialty of the whole crate and its concrete providers, not a separate contracts folder.
+In evo-wifi, WiFi is the specialty of the workspace and its concrete provider crates, not a separate contracts folder.
 
 Examples:
 
 ```text
 wifi_interface_resolver.resolve
-VoidWifiInterfaceProvider.provide
+LinuxWpaWifiInterfaceProvider.provide
 wifi_connection_status_shower.show
 wifi_network_switcher.switch
 ```
@@ -134,18 +141,18 @@ This architecture allows evo-wifi to:
 - preserve clear responsibilities
 - avoid unnecessary intermediate packages
 - test the domain without real providers
-- replace individual providers without rewriting the core flow
+- replace individual provider crates without rewriting the core flow
 
 ## What the Architecture Diagram Must Show
 
 The project architecture diagram should make visible:
 
 - CLI entry point
-- command façade
+- command objects
 - agent coordination
 - resolver chain
 - contract boundary
-- provider implementations with single responsibilities
+- external provider crates with single responsibilities
 - borrowed domain forms
 - external world
 

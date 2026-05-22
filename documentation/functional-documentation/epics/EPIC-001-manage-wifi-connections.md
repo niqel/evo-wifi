@@ -6,7 +6,7 @@ Ing. Gustavo Melendez Villarreal
 
 ## Goal
 
-As a Void Linux user,
+As a Linux user using wpa_supplicant,
 I want a minimal terminal application to manage WiFi connections,
 so that I can connect to available networks and access the internet.
 

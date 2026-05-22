@@ -10,7 +10,7 @@ Cambiar desde la red WiFi actual a otra red seleccionada coordinando los flujos 
 
 ## Actor Principal
 
-Usuario de Void Linux
+Usuario Linux con wpa_supplicant
 
 ## Disparador
 
@@ -132,11 +132,11 @@ agents::wifi_network_switcher::switch
 
 ### Providers WiFi del Sistema
 
-- `VoidWifiInterfaceProvider`
-- `VoidWifiStatusProvider`
-- `VoidWifiSavedNetworkProvider`
-- `VoidWifiConnectProvider`
-- `VoidWifiNewNetworkConnectProvider`
+- `LinuxWpaWifiInterfaceProvider`
+- `LinuxWpaWifiStatusProvider`
+- `LinuxWpaWifiSavedNetworkProvider`
+- `LinuxWpaWifiConnectProvider`
+- `LinuxWpaWifiNewNetworkConnectProvider`
 
 ### Contratos de Presentacion
 

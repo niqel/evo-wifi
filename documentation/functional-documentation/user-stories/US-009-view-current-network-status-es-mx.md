@@ -2,7 +2,7 @@
 
 ## Historia de Usuario
 
-Como usuario de Void Linux,
+Como usuario Linux con wpa_supplicant,
 quiero ver el estado actual de la red,
 para saber si el sistema esta desconectado o conectado a una red WiFi.
 

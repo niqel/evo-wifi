@@ -2,7 +2,7 @@
 
 ## Historia de Usuario
 
-Como usuario de Void Linux,
+Como usuario Linux con wpa_supplicant,
 quiero seleccionar una red WiFi disponible y conectarme a ella,
 para poder acceder a internet mediante la red seleccionada.
 

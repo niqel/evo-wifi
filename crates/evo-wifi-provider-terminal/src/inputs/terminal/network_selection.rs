@@ -1,0 +1,23 @@
+use evo_wifi_core::borrowed::WifiNetworkSelectionInputBorrowed;
+use evo_wifi_core::contracts::WifiNetworkSelectionInputContract;
+
+#[derive(Clone, Copy, Debug, Default)]
+pub struct TerminalNetworkSelectionInputProvider<'a> {
+    raw: Option<&'a str>,
+}
+
+impl<'a> TerminalNetworkSelectionInputProvider<'a> {
+    pub fn new(raw: Option<&'a str>) -> Self {
+        Self { raw }
+    }
+}
+
+impl WifiNetworkSelectionInputContract for TerminalNetworkSelectionInputProvider<'_> {
+    fn provide<R>(
+        &self,
+        next: impl FnOnce(WifiNetworkSelectionInputBorrowed<'_>) -> R,
+    ) -> Option<R> {
+        self.raw
+            .map(|raw| next(WifiNetworkSelectionInputBorrowed { raw }))
+    }
+}

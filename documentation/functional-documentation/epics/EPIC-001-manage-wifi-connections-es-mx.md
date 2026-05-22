@@ -6,7 +6,7 @@ Ing. Gustavo Melendez Villarreal
 
 ## Objetivo
 
-Como usuario de Void Linux,
+Como usuario Linux con wpa_supplicant,
 quiero una aplicacion minima de terminal para gestionar conexiones WiFi,
 para poder conectarme a redes disponibles y tener acceso a internet.
 

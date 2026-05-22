@@ -2,7 +2,7 @@
 
 ## User Story
 
-As a Void Linux user,
+As a Linux user using wpa_supplicant,
 I want to disconnect from the current WiFi network,
 so that I can stop the active wireless connection without changing networks.
 

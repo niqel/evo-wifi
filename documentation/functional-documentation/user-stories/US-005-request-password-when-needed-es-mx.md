@@ -2,7 +2,7 @@
 
 ## Historia de Usuario
 
-Como usuario de Void Linux,
+Como usuario Linux con wpa_supplicant,
 quiero que la aplicacion solicite la contrasena cuando la red seleccionada no tenga una contrasena guardada,
 para poder conectarme a redes WiFi protegidas.
 

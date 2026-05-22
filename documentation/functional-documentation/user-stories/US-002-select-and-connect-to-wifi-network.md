@@ -2,7 +2,7 @@
 
 ## User Story
 
-As a Void Linux user,
+As a Linux user using wpa_supplicant,
 I want to select an available WiFi network and connect to it,
 so that I can access the internet through the selected network.
 

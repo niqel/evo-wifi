@@ -147,12 +147,12 @@ pub struct WifiConnectionStatusBorrowed<'a> {
 
 **Type:** provider
 
-**Purpose:** Implement WiFi access for Void Linux using existing base system commands.
+**Purpose:** Implement WiFi access for Linux wpa_supplicant using existing base system commands.
 
 **Work:**
 
-- Create `VoidWifiInterfaceProvider`.
-- Create `VoidWifiStatusProvider`.
+- Create `LinuxWpaWifiInterfaceProvider`.
+- Create `LinuxWpaWifiStatusProvider`.
 - Implement `WifiStatusContract`.
 - Implement `WifiInterfaceContract`.
 - Use `wpa_cli interface_list` to resolve the WiFi interface.
@@ -201,7 +201,7 @@ pub struct WifiConnectionStatusBorrowed<'a> {
 
 **Done when:**
 
-- The resolver does not instantiate `VoidWifiInterfaceProvider`.
+- The resolver does not instantiate `LinuxWpaWifiInterfaceProvider`.
 - The resolver has a single public operation: `resolve`.
 
 ### CT-UC-009-008: Implement WiFi Connection Status Resolver
@@ -269,8 +269,8 @@ pub struct WifiConnectionStatusBorrowed<'a> {
 
 **Work:**
 
-- Instantiate `VoidWifiInterfaceProvider`.
-- Instantiate `VoidWifiStatusProvider`.
+- Instantiate `LinuxWpaWifiInterfaceProvider`.
+- Instantiate `LinuxWpaWifiStatusProvider`.
 - Instantiate `TerminalOutputProvider`.
 - Invoke `agents::wifi_connection_status_shower::show`.
 
@@ -318,7 +318,7 @@ pub struct WifiConnectionStatusBorrowed<'a> {
 - Tests do not call `wpa_cli`.
 - Tests do not require a real WiFi interface.
 
-### CT-UC-009-014: Manual Validation on Void Linux
+### CT-UC-009-014: Manual Validation with wpa_supplicant
 
 **Type:** validation
 
@@ -351,7 +351,7 @@ pub struct WifiConnectionStatusBorrowed<'a> {
 
 - `cargo check` passes.
 - Tests for the UC-009 resolver chain pass.
-- UC-009 works manually on Void Linux.
+- UC-009 works manually with wpa_supplicant.
 - The implementation follows the documented dependency direction:
 
 ```text

@@ -2,7 +2,7 @@
 
 ## Historia de Usuario
 
-Como usuario de Void Linux,
+Como usuario Linux con wpa_supplicant,
 quiero que la aplicacion detecte cuando selecciono la red a la que ya estoy conectado,
 para evitar reconectarme innecesariamente.
 

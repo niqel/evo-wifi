@@ -2,7 +2,7 @@
 
 ## User Story
 
-As a Void Linux user,
+As a Linux user using wpa_supplicant,
 I want to forget a saved WiFi password,
 so that the system no longer stores it for future connections.
 

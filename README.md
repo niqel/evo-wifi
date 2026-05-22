@@ -35,4 +35,7 @@ plugin add target/debug/nu_plugin_evo_wifi
 plugin use evo_wifi
 evo-nu-wifi status
 evo-nu-wifi networks
+evo-nu-wifi connect --ssid <ssid> [--password <password>]
+evo-nu-wifi disconnect
+evo-nu-wifi forget --ssid <ssid>
 ```

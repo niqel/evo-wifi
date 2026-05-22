@@ -1,7 +1,10 @@
 pub mod commands;
 pub mod values;
 
-use commands::{EvoWifiNetworksCommand, EvoWifiStatusCommand};
+use commands::{
+    EvoWifiConnectCommand, EvoWifiDisconnectCommand, EvoWifiForgetCommand, EvoWifiNetworksCommand,
+    EvoWifiStatusCommand,
+};
 use nu_plugin::{Plugin, PluginCommand};
 
 pub struct EvoWifiPlugin;
@@ -15,6 +18,9 @@ impl Plugin for EvoWifiPlugin {
         vec![
             Box::new(EvoWifiStatusCommand),
             Box::new(EvoWifiNetworksCommand),
+            Box::new(EvoWifiConnectCommand),
+            Box::new(EvoWifiDisconnectCommand),
+            Box::new(EvoWifiForgetCommand),
         ]
     }
 }

@@ -23,6 +23,7 @@ The repository is now a Cargo workspace:
 
 - `crates/evo-wifi-core` is the reusable library. It contains `borrowed`, `contracts`, `resolvers`, `agents`, and `commands`.
 - `crates/evo-wifi-cli` is the binary runtime. It parses CLI arguments, creates concrete providers, and calls core commands.
+- `crates/evo-wifi-nu-plugin` is the Nushell plugin runtime. It exposes Nushell commands and converts provider values to `nu_protocol::Value`.
 - `crates/evo-wifi-provider-linux-wpa` implements Linux WPA system providers.
 - `crates/evo-wifi-provider-nushell` implements Nushell-facing providers for typed inputs and structured outputs.
 - `crates/evo-wifi-provider-terminal` implements terminal input and output providers.
@@ -33,14 +34,17 @@ At runtime, the project works like this:
 
 ```text
 evo-wifi-cli main.rs -> providers + evo-wifi-core commands -> agents -> resolvers -> contracts -> providers -> external world
+evo-wifi-nu-plugin -> providers + evo-wifi-core commands -> agents -> resolvers -> contracts -> providers -> Nushell Value
 ```
 
-That is the actual implementation route used by the CLI.
+These are the actual implementation routes used by the CLI and by the first Nushell plugin commands.
 
 ### What Each Piece Does
 
 - `evo-wifi-cli/main.rs` selects the command from CLI arguments.
 - `evo-wifi-cli/main.rs` assembles the concrete providers needed by each command.
+- `evo-wifi-nu-plugin` exposes `evo-nu-wifi status` and `evo-nu-wifi networks`.
+- `evo-wifi-nu-plugin` converts `evo-wifi-provider-nushell` values to `nu_protocol::Value`.
 - `commands` act as runtime-agnostic command objects in `evo-wifi-core`.
 - `agents` coordinate the use case by chaining resolvers.
 - `resolvers` decide whether borrowed data can become operable.
@@ -72,7 +76,7 @@ Contracts are not specialized by technology or concrete use case. The specialty 
 - provider crates contain concrete implementations such as terminal, Nushell, or Linux WPA.
 
 In evo-wifi, WiFi is the specialty of the workspace and its concrete provider crates, not a separate contracts folder.
-Nushell is a presentation/runtime specialty. It owns its received strings and structured output state, then lends borrowed values to the core through `provide`.
+Nushell is a presentation/runtime specialty. The provider owns its received strings and structured output state, then lends borrowed values to the core through `provide`. The plugin owns the final `nu_protocol` boundary.
 
 Examples:
 

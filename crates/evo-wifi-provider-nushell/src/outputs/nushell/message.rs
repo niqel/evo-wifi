@@ -23,6 +23,12 @@ impl WifiMessageOutputContract for NushellMessageOutputProvider {
     }
 }
 
+impl WifiMessageOutputContract for &NushellMessageOutputProvider {
+    fn provide(&self, message: &str) {
+        (*self).provide(message);
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

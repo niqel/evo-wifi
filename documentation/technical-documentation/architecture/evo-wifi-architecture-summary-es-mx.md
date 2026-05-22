@@ -23,6 +23,7 @@ El repositorio ahora es un workspace de Cargo:
 
 - `crates/evo-wifi-core` es la libreria reutilizable. Contiene `borrowed`, `contracts`, `resolvers`, `agents` y `commands`.
 - `crates/evo-wifi-cli` es el runtime binario. Lee argumentos CLI, crea providers concretos y llama commands del core.
+- `crates/evo-wifi-nu-plugin` es el runtime plugin de Nushell. Expone comandos Nushell y convierte valores del provider a `nu_protocol::Value`.
 - `crates/evo-wifi-provider-linux-wpa` implementa providers de sistema Linux WPA.
 - `crates/evo-wifi-provider-nushell` implementa providers orientados a Nushell para entradas tipadas y salidas estructuradas.
 - `crates/evo-wifi-provider-terminal` implementa providers de entrada y salida de terminal.
@@ -33,14 +34,17 @@ En tiempo de ejecucion, el proyecto trabaja asi:
 
 ```text
 evo-wifi-cli main.rs -> providers + evo-wifi-core commands -> agents -> resolvers -> contracts -> providers -> mundo externo
+evo-wifi-nu-plugin -> providers + evo-wifi-core commands -> agents -> resolvers -> contracts -> providers -> Nushell Value
 ```
 
-Esa es la ruta real de implementacion usada por la CLI.
+Estas son las rutas reales de implementacion usadas por la CLI y por los primeros comandos del plugin Nushell.
 
 ### Que Hace Cada Pieza
 
 - `evo-wifi-cli/main.rs` selecciona el comando desde los argumentos de CLI.
 - `evo-wifi-cli/main.rs` ensambla los providers concretos que necesita cada comando.
+- `evo-wifi-nu-plugin` expone `evo-nu-wifi status` y `evo-nu-wifi networks`.
+- `evo-wifi-nu-plugin` convierte valores de `evo-wifi-provider-nushell` a `nu_protocol::Value`.
 - `commands` actua como objetos de comando independientes del runtime dentro de `evo-wifi-core`.
 - `agents` coordina el caso de uso encadenando resolvers.
 - `resolvers` decide si los datos prestados pueden volverse operables.
@@ -72,7 +76,7 @@ Los contracts no se especializan por tecnologia o caso de uso concreto. La espec
 - los crates de providers contienen implementaciones concretas como terminal, Nushell o Linux WPA.
 
 En evo-wifi, WiFi es la especialidad del workspace y de sus crates de providers concretos, no una carpeta de contracts separada.
-Nushell es una especialidad de presentacion/runtime. Es dueno de sus strings recibidos y del estado de salida estructurado, y despues presta valores borrowed al core mediante `provide`.
+Nushell es una especialidad de presentacion/runtime. El provider es dueno de sus strings recibidos y del estado de salida estructurado, y despues presta valores borrowed al core mediante `provide`. El plugin es dueno del limite final con `nu_protocol`.
 
 Ejemplos:
 

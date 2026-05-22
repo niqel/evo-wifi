@@ -91,7 +91,7 @@ pub struct WifiInterfaceBorrowed<'a> {
 
 pub struct WifiConnectionStatusBorrowed<'a> {
     pub ssid: &'a str,
-    pub status: &'a str,
+    pub state: WifiConnectionState,
 }
 ```
 
@@ -101,7 +101,7 @@ pub struct WifiConnectionStatusBorrowed<'a> {
 - No enum is introduced for status.
 - No owned `String` is introduced in these views.
 
-### CT-UC-009-003: Define WiFi Contracts
+### CT-UC-009-003: Define Input And Output Contracts
 
 **Type:** contract
 
@@ -143,7 +143,7 @@ pub struct WifiConnectionStatusBorrowed<'a> {
 - The contract receives borrowed data and does not own provider data unnecessarily.
 - The contract exposes `provide`.
 
-### CT-UC-009-005: Implement Void WiFi Providers
+### CT-UC-009-005: Implement Void Input Providers
 
 **Type:** provider
 

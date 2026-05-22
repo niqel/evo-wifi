@@ -19,10 +19,12 @@ pub fn connect(
     wifi_network_selection_input_resolver::resolve(input_provider, |selection| {
         wifi_password_input_resolver::resolve(password_provider, |password| {
             if password.raw.trim().is_empty() {
-                return Some(wifi_message_output_resolver::resolve(
+                wifi_message_output_resolver::resolve(
                     message_output_provider,
                     "Password is required for selected WiFi network",
-                ));
+                );
+
+                return Some(());
             }
 
             wifi_interface_resolver::resolve(interface_provider, |interface| {

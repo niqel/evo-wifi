@@ -29,6 +29,7 @@ where
     O: WifiStatusOutputContract,
     M: WifiMessageOutputContract,
 {
+    #[allow(clippy::too_many_arguments)]
     pub fn new(
         selection_provider: I,
         password_provider: P,

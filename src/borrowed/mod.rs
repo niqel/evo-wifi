@@ -8,7 +8,7 @@ pub mod wifi_saved_network;
 pub mod wifi_saved_secret;
 
 pub use wifi_action_selection_input::WifiActionSelectionInputBorrowed;
-pub use wifi_connection_status::WifiConnectionStatusBorrowed;
+pub use wifi_connection_status::{WifiConnectionState, WifiConnectionStatusBorrowed};
 pub use wifi_interface::WifiInterfaceBorrowed;
 pub use wifi_network::WifiNetworkBorrowed;
 pub use wifi_network_selection_input::WifiNetworkSelectionInputBorrowed;

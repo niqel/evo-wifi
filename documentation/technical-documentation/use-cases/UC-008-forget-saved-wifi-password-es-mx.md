@@ -64,7 +64,7 @@ El usuario solicita olvidar la contraseña guardada de una red WiFi especifica.
   - `raw: &'a str`
 - `WifiSavedNetworkBorrowed<'a>`
   - `ssid: &'a str`
-  - `network_id: &'a str`
+  - `network_id: u32`
 
 ## Mapeo Tecnico
 

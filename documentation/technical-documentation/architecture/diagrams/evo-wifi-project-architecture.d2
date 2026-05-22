@@ -27,12 +27,6 @@ agents: {
   style.stroke: ${accent}
 }
 
-pipeline: {
-  label: "pipeline\n(agent working form)"
-  style.fill: ${white}
-  style.stroke: ${border}
-}
-
 resolvers: {
   label: "resolvers\nresolve borrowed data"
   style.fill: ${white}
@@ -46,7 +40,7 @@ contracts: {
 }
 
 providers: {
-  label: "providers\nterminal / wifi / fake / void"
+  label: "providers\nsingle responsibility\nprovide()"
   style.fill: ${white}
   style.stroke: ${accent}
 }
@@ -65,8 +59,8 @@ external: {
 
 main -> commands: "select action"
 commands -> agents: "execute()"
-agents -> pipeline: "working form"
-pipeline -> resolvers: "resolve() chain"
+commands -> providers: "assemble"
+agents -> resolvers: "resolve() chain"
 resolvers -> borrowed: "borrowed values"
 resolvers -> contracts: "depend on"
 contracts -> providers: "implemented by"

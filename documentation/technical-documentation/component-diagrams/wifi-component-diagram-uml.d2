@@ -98,8 +98,8 @@ runtime_assembly: {
   label: "Runtime Assembly"
   style.stroke: ${stroke}
 
-  composition_root: {
-    label: "<<composition root>>\nEvoWifiCompositionRoot\n\ncreates providers\ninvokes agent_subject\nno use-case logic"
+  command_assembly: {
+    label: "<<runtime wiring>>\nmain.rs + commands\n\nselect action\ncreate providers\ninvoke agents"
     style.fill: ${root-fill}
   }
 }
@@ -151,17 +151,17 @@ input_providers: {
   label: "Input Providers"
   style.stroke: ${stroke}
 
-  terminal: {
-    label: "<<provider>>\nTerminalInputProvider"
+  terminal_action_selection: {
+    label: "<<provider>>\nTerminalActionSelectionInputProvider\nprovide()"
     style.fill: ${provider-fill}
   }
-  tui: {
-    label: "<<provider candidate>>\nTuiInputProvider"
-    style.fill: ${candidate-fill}
+  terminal_network_selection: {
+    label: "<<provider>>\nTerminalNetworkSelectionInputProvider\nprovide()"
+    style.fill: ${provider-fill}
   }
-  web: {
-    label: "<<provider candidate>>\nWebInputProvider"
-    style.fill: ${candidate-fill}
+  terminal_password: {
+    label: "<<provider>>\nTerminalPasswordInputProvider\nprovide()"
+    style.fill: ${provider-fill}
   }
 }
 
@@ -169,17 +169,21 @@ output_providers: {
   label: "Output Providers"
   style.stroke: ${stroke}
 
-  terminal: {
-    label: "<<provider>>\nTerminalOutputProvider"
+  terminal_network: {
+    label: "<<provider>>\nTerminalNetworkOutputProvider\nprovide()"
     style.fill: ${provider-fill}
   }
-  tui: {
-    label: "<<provider candidate>>\nTuiOutputProvider"
-    style.fill: ${candidate-fill}
+  terminal_status: {
+    label: "<<provider>>\nTerminalStatusOutputProvider\nprovide()"
+    style.fill: ${provider-fill}
   }
-  web: {
-    label: "<<provider candidate>>\nWebOutputProvider"
-    style.fill: ${candidate-fill}
+  terminal_secret: {
+    label: "<<provider>>\nTerminalSecretOutputProvider\nprovide()"
+    style.fill: ${provider-fill}
+  }
+  terminal_message: {
+    label: "<<provider>>\nTerminalMessageOutputProvider\nprovide()"
+    style.fill: ${provider-fill}
   }
 }
 
@@ -187,21 +191,41 @@ wifi_providers: {
   label: "WiFi Providers"
   style.stroke: ${stroke}
 
-  void: {
-    label: "<<provider>>\nVoidWifiProvider\n\nuses:\n- wpa_supplicant / wpa_cli\n- dhcpcd\n- iw / ip\n- runit / sv"
+  void_scan: {
+    label: "<<provider>>\nVoidWifiScanProvider\nprovide()"
     style.fill: ${provider-fill}
   }
-  windows: {
-    label: "<<provider candidate>>\nWindowsWifiProvider"
-    style.fill: ${candidate-fill}
+  void_interface: {
+    label: "<<provider>>\nVoidWifiInterfaceProvider\nprovide()"
+    style.fill: ${provider-fill}
   }
-  network_manager: {
-    label: "<<provider candidate>>\nNetworkManagerWifiProvider"
-    style.fill: ${candidate-fill}
+  void_status: {
+    label: "<<provider>>\nVoidWifiStatusProvider\nprovide()"
+    style.fill: ${provider-fill}
   }
-  iwd: {
-    label: "<<provider candidate>>\nIwdWifiProvider"
-    style.fill: ${candidate-fill}
+  void_connect: {
+    label: "<<provider>>\nVoidWifiConnectProvider\nprovide()"
+    style.fill: ${provider-fill}
+  }
+  void_new_connect: {
+    label: "<<provider>>\nVoidWifiNewNetworkConnectProvider\nprovide()"
+    style.fill: ${provider-fill}
+  }
+  void_saved_network: {
+    label: "<<provider>>\nVoidWifiSavedNetworkProvider\nprovide()"
+    style.fill: ${provider-fill}
+  }
+  void_saved_secret: {
+    label: "<<provider>>\nVoidWifiSavedSecretProvider\nprovide()"
+    style.fill: ${provider-fill}
+  }
+  void_disconnect: {
+    label: "<<provider>>\nVoidWifiDisconnectProvider\nprovide()"
+    style.fill: ${provider-fill}
+  }
+  void_forget: {
+    label: "<<provider>>\nVoidWifiForgetProvider\nprovide()"
+    style.fill: ${provider-fill}
   }
 }
 
@@ -239,62 +263,51 @@ void_external_components: {
   }
 }
 
-runtime_assembly.composition_root -> wifi_providers.void: creates
-runtime_assembly.composition_root -> input_providers.terminal: creates
-runtime_assembly.composition_root -> output_providers.terminal: creates
-runtime_assembly.composition_root -> agents.wifi_connection_status_shower: invokes
-runtime_assembly.composition_root -> agents.wifi_network_switcher: invokes
-runtime_assembly.composition_root -> contract_function_rule: follows {
+runtime_assembly.command_assembly -> wifi_providers.void_interface: creates
+runtime_assembly.command_assembly -> wifi_providers.void_status: creates
+runtime_assembly.command_assembly -> wifi_providers.void_connect: creates
+runtime_assembly.command_assembly -> wifi_providers.void_new_connect: creates
+runtime_assembly.command_assembly -> input_providers.terminal_network_selection: creates
+runtime_assembly.command_assembly -> input_providers.terminal_password: creates
+runtime_assembly.command_assembly -> output_providers.terminal_status: creates
+runtime_assembly.command_assembly -> output_providers.terminal_message: creates
+runtime_assembly.command_assembly -> agents.wifi_connection_status_shower: invokes
+runtime_assembly.command_assembly -> agents.wifi_network_switcher: invokes
+runtime_assembly.command_assembly -> contract_function_rule: follows {
   style.stroke-dash: 4
 }
 
-input_providers.terminal -> input_contracts.action_selection: implements
-input_providers.terminal -> input_contracts.network_selection: implements
-input_providers.terminal -> input_contracts.password: implements
+input_providers.terminal_action_selection -> input_contracts.action_selection: implements
+input_providers.terminal_network_selection -> input_contracts.network_selection: implements
+input_providers.terminal_password -> input_contracts.password: implements
 
-output_providers.terminal -> output_contracts.network: implements
-output_providers.terminal -> output_contracts.status: implements
-output_providers.terminal -> output_contracts.secret: implements
-output_providers.terminal -> output_contracts.message: implements
+output_providers.terminal_network -> output_contracts.network: implements
+output_providers.terminal_status -> output_contracts.status: implements
+output_providers.terminal_secret -> output_contracts.secret: implements
+output_providers.terminal_message -> output_contracts.message: implements
 
-input_providers.tui -> input_contracts.action_selection: may implement {
-  style.stroke-dash: 4
-}
-input_providers.web -> input_contracts.action_selection: may implement {
-  style.stroke-dash: 4
-}
-output_providers.tui -> output_contracts.status: may implement {
-  style.stroke-dash: 4
-}
-output_providers.web -> output_contracts.status: may implement {
-  style.stroke-dash: 4
-}
+wifi_providers.void_scan -> wifi_contracts.scan: implements
+wifi_providers.void_interface -> wifi_contracts.interface: implements
+wifi_providers.void_status -> wifi_contracts.status: implements
+wifi_providers.void_connect -> wifi_contracts.connect: implements
+wifi_providers.void_new_connect -> wifi_contracts.new_connect: implements
+wifi_providers.void_saved_network -> wifi_contracts.saved_network: implements
+wifi_providers.void_saved_secret -> wifi_contracts.saved_secret: implements
+wifi_providers.void_disconnect -> wifi_contracts.disconnect: implements
+wifi_providers.void_forget -> wifi_contracts.forget: implements
 
-wifi_providers.void -> wifi_contracts.scan: implements
-wifi_providers.void -> wifi_contracts.interface: implements
-wifi_providers.void -> wifi_contracts.status: implements
-wifi_providers.void -> wifi_contracts.connect: implements
-wifi_providers.void -> wifi_contracts.new_connect: implements
-wifi_providers.void -> wifi_contracts.saved_network: implements
-wifi_providers.void -> wifi_contracts.saved_secret: implements
-wifi_providers.void -> wifi_contracts.disconnect: implements
-wifi_providers.void -> wifi_contracts.forget: implements
-
-wifi_providers.windows -> wifi_contracts.scan: may implement {
-  style.stroke-dash: 4
-}
-wifi_providers.network_manager -> wifi_contracts.scan: may implement {
-  style.stroke-dash: 4
-}
-wifi_providers.iwd -> wifi_contracts.scan: may implement {
-  style.stroke-dash: 4
-}
-
-wifi_providers.void -> void_external_components.wpa_cli: uses
-wifi_providers.void -> void_external_components.dhcpcd: uses
-wifi_providers.void -> void_external_components.iw: uses
-wifi_providers.void -> void_external_components.ip: uses
-wifi_providers.void -> void_external_components.sv: uses
+wifi_providers.void_scan -> void_external_components.wpa_cli: uses
+wifi_providers.void_interface -> void_external_components.wpa_cli: uses
+wifi_providers.void_interface -> void_external_components.iw: uses
+wifi_providers.void_status -> void_external_components.wpa_cli: uses
+wifi_providers.void_connect -> void_external_components.wpa_cli: uses
+wifi_providers.void_connect -> void_external_components.dhcpcd: uses
+wifi_providers.void_new_connect -> void_external_components.wpa_cli: uses
+wifi_providers.void_new_connect -> void_external_components.dhcpcd: uses
+wifi_providers.void_saved_network -> void_external_components.wpa_cli: uses
+wifi_providers.void_saved_secret -> void_external_components.wpa_cli: uses
+wifi_providers.void_disconnect -> void_external_components.wpa_cli: uses
+wifi_providers.void_forget -> void_external_components.wpa_cli: uses
 
 void_external_components.wpa_cli -> void_external_components.wpa_supplicant: controls
 void_external_components.sv -> void_external_components.runit: talks to
@@ -305,9 +318,9 @@ void_external_components.sv -> void_external_components.dhcpcd: manages {
   style.stroke-dash: 4
 }
 
-agents.wifi_connection_status_shower -> resolvers.wifi_interface: "pipeline step 1"
-agents.wifi_network_switcher -> resolvers.wifi_interface: "pipeline step 1"
-agents.wifi_network_switcher -> resolvers.wifi_network_switch: "pipeline step 2"
+agents.wifi_connection_status_shower -> resolvers.wifi_interface: "resolver chain"
+agents.wifi_network_switcher -> resolvers.wifi_interface: "resolver chain"
+agents.wifi_network_switcher -> resolvers.wifi_network_switch: "resolver chain"
 resolvers.wifi_interface -> resolvers.wifi_connection_status: "WifiInterfaceBorrowed<'a>"
 resolvers.wifi_network_switch -> resolvers.wifi_connection_status: "WifiConnectionStatusBorrowed<'a>"
 resolvers.wifi_connection_status -> resolvers.wifi_connection_status_output: "WifiConnectionStatusBorrowed<'a>"

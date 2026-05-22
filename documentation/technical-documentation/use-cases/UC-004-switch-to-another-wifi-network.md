@@ -96,7 +96,7 @@ The user requests to switch to another WiFi network.
 
 - `agents::wifi_network_switcher::switch`
 
-### Resolver Pipeline
+### Resolver Chain
 
 ```text
 agents::wifi_network_switcher::switch
@@ -130,9 +130,13 @@ agents::wifi_network_switcher::switch
 - `WifiPasswordInputContract`
 - `WifiNewNetworkConnectContract`
 
-### WiFi Provider
+### WiFi Providers
 
-- `VoidWifiProvider`
+- `VoidWifiInterfaceProvider`
+- `VoidWifiStatusProvider`
+- `VoidWifiSavedNetworkProvider`
+- `VoidWifiConnectProvider`
+- `VoidWifiNewNetworkConnectProvider`
 
 ### Output Contracts
 
@@ -149,7 +153,7 @@ agents::wifi_network_switcher::switch
 - Every contract exposes a single operation named `provide`.
 - Providers provide.
 - Resolvers resolve.
-- Agent subjects coordinate their resolver pipeline.
+- Agent subjects coordinate their resolver chain.
 
 ## Development Task Candidates
 
@@ -175,5 +179,5 @@ agents::wifi_network_switcher::switch
 
 - The agent subject must not decide the route itself.
 - The switch decision is made inside the resolver.
-- The agent subject must only connect resolver pipes.
-- The implementation must reuse the existing connect and new-connect pipes.
+- The agent subject must only connect the resolver chain.
+- The implementation must reuse the existing connect and new-connect resolver chains.

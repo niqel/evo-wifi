@@ -96,7 +96,7 @@ El usuario solicita cambiar a otra red WiFi.
 
 - `agents::wifi_network_switcher::switch`
 
-### Pipeline de Resolvers
+### Cadena de Resolvers
 
 ```text
 agents::wifi_network_switcher::switch
@@ -130,9 +130,13 @@ agents::wifi_network_switcher::switch
 - `WifiPasswordInputContract`
 - `WifiNewNetworkConnectContract`
 
-### Provider WiFi del Sistema
+### Providers WiFi del Sistema
 
-- `VoidWifiProvider`
+- `VoidWifiInterfaceProvider`
+- `VoidWifiStatusProvider`
+- `VoidWifiSavedNetworkProvider`
+- `VoidWifiConnectProvider`
+- `VoidWifiNewNetworkConnectProvider`
 
 ### Contratos de Presentacion
 
@@ -149,7 +153,7 @@ agents::wifi_network_switcher::switch
 - Todo contrato expone una unica operacion llamada `provide`.
 - Los providers proveen.
 - Los resolvers resuelven.
-- Los sujetos agente coordinan su pipeline de resolvers.
+- Los sujetos agente coordinan su cadena de resolvers.
 
 ## Candidatos a Tareas de Desarrollo
 
@@ -175,5 +179,5 @@ agents::wifi_network_switcher::switch
 
 - El sujeto agente no debe decidir la ruta por si mismo.
 - La decision del cambio debe vivir dentro del resolver.
-- El sujeto agente debe solo conectar pipelines de resolvers.
-- La implementacion debe reutilizar los pipelines de conexion existentes y de conexion nueva.
+- El sujeto agente debe solo conectar la cadena de resolvers.
+- La implementacion debe reutilizar las cadenas de resolvers de conexion existentes y de conexion nueva.

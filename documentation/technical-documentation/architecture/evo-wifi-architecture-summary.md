@@ -11,30 +11,20 @@ The project exists to prove a borrowed-first architecture built on clear respons
 The project is organized around these concepts:
 
 - `agents`
-- `pipelines` as the way an agent works
 - `resolvers`
-- `tools`
 - `contracts`
 - `providers`
 
-And around these domain forms:
+And around this domain form:
 
-- `specifications`
 - `borrowed`
-- `entities`
-
-The important refinement for evo-wifi is this:
-
-- `pipeline` is not a peer layer competing with `agent`
-- `pipeline` is the working form of the `agent`
-- in the current codebase, that pipeline is expressed through the agent call chain, not through a dedicated `pipelines/` module
 
 ## Runtime Shape
 
 At runtime, the project works like this:
 
 ```text
-main.rs -> commands -> agents -> pipeline -> resolvers -> contracts -> providers -> external world
+main.rs -> commands -> agents -> resolvers -> contracts -> providers -> external world
 ```
 
 That is the actual implementation route used by the CLI.
@@ -43,12 +33,48 @@ That is the actual implementation route used by the CLI.
 
 - `main.rs` selects the command from CLI arguments.
 - `commands` act as the CLI façade.
-- `agents` coordinate the use case.
-- the `pipeline` is the way the agent works.
+- `commands` assemble the concrete providers needed by each command.
+- `agents` coordinate the use case by chaining resolvers.
 - `resolvers` decide whether borrowed data can become operable.
 - `contracts` define the expected behavior.
-- `providers` implement that behavior against the real world.
+- `providers` implement one contract responsibility through `provide`.
 - the external world is terminal input/output, WiFi, and the operating system.
+
+## Semantic Operation Rule
+
+The architecture uses a strict naming and operation rule:
+
+```text
+provider.provide
+resolver.resolve
+agent_subject.primary_action
+command.execute
+```
+
+Providers provide exactly one contract responsibility.
+Resolvers resolve whether the flow can continue.
+Agent subjects perform the action named by their module.
+Commands execute the selected CLI entry point.
+
+Examples:
+
+```text
+wifi_interface_resolver.resolve
+VoidWifiInterfaceProvider.provide
+wifi_connection_status_shower.show
+wifi_network_switcher.switch
+```
+
+This follows the subject-agent rule:
+
+```text
+blender.blend
+washer.wash
+network_switcher.switch
+connection_status_shower.show
+```
+
+If a name cannot defend its primary action, the piece should be renamed or split.
 
 ## Borrowed-First Data Flow
 
@@ -68,11 +94,9 @@ This keeps ownership where it naturally belongs and avoids unnecessary wrappers 
 
 The domain is intentionally lightweight.
 
-It is divided into:
+It is represented by:
 
-- `specifications/` for minimal acceptance or operability rules
 - `borrowed/` for non-owning data views
-- `entities/` only when real ownership is required
 
 This keeps the model close to the actual data flow and prevents artificial materialization.
 
@@ -86,11 +110,9 @@ The architecture summary shows how the system is organized semantically and oper
 The key architectural rules are:
 
 - the agent coordinates
-- the pipeline is how the agent works
 - the resolver decides
-- the tool transforms
 - the contract states the expected behavior
-- the provider implements the contract
+- the provider provides one contract responsibility through `provide`
 - borrowed forms are preferred when they are enough
 
 ## Practical Result
@@ -101,7 +123,7 @@ This architecture allows evo-wifi to:
 - preserve clear responsibilities
 - avoid unnecessary intermediate packages
 - test the domain without real providers
-- replace providers without rewriting the core flow
+- replace individual providers without rewriting the core flow
 
 ## What the Architecture Diagram Must Show
 
@@ -110,10 +132,9 @@ The project architecture diagram should make visible:
 - CLI entry point
 - command façade
 - agent coordination
-- agent working form (`pipeline`)
 - resolver chain
 - contract boundary
-- provider implementation
+- provider implementations with single responsibilities
 - borrowed domain forms
 - external world
 

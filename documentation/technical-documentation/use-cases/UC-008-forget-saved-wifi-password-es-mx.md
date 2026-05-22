@@ -72,7 +72,7 @@ El usuario solicita olvidar la contraseña guardada de una red WiFi especifica.
 
 - `agents::wifi_saved_network_forgetter::forget`
 
-### Pipeline de Resolvers
+### Cadena de Resolvers
 
 ```text
 agents::wifi_saved_network_forgetter::forget
@@ -96,9 +96,11 @@ agents::wifi_saved_network_forgetter::forget
 - `WifiSavedNetworkContract`
 - `WifiForgetContract`
 
-### Provider WiFi del Sistema
+### Providers WiFi del Sistema
 
-- `VoidWifiProvider`
+- `VoidWifiInterfaceProvider`
+- `VoidWifiSavedNetworkProvider`
+- `VoidWifiForgetProvider`
 
 ### Contrato de Presentacion
 
@@ -113,7 +115,7 @@ agents::wifi_saved_network_forgetter::forget
 - Todo contrato expone una unica operacion llamada `provide`.
 - Los providers proveen.
 - Los resolvers resuelven.
-- Los sujetos agente coordinan su pipeline de resolvers.
+- Los sujetos agente coordinan su cadena de resolvers.
 
 ## Candidatos a Tareas de Desarrollo
 
@@ -124,7 +126,7 @@ agents::wifi_saved_network_forgetter::forget
 - Definir `WifiInterfaceContract`.
 - Definir `WifiSavedNetworkContract`.
 - Definir `WifiForgetContract`.
-- Implementar el comportamiento de olvido en `VoidWifiProvider`.
+- Implementar el comportamiento de olvido en `VoidWifiForgetProvider`.
 - Implementar los mensajes de olvido en `TerminalMessageOutputProvider`.
 - Implementar `wifi_network_selection_input_resolver::resolve`.
 - Implementar `wifi_interface_resolver::resolve`.
@@ -136,7 +138,7 @@ agents::wifi_saved_network_forgetter::forget
 ## Notas de Aceptacion
 
 - El sujeto agente no debe llamar providers directamente.
-- El sujeto agente debe trabajar mediante el pipeline de resolvers.
+- El sujeto agente debe trabajar mediante la cadena de resolvers.
 - La salida de presentacion debe pasar por el contrato de presentacion.
 - El olvido de una red guardada debe ser un flujo independiente.
 - La red WiFi seleccionada se pasa como parametro de entrada.

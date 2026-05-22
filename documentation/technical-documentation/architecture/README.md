@@ -5,7 +5,9 @@ This folder contains the architecture material for evo-wifi.
 ## Documents
 
 - [evo-wifi-engineering-principles.md](./evo-wifi-engineering-principles.md)
+- [evo-wifi-engineering-principles-es-mx.md](./evo-wifi-engineering-principles-es-mx.md)
 - [evo-wifi-architecture-summary.md](./evo-wifi-architecture-summary.md)
+- [evo-wifi-architecture-summary-es-mx.md](./evo-wifi-architecture-summary-es-mx.md)
 
 ## Diagrams
 

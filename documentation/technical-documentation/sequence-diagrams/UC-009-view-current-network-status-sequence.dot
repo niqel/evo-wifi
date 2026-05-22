@@ -34,18 +34,23 @@ digraph UC009SequenceDiagram {
     fillcolor="#fff8c5"
   ];
 
-  composition_root [
-    label="<<composition root>>\nEvoWifiCompositionRoot",
+  command [
+    label="<<command>>\nWifiConnectionStatusShowCommand",
     fillcolor="#ddf4ff"
   ];
 
-  system_provider [
-    label="<<provider>>\nVoidWifiProvider",
+  interface_provider [
+    label="<<provider>>\nVoidWifiInterfaceProvider\nprovide()",
     fillcolor="#ddf4ff"
   ];
 
-  presentation_provider [
-    label="<<provider>>\nTerminalOutputProvider",
+  status_provider [
+    label="<<provider>>\nVoidWifiStatusProvider\nprovide()",
+    fillcolor="#ddf4ff"
+  ];
+
+  output_provider [
+    label="<<provider>>\nTerminalStatusOutputProvider\nprovide()",
     fillcolor="#ddf4ff"
   ];
 
@@ -65,11 +70,15 @@ digraph UC009SequenceDiagram {
     label="<<resolver>>\nwifi_connection_status_output_resolver::resolve"
   ];
 
+  interface_contract [
+    label="<<contract / trait>>\nWifiInterfaceContract"
+  ];
+
   status_contract [
     label="<<contract / trait>>\nWifiStatusContract"
   ];
 
-  render_contract [
+  output_contract [
     label="<<contract / trait>>\nWifiStatusOutputContract"
   ];
 
@@ -78,84 +87,28 @@ digraph UC009SequenceDiagram {
     fillcolor="#f6f8fa"
   ];
 
-  user -> composition_root [
-    label="requests current network status"
-  ];
+  user -> command [label="requests current network status"];
+  command -> interface_provider [label="creates"];
+  command -> status_provider [label="creates"];
+  command -> output_provider [label="creates"];
+  command -> agent_subject [label="show(providers as contracts)"];
 
-  composition_root -> system_provider [
-    label="creates"
-  ];
+  agent_subject -> interface_resolver [label="resolve"];
+  interface_resolver -> interface_contract [label="provide"];
+  interface_contract -> interface_provider [label="provider.provide"];
+  interface_provider -> external_wifi [label="query interface source"];
+  external_wifi -> interface_provider [label="raw interface output", style=dashed];
+  interface_provider -> interface_resolver [label="WifiInterfaceBorrowed<'a>", style=dashed];
 
-  composition_root -> presentation_provider [
-    label="creates"
-  ];
+  agent_subject -> status_resolver [label="resolve(WifiInterfaceBorrowed<'a>)"];
+  status_resolver -> status_contract [label="provide"];
+  status_contract -> status_provider [label="provider.provide"];
+  status_provider -> external_wifi [label="wpa_cli -i <iface> status"];
+  external_wifi -> status_provider [label="raw status output", style=dashed];
+  status_provider -> status_resolver [label="WifiConnectionStatusBorrowed<'a>", style=dashed];
 
-  composition_root -> agent_subject [
-    label="invokes with contracts"
-  ];
-
-  agent_subject -> interface_resolver [
-    label="resolve"
-  ];
-
-  interface_resolver -> status_contract [
-    label="uses"
-  ];
-
-  status_contract -> system_provider [
-    label="implemented by"
-  ];
-
-  system_provider -> external_wifi [
-    label="queries interface source"
-  ];
-
-  external_wifi -> system_provider [
-    label="raw interface output",
-    style=dashed
-  ];
-
-  system_provider -> interface_resolver [
-    label="WifiInterfaceBorrowed<'a>",
-    style=dashed
-  ];
-
-  interface_resolver -> status_resolver [
-    label="WifiInterfaceBorrowed<'a>"
-  ];
-
-  status_resolver -> status_contract [
-    label="uses"
-  ];
-
-  system_provider -> external_wifi [
-    label="wpa_cli -i <iface> status"
-  ];
-
-  external_wifi -> system_provider [
-    label="raw status output",
-    style=dashed
-  ];
-
-  system_provider -> status_resolver [
-    label="WifiConnectionStatusBorrowed<'a>",
-    style=dashed
-  ];
-
-  status_resolver -> output_resolver [
-    label="WifiConnectionStatusBorrowed<'a>"
-  ];
-
-  output_resolver -> render_contract [
-    label="uses"
-  ];
-
-  render_contract -> presentation_provider [
-    label="implemented by"
-  ];
-
-  presentation_provider -> user [
-    label="renders current status",
-    style=dashed
-  ];
+  agent_subject -> output_resolver [label="resolve(WifiConnectionStatusBorrowed<'a>)"];
+  output_resolver -> output_contract [label="provide"];
+  output_contract -> output_provider [label="provider.provide"];
+  output_provider -> user [label="terminal status output"];
 }

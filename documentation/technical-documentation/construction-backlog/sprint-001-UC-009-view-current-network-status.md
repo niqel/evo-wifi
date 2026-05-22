@@ -11,7 +11,7 @@ This sprint validates:
 - providers
 - resolvers
 - agent subject
-- composition root
+- command assembly
 - terminal execution path
 
 ## Source Documents
@@ -31,7 +31,7 @@ agents::wifi_connection_status_shower::show
   -> wifi_connection_status_output_resolver::resolve
 ```
 
-The composition root creates the concrete providers and passes them into the use case flow through contracts.
+The command creates the concrete providers and passes them into the use case flow through contracts.
 
 The agent subject must not instantiate providers.
 
@@ -41,7 +41,7 @@ Every contract exposes exactly one public operation named `provide`.
 
 - Providers provide.
 - Resolvers resolve.
-- Agent subjects coordinate resolver pipelines.
+- Agent subjects coordinate resolver chains.
 
 The contract name, module path, and input/output types define what is provided.
 
@@ -143,16 +143,18 @@ pub struct WifiConnectionStatusBorrowed<'a> {
 - The contract receives borrowed data and does not own provider data unnecessarily.
 - The contract exposes `provide`.
 
-### CT-UC-009-005: Implement Void WiFi Provider
+### CT-UC-009-005: Implement Void WiFi Providers
 
 **Type:** provider
 
-**Purpose:** Implement WiFi access for Void Linux using existing base system tools.
+**Purpose:** Implement WiFi access for Void Linux using existing base system commands.
 
 **Work:**
 
-- Create `VoidWifiProvider`.
+- Create `VoidWifiInterfaceProvider`.
+- Create `VoidWifiStatusProvider`.
 - Implement `WifiStatusContract`.
+- Implement `WifiInterfaceContract`.
 - Use `wpa_cli interface_list` to resolve the WiFi interface.
 - Use `wpa_cli -i <iface> status` to resolve current status.
 - Avoid adding third-party crates at this stage.
@@ -189,7 +191,7 @@ pub struct WifiConnectionStatusBorrowed<'a> {
 
 **Type:** resolver
 
-**Purpose:** Resolve the WiFi interface needed by the rest of the pipeline.
+**Purpose:** Resolve the WiFi interface needed by the rest of the resolver chain.
 
 **Work:**
 
@@ -199,7 +201,7 @@ pub struct WifiConnectionStatusBorrowed<'a> {
 
 **Done when:**
 
-- The resolver does not instantiate `VoidWifiProvider`.
+- The resolver does not instantiate `VoidWifiInterfaceProvider`.
 - The resolver has a single public operation: `resolve`.
 
 ### CT-UC-009-008: Implement WiFi Connection Status Resolver
@@ -242,12 +244,12 @@ pub struct WifiConnectionStatusBorrowed<'a> {
 
 **Type:** agent_subject
 
-**Purpose:** Coordinate the UC-009 resolver pipeline.
+**Purpose:** Coordinate the UC-009 resolver chain.
 
 **Work:**
 
 - Create `agents::wifi_connection_status_shower::show`.
-- Execute the resolver pipeline:
+- Execute the resolver chain:
   - `wifi_interface_resolver::resolve`
   - `wifi_connection_status_resolver::resolve`
   - `wifi_connection_status_output_resolver::resolve`
@@ -259,22 +261,22 @@ pub struct WifiConnectionStatusBorrowed<'a> {
 - The agent subject does not render directly.
 - The agent subject does not parse command output.
 
-### CT-UC-009-011: Implement Composition Root
+### CT-UC-009-011: Implement Command Assembly
 
-**Type:** composition
+**Type:** command
 
-**Purpose:** Wire concrete providers to the use case flow.
+**Purpose:** Wire concrete providers to the use case flow from the command.
 
 **Work:**
 
-- Create `EvoWifiCompositionRoot`.
-- Instantiate `VoidWifiProvider`.
+- Instantiate `VoidWifiInterfaceProvider`.
+- Instantiate `VoidWifiStatusProvider`.
 - Instantiate `TerminalOutputProvider`.
 - Invoke `agents::wifi_connection_status_shower::show`.
 
 **Done when:**
 
-- Concrete provider creation is isolated in the composition root.
+- Concrete provider creation is isolated in the command assembly.
 - Resolvers and agent subjects receive contracts, not concrete provider construction logic.
 
 ### CT-UC-009-012: Add Terminal Command Entry Point
@@ -286,7 +288,7 @@ pub struct WifiConnectionStatusBorrowed<'a> {
 **Work:**
 
 - Update `src/main.rs`.
-- Execute the composition root.
+- Execute the selected command.
 - For the first slice, default execution can show current network status directly.
 
 **Done when:**
@@ -312,7 +314,7 @@ pub struct WifiConnectionStatusBorrowed<'a> {
 
 **Done when:**
 
-- Tests validate resolver pipeline behavior.
+- Tests validate resolver chain behavior.
 - Tests do not call `wpa_cli`.
 - Tests do not require a real WiFi interface.
 
@@ -348,12 +350,12 @@ pub struct WifiConnectionStatusBorrowed<'a> {
 ## Definition of Done
 
 - `cargo check` passes.
-- Tests for the UC-009 resolver pipeline pass.
+- Tests for the UC-009 resolver chain pass.
 - UC-009 works manually on Void Linux.
 - The implementation follows the documented dependency direction:
 
 ```text
-composition root -> agent subject -> resolvers -> contracts -> providers -> external system
+main.rs -> commands -> agents -> resolvers -> contracts -> providers -> external system
 ```
 
 - No resolver or agent subject instantiates concrete providers.

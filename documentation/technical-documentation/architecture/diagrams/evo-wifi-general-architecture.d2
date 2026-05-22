@@ -15,22 +15,10 @@ agent: {
   style.stroke: ${accent}
 }
 
-pipeline: {
-  label: "pipeline\n(agent working form)"
-  style.fill: ${white}
-  style.stroke: ${border}
-}
-
 resolver: {
   label: "resolver\n(resolve)"
   style.fill: ${white}
   style.stroke: ${accent}
-}
-
-tool: {
-  label: "tool\n(point transformation)"
-  style.fill: ${white}
-  style.stroke: ${border}
 }
 
 contracts: {
@@ -40,7 +28,7 @@ contracts: {
 }
 
 providers: {
-  label: "providers\n(real implementations)"
+  label: "providers\nsingle responsibility\nprovide()"
   style.fill: ${white}
   style.stroke: ${border}
 }
@@ -56,31 +44,15 @@ domain: {
   style.fill: ${neutral}
   style.stroke: ${border}
 
-  specifications: {
-    label: "specifications\nminimum rules"
-    style.fill: ${white}
-    style.stroke: ${border}
-  }
-
   borrowed: {
     label: "borrowed\nlightweight views"
     style.fill: ${white}
     style.stroke: ${border}
   }
-
-  entities: {
-    label: "entities\nreal ownership"
-    style.fill: ${white}
-    style.stroke: ${border}
-  }
 }
 
-agent -> pipeline: "works through"
-pipeline -> resolver: "orders"
-resolver -> tool: "uses when needed"
+agent -> resolver: "chains"
 resolver -> contracts: "depends on"
 contracts -> providers: "implemented by"
 providers -> external: "talks to"
 resolver -> domain.borrowed: "operates on"
-resolver -> domain.specifications: "accepts / rejects"
-tool -> domain.borrowed: "transforms"

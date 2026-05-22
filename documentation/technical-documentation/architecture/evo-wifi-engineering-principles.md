@@ -93,7 +93,7 @@ In some projects, that object will be its own entity. In others, it may be a bor
 
 ## Linguistic Inspiration
 
-Part of the inspiration for this approach comes from the use of functional compounds in Persian, where the relation between object and action can form a clear semantic identity for the subject agent or tool.
+Part of the inspiration for this approach comes from the use of functional compounds in Persian, where the relation between object and action can form a clear semantic identity for the subject agent.
 
 In this document, that idea is adopted as a conceptual reference to improve clarity in names, modules, and responsibilities in software, not as a strict linguistic rule.
 
@@ -106,7 +106,7 @@ Preferred:
 - names that express function
 - small semantically closed modules
 - clear verbs for operations
-- types that represent domain entities
+- types that represent domain concepts
 
 Avoid:
 
@@ -188,7 +188,7 @@ These principles apply to:
 - scripts
 - crates
 - CLIs
-- internal tools
+- internal utilities
 - automation
 - system utilities
 

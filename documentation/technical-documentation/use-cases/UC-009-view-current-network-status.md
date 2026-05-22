@@ -69,7 +69,7 @@ The user requests the current network status from the application.
 
 - `agents::wifi_connection_status_shower::show`
 
-### Resolver Pipeline
+### Resolver Chain
 
 ```text
 agents::wifi_connection_status_shower::show
@@ -89,9 +89,10 @@ agents::wifi_connection_status_shower::show
 - `WifiInterfaceContract`
 - `WifiStatusContract`
 
-### WiFi Provider
+### WiFi Providers
 
-- `VoidWifiProvider`
+- `VoidWifiInterfaceProvider`
+- `VoidWifiStatusProvider`
 
 ### Output Contract
 
@@ -106,7 +107,7 @@ agents::wifi_connection_status_shower::show
 - Every contract exposes a single operation named `provide`.
 - Providers provide.
 - Resolvers resolve.
-- Agent subjects coordinate their resolver pipeline.
+- Agent subjects coordinate their resolver chain.
 
 ## Development Task Candidates
 
@@ -115,7 +116,7 @@ agents::wifi_connection_status_shower::show
 - Define `WifiInterfaceContract`.
 - Define `WifiStatusContract`.
 - Define `WifiStatusOutputContract`.
-- Implement `VoidWifiProvider` status behavior.
+- Implement `VoidWifiStatusProvider` status behavior.
 - Implement `TerminalOutputProvider` status output provisioning.
 - Implement `wifi_interface_resolver::resolve`.
 - Implement `wifi_connection_status_resolver::resolve`.
@@ -126,7 +127,7 @@ agents::wifi_connection_status_shower::show
 ## Acceptance Notes
 
 - The agent subject must not call providers directly.
-- The agent subject must work through the resolver pipeline.
+- The agent subject must work through the resolver chain.
 - Output must go through the output contract.
 - WiFi access must go through the WiFi contracts.
 - Status values remain borrowed strings and are not converted to enums at this stage.

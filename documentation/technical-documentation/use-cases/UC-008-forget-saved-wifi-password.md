@@ -72,7 +72,7 @@ The user requests to forget a saved WiFi password for a specific WiFi network.
 
 - `agents::wifi_saved_network_forgetter::forget`
 
-### Resolver Pipeline
+### Resolver Chain
 
 ```text
 agents::wifi_saved_network_forgetter::forget
@@ -96,9 +96,11 @@ agents::wifi_saved_network_forgetter::forget
 - `WifiSavedNetworkContract`
 - `WifiForgetContract`
 
-### WiFi Provider
+### WiFi Providers
 
-- `VoidWifiProvider`
+- `VoidWifiInterfaceProvider`
+- `VoidWifiSavedNetworkProvider`
+- `VoidWifiForgetProvider`
 
 ### Output Contract
 
@@ -113,7 +115,7 @@ agents::wifi_saved_network_forgetter::forget
 - Every contract exposes a single operation named `provide`.
 - Providers provide.
 - Resolvers resolve.
-- Agent subjects coordinate their resolver pipeline.
+- Agent subjects coordinate their resolver chain.
 
 ## Development Task Candidates
 
@@ -124,7 +126,7 @@ agents::wifi_saved_network_forgetter::forget
 - Define `WifiInterfaceContract`.
 - Define `WifiSavedNetworkContract`.
 - Define `WifiForgetContract`.
-- Implement `VoidWifiProvider` forget behavior.
+- Implement `VoidWifiForgetProvider` forget behavior.
 - Implement `TerminalMessageOutputProvider` forget messages.
 - Implement `wifi_network_selection_input_resolver::resolve`.
 - Implement `wifi_interface_resolver::resolve`.
@@ -136,7 +138,7 @@ agents::wifi_saved_network_forgetter::forget
 ## Acceptance Notes
 
 - The agent subject must not call providers directly.
-- The agent subject must work through the resolver pipeline.
+- The agent subject must work through the resolver chain.
 - Output must go through the output contract.
 - Forgetting a saved network is a standalone command flow.
 - The selected WiFi network is provided as an input parameter.

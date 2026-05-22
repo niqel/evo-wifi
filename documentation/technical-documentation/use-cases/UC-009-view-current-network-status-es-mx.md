@@ -69,7 +69,7 @@ El usuario solicita el estado actual de la red desde la aplicacion.
 
 - `agents::wifi_connection_status_shower::show`
 
-### Pipeline de Resolvers
+### Cadena de Resolvers
 
 ```text
 agents::wifi_connection_status_shower::show
@@ -89,9 +89,10 @@ agents::wifi_connection_status_shower::show
 - `WifiInterfaceContract`
 - `WifiStatusContract`
 
-### Provider WiFi del Sistema
+### Providers WiFi del Sistema
 
-- `VoidWifiProvider`
+- `VoidWifiInterfaceProvider`
+- `VoidWifiStatusProvider`
 
 ### Contrato de Presentacion
 
@@ -106,7 +107,7 @@ agents::wifi_connection_status_shower::show
 - Todo contrato expone una unica operacion llamada `provide`.
 - Los providers proveen.
 - Los resolvers resuelven.
-- Los sujetos agente coordinan su pipeline de resolvers.
+- Los sujetos agente coordinan su cadena de resolvers.
 
 ## Candidatos a Tareas de Desarrollo
 
@@ -115,7 +116,7 @@ agents::wifi_connection_status_shower::show
 - Definir `WifiInterfaceContract`.
 - Definir `WifiStatusContract`.
 - Definir `WifiStatusOutputContract`.
-- Implementar el comportamiento de estado en `VoidWifiProvider`.
+- Implementar el comportamiento de estado en `VoidWifiStatusProvider`.
 - Implementar la provision de salida de estado en `TerminalOutputProvider`.
 - Implementar `wifi_interface_resolver::resolve`.
 - Implementar `wifi_connection_status_resolver::resolve`.
@@ -126,7 +127,7 @@ agents::wifi_connection_status_shower::show
 ## Notas de Aceptacion
 
 - El sujeto agente no debe llamar providers directamente.
-- El sujeto agente debe trabajar mediante el pipeline de resolvers.
+- El sujeto agente debe trabajar mediante la cadena de resolvers.
 - La salida de presentacion debe pasar por el contrato de presentacion.
 - El acceso al WiFi del sistema debe pasar por los contratos WiFi del sistema.
 - Los valores de estado permanecen como strings prestados y no se convierten a enums en esta etapa.

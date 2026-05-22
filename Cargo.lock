@@ -5,3 +5,26 @@ version = 4
 [[package]]
 name = "evo-wifi"
 version = "0.1.0"
+dependencies = [
+ "evo-wifi-core",
+ "evo-wifi-provider-linux-wpa",
+ "evo-wifi-provider-terminal",
+]
+
+[[package]]
+name = "evo-wifi-core"
+version = "0.1.0"
+
+[[package]]
+name = "evo-wifi-provider-linux-wpa"
+version = "0.1.0"
+dependencies = [
+ "evo-wifi-core",
+]
+
+[[package]]
+name = "evo-wifi-provider-terminal"
+version = "0.1.0"
+dependencies = [
+ "evo-wifi-core",
+]

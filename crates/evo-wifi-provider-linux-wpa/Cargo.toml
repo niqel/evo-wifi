@@ -1,0 +1,7 @@
+[package]
+name = "evo-wifi-provider-linux-wpa"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+evo-wifi-core = { path = "../evo-wifi-core" }

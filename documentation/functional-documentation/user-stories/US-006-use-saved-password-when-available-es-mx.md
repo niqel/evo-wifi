@@ -2,7 +2,7 @@
 
 ## Historia de Usuario
 
-Como usuario de Void Linux,
+Como usuario Linux con wpa_supplicant,
 quiero que la aplicacion use una contrasena guardada cuando exista para la red seleccionada,
 para poder conectarme sin volver a escribirla.
 

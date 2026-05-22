@@ -2,7 +2,7 @@
 
 ## Historia de Usuario
 
-Como usuario de Void Linux,
+Como usuario Linux con wpa_supplicant,
 quiero desconectarme de la red WiFi actual,
 para detener la conexion inalámbrica activa sin cambiar de red.
 

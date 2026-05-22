@@ -2,7 +2,7 @@
 
 ## Historia de Usuario
 
-Como usuario de Void Linux,
+Como usuario Linux con wpa_supplicant,
 quiero conectarme a otra red WiFi disponible,
 para poder cambiar mi conexion actual.
 

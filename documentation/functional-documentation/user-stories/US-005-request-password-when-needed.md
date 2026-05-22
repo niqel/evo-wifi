@@ -2,7 +2,7 @@
 
 ## User Story
 
-As a Void Linux user,
+As a Linux user using wpa_supplicant,
 I want the application to request a password when the selected network has no saved password,
 so that I can connect to protected WiFi networks.
 

@@ -1,6 +1,12 @@
-[package]
-name = "evo-wifi"
+[workspace]
+members = [
+    "crates/evo-wifi-core",
+    "crates/evo-wifi-cli",
+    "crates/evo-wifi-provider-linux-wpa",
+    "crates/evo-wifi-provider-terminal",
+]
+resolver = "3"
+
+[workspace.package]
 version = "0.1.0"
 edition = "2024"
-
-[dependencies]

@@ -2,7 +2,7 @@
 
 ## User Story
 
-As a Void Linux user,
+As a Linux user using wpa_supplicant,
 I want to view available WiFi networks,
 so that I can choose which network to connect to.
 

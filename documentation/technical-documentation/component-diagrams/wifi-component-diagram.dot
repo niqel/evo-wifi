@@ -63,13 +63,13 @@ digraph WifiComponentDiagram {
     label="<<contract / trait>>\nWifiStatusOutputContract"
   ];
 
-  VoidWifiInterfaceProvider [
-    label="<<provider>>\nVoidWifiInterfaceProvider\nprovide()",
+  LinuxWpaWifiInterfaceProvider [
+    label="<<provider>>\nLinuxWpaWifiInterfaceProvider\nprovide()",
     fillcolor="#ddf4ff"
   ];
 
-  VoidWifiStatusProvider [
-    label="<<provider>>\nVoidWifiStatusProvider\nprovide()",
+  LinuxWpaWifiStatusProvider [
+    label="<<provider>>\nLinuxWpaWifiStatusProvider\nprovide()",
     fillcolor="#ddf4ff"
   ];
 
@@ -83,8 +83,8 @@ digraph WifiComponentDiagram {
     fillcolor="#f6f8fa"
   ];
 
-  CommandAssembly -> VoidWifiInterfaceProvider [label="creates"];
-  CommandAssembly -> VoidWifiStatusProvider [label="creates"];
+  CommandAssembly -> LinuxWpaWifiInterfaceProvider [label="creates"];
+  CommandAssembly -> LinuxWpaWifiStatusProvider [label="creates"];
   CommandAssembly -> TerminalStatusOutputProvider [label="creates"];
   CommandAssembly -> WifiConnectionStatusShower [label="invokes"];
 
@@ -96,10 +96,10 @@ digraph WifiComponentDiagram {
   WifiConnectionStatusResolver -> WifiStatusContract [label="uses", style=dashed];
   WifiConnectionStatusOutputResolver -> WifiStatusOutputContract [label="uses", style=dashed];
 
-  VoidWifiInterfaceProvider -> WifiInterfaceContract [label="implements"];
-  VoidWifiStatusProvider -> WifiStatusContract [label="implements"];
+  LinuxWpaWifiInterfaceProvider -> WifiInterfaceContract [label="implements"];
+  LinuxWpaWifiStatusProvider -> WifiStatusContract [label="implements"];
   TerminalStatusOutputProvider -> WifiStatusOutputContract [label="implements"];
 
-  VoidWifiInterfaceProvider -> ExternalWifi [label="uses"];
-  VoidWifiStatusProvider -> ExternalWifi [label="uses"];
+  LinuxWpaWifiInterfaceProvider -> ExternalWifi [label="uses"];
+  LinuxWpaWifiStatusProvider -> ExternalWifi [label="uses"];
 }

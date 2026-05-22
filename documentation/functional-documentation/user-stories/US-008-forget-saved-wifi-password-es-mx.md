@@ -2,7 +2,7 @@
 
 ## Historia de Usuario
 
-Como usuario de Void Linux,
+Como usuario Linux con wpa_supplicant,
 quiero olvidar una contrasena WiFi guardada,
 para que el sistema deje de almacenarla para conexiones futuras.
 

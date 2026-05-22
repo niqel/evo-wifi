@@ -2,7 +2,7 @@
 
 ## Historia de Usuario
 
-Como usuario de Void Linux,
+Como usuario Linux con wpa_supplicant,
 quiero ver la contrasena guardada de la conexion WiFi actual,
 para poder consultarla cuando la necesite.
 

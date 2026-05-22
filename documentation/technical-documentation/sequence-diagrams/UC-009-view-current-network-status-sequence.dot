@@ -30,7 +30,7 @@ digraph UC009SequenceDiagram {
   ];
 
   user [
-    label="Void Linux User",
+    label="Linux WPA User",
     fillcolor="#fff8c5"
   ];
 
@@ -40,12 +40,12 @@ digraph UC009SequenceDiagram {
   ];
 
   interface_provider [
-    label="<<provider>>\nVoidWifiInterfaceProvider\nprovide()",
+    label="<<provider>>\nLinuxWpaWifiInterfaceProvider\nprovide()",
     fillcolor="#ddf4ff"
   ];
 
   status_provider [
-    label="<<provider>>\nVoidWifiStatusProvider\nprovide()",
+    label="<<provider>>\nLinuxWpaWifiStatusProvider\nprovide()",
     fillcolor="#ddf4ff"
   ];
 

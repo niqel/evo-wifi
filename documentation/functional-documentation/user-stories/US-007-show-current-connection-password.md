@@ -2,7 +2,7 @@
 
 ## User Story
 
-As a Void Linux user,
+As a Linux user using wpa_supplicant,
 I want to view the saved password for the current WiFi connection,
 so that I can consult it when I need it.
 

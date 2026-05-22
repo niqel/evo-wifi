@@ -10,7 +10,7 @@ Forget a saved WiFi password for a selected network so the system no longer keep
 
 ## Primary Actor
 
-Void Linux user
+Linux user using wpa_supplicant
 
 ## Trigger
 
@@ -98,9 +98,9 @@ agents::wifi_saved_network_forgetter::forget
 
 ### Input And Action Providers
 
-- `VoidWifiInterfaceProvider`
-- `VoidWifiSavedNetworkProvider`
-- `VoidWifiForgetProvider`
+- `LinuxWpaWifiInterfaceProvider`
+- `LinuxWpaWifiSavedNetworkProvider`
+- `LinuxWpaWifiForgetProvider`
 
 ### Output Contract
 
@@ -126,7 +126,7 @@ agents::wifi_saved_network_forgetter::forget
 - Define `WifiInterfaceContract`.
 - Define `WifiSavedNetworkContract`.
 - Define `WifiForgetContract`.
-- Implement `VoidWifiForgetProvider` forget behavior.
+- Implement `LinuxWpaWifiForgetProvider` forget behavior.
 - Implement `TerminalMessageOutputProvider` forget messages.
 - Implement `wifi_network_selection_input_resolver::resolve`.
 - Implement `wifi_interface_resolver::resolve`.

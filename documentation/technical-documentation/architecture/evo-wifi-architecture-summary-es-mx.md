@@ -19,25 +19,32 @@ Y alrededor de esta forma de dominio:
 
 - `borrowed`
 
+El repositorio ahora es un workspace de Cargo:
+
+- `crates/evo-wifi-core` es la libreria reutilizable. Contiene `borrowed`, `contracts`, `resolvers`, `agents` y `commands`.
+- `crates/evo-wifi-cli` es el runtime binario. Lee argumentos CLI, crea providers concretos y llama commands del core.
+- `crates/evo-wifi-provider-linux-wpa` implementa providers de sistema Linux WPA.
+- `crates/evo-wifi-provider-terminal` implementa providers de entrada y salida de terminal.
+
 ## Forma en Tiempo de Ejecucion
 
 En tiempo de ejecucion, el proyecto trabaja asi:
 
 ```text
-main.rs -> commands -> agents -> resolvers -> contracts -> providers -> mundo externo
+evo-wifi-cli main.rs -> providers + evo-wifi-core commands -> agents -> resolvers -> contracts -> providers -> mundo externo
 ```
 
 Esa es la ruta real de implementacion usada por la CLI.
 
 ### Que Hace Cada Pieza
 
-- `main.rs` selecciona el comando desde los argumentos de CLI.
-- `commands` actua como fachada de CLI.
-- `commands` ensambla los providers concretos que necesita cada comando.
+- `evo-wifi-cli/main.rs` selecciona el comando desde los argumentos de CLI.
+- `evo-wifi-cli/main.rs` ensambla los providers concretos que necesita cada comando.
+- `commands` actua como objetos de comando independientes del runtime dentro de `evo-wifi-core`.
 - `agents` coordina el caso de uso encadenando resolvers.
 - `resolvers` decide si los datos prestados pueden volverse operables.
 - `contracts` define el comportamiento esperado por rol: `inputs`, `outputs` y `actions`.
-- `providers` implementa una sola responsabilidad de contrato mediante `provide`.
+- los crates de providers implementan una sola responsabilidad de contrato mediante `provide`.
 - el mundo externo es entrada/salida de terminal, WiFi y el sistema operativo.
 
 ## Regla Semantica de Operacion
@@ -61,15 +68,15 @@ Los contracts no se especializan por tecnologia o caso de uso concreto. La espec
 - `contracts/inputs` declara contratos de entrada de informacion o seleccion.
 - `contracts/outputs` declara contratos de salida.
 - `contracts/actions` declara contratos que ejecutan una accion sobre el mundo externo.
-- `providers/inputs`, `providers/outputs` y `providers/actions` contienen implementaciones concretas como terminal o void.
+- los crates de providers contienen implementaciones concretas como terminal o Linux WPA.
 
-En evo-wifi, WiFi es la especialidad del crate completo y de sus providers concretos, no una carpeta de contracts separada.
+En evo-wifi, WiFi es la especialidad del workspace y de sus crates de providers concretos, no una carpeta de contracts separada.
 
 Ejemplos:
 
 ```text
 wifi_interface_resolver.resolve
-VoidWifiInterfaceProvider.provide
+LinuxWpaWifiInterfaceProvider.provide
 wifi_connection_status_shower.show
 wifi_network_switcher.switch
 ```
@@ -134,18 +141,18 @@ Esta arquitectura permite que evo-wifi:
 - preserve responsabilidades claras
 - evite paquetes intermedios innecesarios
 - pruebe el dominio sin providers reales
-- reemplace providers individuales sin reescribir el flujo central
+- reemplace crates de providers sin reescribir el flujo central
 
 ## Que Debe Mostrar el Diagrama de Arquitectura
 
 El diagrama de arquitectura del proyecto debe hacer visible:
 
 - punto de entrada CLI
-- fachada de comandos
+- objetos de comando
 - coordinacion de agents
 - cadena de resolvers
 - frontera de contracts
-- implementaciones de providers con responsabilidades unicas
+- crates de providers externos con responsabilidades unicas
 - formas borrowed del dominio
 - mundo externo
 

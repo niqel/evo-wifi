@@ -12,7 +12,7 @@ This use case is the first technical implementation candidate because it validat
 
 ## Primary Actor
 
-Void Linux user
+Linux user using wpa_supplicant
 
 ## Trigger
 
@@ -91,8 +91,8 @@ agents::wifi_connection_status_shower::show
 
 ### Input And Action Providers
 
-- `VoidWifiInterfaceProvider`
-- `VoidWifiStatusProvider`
+- `LinuxWpaWifiInterfaceProvider`
+- `LinuxWpaWifiStatusProvider`
 
 ### Output Contract
 
@@ -116,7 +116,7 @@ agents::wifi_connection_status_shower::show
 - Define `WifiInterfaceContract`.
 - Define `WifiStatusContract`.
 - Define `WifiStatusOutputContract`.
-- Implement `VoidWifiStatusProvider` status behavior.
+- Implement `LinuxWpaWifiStatusProvider` status behavior.
 - Implement `TerminalOutputProvider` status output provisioning.
 - Implement `wifi_interface_resolver::resolve`.
 - Implement `wifi_connection_status_resolver::resolve`.

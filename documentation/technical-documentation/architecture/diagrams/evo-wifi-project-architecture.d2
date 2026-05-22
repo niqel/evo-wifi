@@ -9,14 +9,32 @@ vars: {
   white: "#ffffff"
 }
 
-main: {
-  label: "main.rs\nCLI entry point"
+cli: {
+  label: "crates/evo-wifi-cli\nmain.rs\nCLI runtime"
   style.fill: ${neutral}
   style.stroke: ${border}
 }
 
+provider_terminal: {
+  label: "crates/evo-wifi-provider-terminal\nterminal providers\nprovide()"
+  style.fill: ${white}
+  style.stroke: ${accent}
+}
+
+provider_linux_wpa: {
+  label: "crates/evo-wifi-provider-linux-wpa\nLinux WPA providers\nprovide()"
+  style.fill: ${white}
+  style.stroke: ${accent}
+}
+
+core: {
+  label: "crates/evo-wifi-core\nlibrary"
+  style.fill: ${soft}
+  style.stroke: ${accent}
+}
+
 commands: {
-  label: "commands\nCLI facade"
+  label: "commands\nruntime-agnostic"
   style.fill: ${soft}
   style.stroke: ${accent}
 }
@@ -39,12 +57,6 @@ contracts: {
   style.stroke: ${border}
 }
 
-providers: {
-  label: "providers\nsingle responsibility\nprovide()"
-  style.fill: ${white}
-  style.stroke: ${accent}
-}
-
 borrowed: {
   label: "borrowed\nWifi*Borrowed views"
   style.fill: ${neutral}
@@ -57,11 +69,15 @@ external: {
   style.stroke: ${border}
 }
 
-main -> commands: "select action"
+cli -> provider_terminal: "creates"
+cli -> provider_linux_wpa: "creates"
+cli -> core: "calls"
+core -> commands: "exposes"
 commands -> agents: "execute()"
-commands -> providers: "assemble"
 agents -> resolvers: "resolve() chain"
 resolvers -> borrowed: "borrowed values"
 resolvers -> contracts: "depend on"
-contracts -> providers: "implemented by"
-providers -> external: "real interaction"
+contracts -> provider_terminal: "implemented by"
+contracts -> provider_linux_wpa: "implemented by"
+provider_terminal -> external: "terminal I/O"
+provider_linux_wpa -> external: "WiFi system interaction"

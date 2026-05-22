@@ -2,7 +2,7 @@
 
 ## User Story
 
-As a Void Linux user,
+As a Linux user using wpa_supplicant,
 I want to view the current network status,
 so that I can know whether the system is disconnected or connected to a WiFi network.
 

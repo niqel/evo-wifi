@@ -2,7 +2,7 @@
 
 ## User Story
 
-As a Void Linux user,
+As a Linux user using wpa_supplicant,
 I want the application to use a saved password when one exists for the selected network,
 so that I can connect without entering the password again.
 

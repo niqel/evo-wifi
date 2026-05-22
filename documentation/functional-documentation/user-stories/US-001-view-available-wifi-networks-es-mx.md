@@ -2,7 +2,7 @@
 
 ## Historia de Usuario
 
-Como usuario de Void Linux,
+Como usuario Linux con wpa_supplicant,
 quiero ver las redes WiFi disponibles,
 para poder elegir a cual red conectarme.
 

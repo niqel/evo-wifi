@@ -10,7 +10,7 @@ Olvidar la contraseña guardada de una red WiFi seleccionada para que el sistema
 
 ## Actor Principal
 
-Usuario de Void Linux
+Usuario Linux con wpa_supplicant
 
 ## Disparador
 
@@ -98,9 +98,9 @@ agents::wifi_saved_network_forgetter::forget
 
 ### Providers WiFi del Sistema
 
-- `VoidWifiInterfaceProvider`
-- `VoidWifiSavedNetworkProvider`
-- `VoidWifiForgetProvider`
+- `LinuxWpaWifiInterfaceProvider`
+- `LinuxWpaWifiSavedNetworkProvider`
+- `LinuxWpaWifiForgetProvider`
 
 ### Contrato de Presentacion
 
@@ -126,7 +126,7 @@ agents::wifi_saved_network_forgetter::forget
 - Definir `WifiInterfaceContract`.
 - Definir `WifiSavedNetworkContract`.
 - Definir `WifiForgetContract`.
-- Implementar el comportamiento de olvido en `VoidWifiForgetProvider`.
+- Implementar el comportamiento de olvido en `LinuxWpaWifiForgetProvider`.
 - Implementar los mensajes de olvido en `TerminalMessageOutputProvider`.
 - Implementar `wifi_network_selection_input_resolver::resolve`.
 - Implementar `wifi_interface_resolver::resolve`.
